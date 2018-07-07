@@ -1,17 +1,17 @@
 package cn.oa.entity;
 
 public class UserInfo {
-	private Integer UserId;
+	private String UserId;
 	private String UserName;
 	private String PassWord;
 	private Integer DepartId;
 	private Integer Gender;
 	private Integer RoleId;
 	private Integer UserState;
-	public Integer getUserId() {
+	public String getUserId() {
 		return UserId;
 	}
-	public void setUserId(Integer userId) {
+	public void setUserId(String userId) {
 		UserId = userId;
 	}
 	public String getUserName() {
@@ -56,7 +56,7 @@ public class UserInfo {
 				+ ", PassWord=" + PassWord + ", DepartId=" + DepartId + ", Gender="
 				+ Gender + ", RoleId=" + RoleId + ", UserState=" + UserState + "]";
 	}
-	public UserInfo(Integer userId, String userName, String passWord,
+	public UserInfo(String userId, String userName, String passWord,
 			Integer departId, Integer gender, Integer roleId, Integer userState) {
 		super();
 		UserId = userId;
