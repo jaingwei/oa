@@ -26,9 +26,9 @@ public class BaseController extends HttpServlet {
 		String clazzName=method.substring(0,1).toUpperCase()+method.substring(1)+"Controller";
 		System.out.println(clazzName);
 		
-		/**����**/
+		//反射
 		try {
-			Class clazz = Class.forName("cn.kgc.controller."+clazzName);
+			Class clazz = Class.forName("cn.oa.controller."+clazzName);
 			Object obj = clazz.newInstance();
 			Method md= clazz.getDeclaredMethod(action, 
 					HttpServletRequest.class,
@@ -36,7 +36,7 @@ public class BaseController extends HttpServlet {
 			md.invoke(obj, request,response);
 		} catch (Exception e) {
 			e.printStackTrace();
-			response.sendRedirect("/Maven02/index.html");
+			
 		} 
 	}
 

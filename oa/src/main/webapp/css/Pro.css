@@ -1,0 +1,180 @@
+.p1{
+	width: 100%;
+	height: 56px;
+	background-color: white;
+	/*border: 1px solid red;*/
+	background:url(../img/huatianLOGO.png) 30px 20px no-repeat;	
+}
+/*body{
+	height: 757px;
+}*/
+*{
+	margin: 0;
+	padding: 0;
+}
+.p2 img,span{
+	vertical-align: middle;
+}
+.p2{
+	float: right;
+	margin-right:30px;
+	font-size: 13px;
+	line-height: 56px;
+}
+header:after{
+	display: block;
+	clear: both;
+	content: "";
+}
+.p3{
+	background-image: url(../img/login_bg_new_sm.png);
+	width: 100%;
+	height: 670px;
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	border: 1px solid white;/*
+	                         * 去掉边框尺寸就变了
+	                         */
+}
+.p3:after{
+	clear: both;
+	content: "";
+	display: block;
+}
+.p4{
+	background-color: white;
+	width: 353px;
+	height: 353px;
+	margin-top: 100px;
+	margin-left: 850px;
+	border-radius: 10px;
+	box-shadow: 0px 30px 35px #A1A1A1;
+}
+.p5{
+	background-image:url(../img/22.png);
+	background-repeat: no-repeat;
+	margin-left: 278px;
+	margin-top: 10px;
+	width: 65px;
+	height: 66px;
+}
+.p6 span{
+	display: inline-block;
+	width: 100px;
+	height: 30px;
+	font-size: 18px;
+	text-align: center;
+	line-height: 30px;
+	margin-top: -74px;		
+}
+.p6 span:nth-of-type(1){
+	margin-left: 24px;
+}
+.p6 span:nth-of-type(2){
+	margin-left: 3px;
+}
+.p6 span:hover{
+	text-decoration: underline;
+	color: red;
+}
+.p7{	
+	margin-left: 40px;
+	width: 275px;
+	height: 36px;
+	border: 1px solid #C4C4C4;
+	border-radius: 5px;
+	background-image: url(../img/yonghu.png);
+	background-repeat: no-repeat;
+	background-position: 20px;
+}
+.p7 form input{
+	border: none;
+}
+
+.p7 form input:nth-of-type(1){
+	margin-top: 5px;
+	margin-left: 57px;
+	width: 190px;	
+	height: 25px;
+}
+.p7 form input:nth-of-type(2){
+	margin-top: 37px;	
+	margin-left: 57px;
+	width: 190px;	
+	height: 25px;
+}
+.p8{
+	margin-top: 25px;
+	margin-left: 40px;
+	width: 275px;
+	height: 36px;
+	border: 1px solid #C4C4C4;
+	border-radius: 5px;
+	background-image: url(../img/suo.png);
+	background-repeat: no-repeat;
+	background-position: 20px;	
+}
+.p7 form input:nth-of-type(3){
+	width: 275px;
+	height: 45px;
+	color: white;
+	background-color:#CD0000;
+	margin-top: 75px;
+	font-size: 18px;
+	border-radius: 5px;	
+}
+.p7 form input:nth-of-type(3):hover{
+	background-color: red;
+}
+.pp a{
+	text-decoration: none;
+	color:#5E5E5E;
+}
+.pp{
+	font-size: 14px;	
+	float: right;
+	margin-top: -110px;		
+}
+footer:after{
+    clear: both;
+    content: "";
+    display: block;
+}
+.pp:hover{
+	cursor: pointer;
+}
+.p9{
+	width: 350px;
+	height: 115px;
+	margin-top: 30px;
+	margin-left: 850px;
+	font-size: 14px;
+	color:#3B3B3B;
+}
+.p10{
+	height:30px;
+	width: 100%;
+	/*border: 1px solid black;*/
+	font-size: 12px;	
+	color:#3B3B3B;
+	line-height: 40px;
+	text-align: center;
+	margin-top: -10px;
+}
+.p4_2{
+	background-color: white;
+	width: 353px;
+	height: 353px;
+	margin-left: 850px;
+	border-radius: 10px;
+	box-shadow: 0px 30px 35px #A1A1A1;
+	display: none;
+	margin-top: 100px;
+}
+.yanzhengma{
+	width: 70px;
+	height: 30px;
+	background-color: red;
+	border-radius: 5px;
+	color: white;
+}

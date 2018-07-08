@@ -8,6 +8,7 @@ public class UserInfo {
 	private Integer Gender;
 	private Integer RoleId;
 	private Integer UserState;
+	private String number;
 	public String getUserId() {
 		return UserId;
 	}
@@ -50,14 +51,23 @@ public class UserInfo {
 	public void setUserState(Integer userState) {
 		UserState = userState;
 	}
+	
+	public String getNumber() {
+		return number;
+	}
+	public void setNumber(String number) {
+		this.number = number;
+	}
 	@Override
 	public String toString() {
 		return "UserInfo [UserId=" + UserId + ", UserName=" + UserName
-				+ ", PassWord=" + PassWord + ", DepartId=" + DepartId + ", Gender="
-				+ Gender + ", RoleId=" + RoleId + ", UserState=" + UserState + "]";
+				+ ", PassWord=" + PassWord + ", DepartId=" + DepartId
+				+ ", Gender=" + Gender + ", RoleId=" + RoleId + ", UserState="
+				+ UserState + ", number=" + number + "]";
 	}
 	public UserInfo(String userId, String userName, String passWord,
-			Integer departId, Integer gender, Integer roleId, Integer userState) {
+			Integer departId, Integer gender, Integer roleId,
+			Integer userState, String number) {
 		super();
 		UserId = userId;
 		UserName = userName;
@@ -66,10 +76,12 @@ public class UserInfo {
 		Gender = gender;
 		RoleId = roleId;
 		UserState = userState;
+		this.number = number;
 	}
 	public UserInfo() {
 		super();
 	}
+	
 
 
 
