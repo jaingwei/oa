@@ -26,7 +26,6 @@
 	}
 	function sendsms(){
 		var number =$("input[name=number]");
-		
 		$.ajax({
 			type:"post",
 			data:{
@@ -35,8 +34,33 @@
 			dataType:"json",
 			url:"/oa/user/sendSms.do",
 			success:function(data){
-				$(".yanzhengma").attr("value",data);
-				$(".yanzhengma").attr("disabled",'true');
+				var sp = $(".pp_span");
+				sp.html("");
+				if (data=="号码不存在") {
+					sp.html(data);
+					$(".yanzhengma").attr("value","发送验证码");
+    				$(".yanzhengma").removeAttr("disabled");
+				}
+                if (data=="发送成功"){
+                	var time = 60;
+    				var set = setInterval(function() {
+    					$(".yanzhengma").attr("value", --time);
+    					$(".yanzhengma").attr("disabled",'true');
+        				$(".yanzhengma").css("background-color","#3B3B3B");
+    				}, 1000);
+    				setTimeout(function() {
+    					$(".yanzhengma").attr("value", "发送验证码");
+    					$(".yanzhengma").removeAttr("disabled");
+    					$(".yanzhengma").css("background-color","red");
+    					clearInterval(set);
+    				}, 6000);				
+				}
+                if (data=="发送失败") {
+                	sp.html(data);
+					$(".yanzhengma").attr("value","发送验证码");
+    				$(".yanzhengma").removeAttr("disabled");
+                }
+				
 			},
 			error:function(){
 				$(".yanzhengma").attr("value","发送验证码");
@@ -95,6 +119,8 @@
 		})
 	}
 	
+	
+	
 </script>
 </head>
 <body>
@@ -139,6 +165,7 @@
 				</form>
 
 				<p class="pp">
+				    <span class="pp_span"></span>
 					<input type="button" value="获取验证码" class="yanzhengma" onclick="sendsms()"/>
 				</p>
 			</div>

@@ -19,6 +19,7 @@ public class UserController {
 		//获取参数
 		String username = request.getParameter("name");
 		String password = request.getParameter("password");
+		System.out.println(username);
 		//调用方法
 		UserServices userServices = new UserServices();
 		try {
@@ -49,7 +50,7 @@ public class UserController {
 		 String msg = (String) map.get("msg");
 		 UserInfo userInfo = (UserInfo) map.get("userInfo");
 		 if ("验证成功".equals(msg) && userInfo!=null) {
-			request.getSession().setAttribute("userInfo",userInfo.getUserId());
+			request.getSession().setAttribute("user",userInfo.getUserId());
 			response.sendRedirect("/oa/first.jsp");
 		}else{
 			response.sendRedirect("/oa/Prodeng.jsp");
