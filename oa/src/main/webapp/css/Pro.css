@@ -132,8 +132,18 @@ header:after{
 }
 .pp{
 	font-size: 14px;	
+	float: left;
+	margin-top: -110px;
+	color: red;		
+}
+.pp2{
+	margin-top: -105px;
+	font-size: 14px;	
+	color: red;
+	width: 270px;
+}
+.yanzhengma{
 	float: right;
-	margin-top: -110px;		
 }
 footer:after{
     clear: both;

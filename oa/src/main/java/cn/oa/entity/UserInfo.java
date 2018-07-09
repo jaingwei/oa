@@ -9,6 +9,7 @@ public class UserInfo {
 	private Integer RoleId;
 	private Integer UserState;
 	private String number;
+	private String image;
 	public String getUserId() {
 		return UserId;
 	}
@@ -58,16 +59,22 @@ public class UserInfo {
 	public void setNumber(String number) {
 		this.number = number;
 	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
 	@Override
 	public String toString() {
 		return "UserInfo [UserId=" + UserId + ", UserName=" + UserName
 				+ ", PassWord=" + PassWord + ", DepartId=" + DepartId
 				+ ", Gender=" + Gender + ", RoleId=" + RoleId + ", UserState="
-				+ UserState + ", number=" + number + "]";
+				+ UserState + ", number=" + number + ", image=" + image + "]";
 	}
 	public UserInfo(String userId, String userName, String passWord,
 			Integer departId, Integer gender, Integer roleId,
-			Integer userState, String number) {
+			Integer userState, String number, String image) {
 		super();
 		UserId = userId;
 		UserName = userName;
@@ -77,10 +84,12 @@ public class UserInfo {
 		RoleId = roleId;
 		UserState = userState;
 		this.number = number;
+		this.image = image;
 	}
 	public UserInfo() {
 		super();
 	}
+	
 	
 
 

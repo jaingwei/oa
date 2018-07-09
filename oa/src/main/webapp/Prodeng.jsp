@@ -34,7 +34,7 @@
 			dataType:"json",
 			url:"/oa/user/sendSms.do",
 			success:function(data){
-				var sp = $(".pp_span");
+				var sp = $(".pp2_span2");
 				sp.html("");
 				if (data=="号码不存在") {
 					sp.html(data);
@@ -143,7 +143,7 @@
 					<input type="submit" name="sunmit" value="登录" class="submit1" />
 				</form>
 				<p class="pp">
-					<a href="#" target="_blank">忘记密码</a>
+				    <span class="pp_span1">${msg}</span>
 				</p>
 			</div>
 
@@ -161,8 +161,8 @@
 					<input type="submit" name="sunmit" value="登录" class="submit2"/>
 				</form>
 
-				<p class="pp">
-				    <span class="pp_span"></span>
+				<p class="pp2">
+				    <span class="pp2_span2"></span>
 					<input type="button" value="获取验证码" class="yanzhengma" onclick="sendsms()"/>
 				</p>
 			</div>

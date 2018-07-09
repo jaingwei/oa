@@ -15,6 +15,7 @@ import cn.oa.services.UserServices;
 import cn.oa.util.MobileMessageSend;
 
 public class UserController {
+	//账号登录
 	public void dologin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		//获取参数
 		String username = request.getParameter("name");
@@ -24,17 +25,16 @@ public class UserController {
 		UserServices userServices = new UserServices();
 		try {
 			UserInfo userInfo =userServices.dologin(username, password);
+			System.out.println("报错");
 			request.getSession().setAttribute("user", userInfo.getUserName());
-			System.out.println(userInfo.getUserName());
-			
 			response.sendRedirect("/oa/first.jsp");
 		} catch (Exception e) {
-			request.setAttribute("msg", e.getMessage());
-			request.getRequestDispatcher("/Prodeng.jsp").forward(request, response);
+			request.getSession().setAttribute("msg", e.getMessage());
+			response.sendRedirect("/oa/Prodeng.jsp");
 		}
 
 	}
-
+    //发送短信
 	public void sendSms(HttpServletRequest request, HttpServletResponse response) throws IOException{
          String number = request.getParameter("Number");
          UserServices userServices =new UserServices();
@@ -43,6 +43,7 @@ public class UserController {
 		 response.getWriter().write(json);
 	}
 	
+	//短信验证登录
 	public void sendLogin(HttpServletRequest request, HttpServletResponse response) throws IOException{
          String number = request.getParameter("number");
          String yan = request.getParameter("verification");
@@ -61,6 +62,10 @@ public class UserController {
 	}
 	
 	
+	//个人信息查看
+	public void searchUser(HttpServletRequest request, HttpServletResponse response){
+		
+	}
 	
 	
 	

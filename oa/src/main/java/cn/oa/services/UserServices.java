@@ -17,15 +17,15 @@ public class UserServices {
 		if (list==null ||list.size()==0 ) {
 			throw new Exception("账户名不存在");
 		}else{
-			UserInfo userInfo = (UserInfo) list.get(0);
+			UserInfo userInfo = list.get(0);
 			if (!password.equals(userInfo.getPassWord())) {
 				throw new Exception("账户密码错误");
 			}else{
 				return userInfo;
 			}
 		}
-
 	}
+	
 	//号码搜索账号发验证码
 	public String number(String number){
 		String msg= null;
@@ -80,12 +80,8 @@ public class UserServices {
 		return map;
 	}
 
+  
 
-
-	public static void main(String[] args) {
-		UserServices userServices =new UserServices();
-		Map<String, Object> map = userServices.numberlogin("15262046072", "6605");
-		System.out.println(map);
-	}
+	
 
 }
