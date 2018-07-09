@@ -24,7 +24,9 @@ public class UserController {
 		UserServices userServices = new UserServices();
 		try {
 			UserInfo userInfo =userServices.dologin(username, password);
-			request.getSession().setAttribute("user", username);
+			request.getSession().setAttribute("user", userInfo.getUserName());
+			System.out.println(userInfo.getUserName());
+			
 			response.sendRedirect("/oa/first.jsp");
 		} catch (Exception e) {
 			request.setAttribute("msg", e.getMessage());
@@ -50,7 +52,7 @@ public class UserController {
 		 String msg = (String) map.get("msg");
 		 UserInfo userInfo = (UserInfo) map.get("userInfo");
 		 if ("验证成功".equals(msg) && userInfo!=null) {
-			request.getSession().setAttribute("user",userInfo.getUserId());
+			request.getSession().setAttribute("user",userInfo.getUserName());
 			response.sendRedirect("/oa/first.jsp");
 		}else{
 			response.sendRedirect("/oa/Prodeng.jsp");

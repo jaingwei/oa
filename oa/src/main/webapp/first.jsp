@@ -5,9 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="css/public.css" />
-<link rel="stylesheet" type="text/css" href="css/first.css" />
-<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+<link rel="stylesheet" type="text/css" href="/oa/css/public.css" charset="UTF-8"/>
+<link rel="stylesheet" type="text/css" href="/oa/css/first.css" charset="UTF-8"/>
+<script type="text/javascript" src="/oa/js/jquery-1.12.4.js"></script>
 <script type="text/javascript">
 			$(function() {
 				$('.h_click_li_return').click(function() {
@@ -30,10 +30,8 @@
 				var time = setInterval("show()", 1000);
 				pclick();
 			})
-
 			var index = 0;
 			var num = 0;
-
 			function show() {
 				$('.f_image_1').addClass('showtype');
 				$('.f_image_1').eq(index).removeClass('showtype');
@@ -56,13 +54,14 @@
 				})
 			}
 			
+			
 		</script>
 </head>
 <body>
 <header>
 	<div class="h_head">
 		<div class="h_img">
-			<img src="img/FILE1563454828253BH.png" height="28px" width="28px" />
+			<img src="/oa/img/FILE1563454828253BH.png" height="28px" width="28px" />
 			<p>
 				<a href="#">管理员</a> <a href="#">办公室</a>
 			</p>
@@ -79,6 +78,7 @@
 			<li><a href="#" class="h_top_a">信息发布</a></li>
 			<li class="h_click_li" title="更多列表">
 				<p class="h_click_li_return"></p>
+				
 				<div class="h_over">
 					<ul>
 						<li><a href="#" class="h_top_a">公文发文</a></li>
@@ -107,9 +107,12 @@
 				</div>
 			</li>
 		</ul>
-
-
+		
+		 <div class="f_head_msg">
+			   欢迎： <a href="#">${user}</a>
+	     </div>
 		<p class="f_head_tubiao">
+		     
 			<a href="#"></a> <a href="first.html"></a> <a href="#"></a> <a
 				href="#"></a> <a href="#"></a> <a href="#"></a>
 		</p>
@@ -120,6 +123,7 @@
 	<div class="section">
 		<div class="s_left">
 			<div class="s_left_1">
+			   
 				<ul>
 					<li><a href="#">快捷方式</a></li>
 					<li><a href="#">消息提醒</a></li>
@@ -147,7 +151,7 @@
 		<div class="f_right">
 			<div class="f_right_boder1">
 				<div class="f_right_1">
-					<img src="img/portal_img_S.png" />
+					<img src="/oa/img/portal_img_S.png" />
 				</div>
 				<div class="f_right_2">
 					<div class="f_right_2_biao">

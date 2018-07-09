@@ -36,9 +36,9 @@ ul {
 	
 }
 /**
- * overflow: hidden;超出边框的部分不显示
- * 限定边框的大小
- * 实现固定边框放大
+ * overflow: hidden;瓒呭嚭杈规鐨勯儴鍒嗕笉鏄剧ず
+ * 闄愬畾杈规鐨勫ぇ灏�
+ * 瀹炵幇鍥哄畾杈规鏀惧ぇ
  */
 .f_right_1{
 	width: 772px;
@@ -54,7 +54,7 @@ ul {
 	
 }
 /**
- * 结束
+ * 缁撴潫
  */
 .f_right>div:nth-of-type(1){
 	height: 346px;
@@ -230,14 +230,14 @@ ul {
 	border-radius: 5px;
 }
 .f_image_1:nth-of-type(1){
-	background-image: url(../img/FILE1505861181185KK.png);
+	background-image: url(/oa/img/FILE1505861181185KK.png);
 	
 }
 .f_image_1:nth-of-type(2){
-	background-image: url(../img/FILE15058842469YH8Q.png);
+	background-image: url(/oa/img/FILE15058842469YH8Q.png);
 }
 .f_image_1:nth-of-type(3){
-	background-image: url(../img/FILE1505887988321K7.png);
+	background-image: url(/oa/img/FILE1505887988321K7.png);
 }
 .f_image_1_round{
 	height: 15px;
@@ -414,7 +414,7 @@ ul {
 .f_company_image{
 	width: 115px;
 	height: 152px;
-	background-image: url(../img/por_news_S.png);
+	background-image: url(/oa/img/por_news_S.png);
 	margin-top: 10px;
 	margin-left: 20px;
 	border-radius: 10px;

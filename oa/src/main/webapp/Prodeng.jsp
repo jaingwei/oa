@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/Pro.css" />
-<script src="js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="/oa/css/Pro.css" />
+<script src="/oa/js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
    $(function(){
 	   click();
@@ -117,18 +117,15 @@
 			}
 			numbe.setCustomValidity('');
 		})
-	}
-	
-	
-	
+	}	
 </script>
 </head>
 <body>
-
+    
 	<header>
 	<div class="p1">
 		<div class="p2">
-			<img src="../img/shouji.png" /> <span>移动应用下载</span>
+			<img src="/oa/img/shouji.png" /> <span>移动应用下载</span>
 		</div>
 	</div>
 	</header>

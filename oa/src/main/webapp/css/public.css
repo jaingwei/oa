@@ -71,14 +71,14 @@ ul{
 }
 .h_head>ul:nth-of-type(1)>li:nth-of-type(1) {
 	width: 30px;
-	background: url(../img/por_comm_s.min_z_d131991.png) -5px -299px no-repeat;
+	background: url(/oa/img/por_comm_s.min_z_d131991.png) -5px -299px no-repeat;
 	margin-left: 10px;
 }
 
 .h_head>ul:nth-of-type(1)>li:nth-of-type(10) {
 	width: 30px;
 	margin-left: 20px;
-	background: url(../img/por_comm_s.min_z_d131991.png) 0px -173px no-repeat;
+	background: url(/oa/img/por_comm_s.min_z_d131991.png) 0px -173px no-repeat;
 }
 /**
  * 绝对位移
@@ -120,9 +120,14 @@ ul{
 	font-size: 14px;
 	
 }
-
+.f_head_msg{
+	margin: 14px;
+	color:white;
+}
+.f_head_msg>a{
+	color:white;
+}
 .f_head_tubiao{
-	margin-left: 120px;
 	margin-top: 10px;
 }
 .f_head_tubiao>a{
@@ -135,27 +140,27 @@ ul{
 }
 
 .f_head_tubiao>a:nth-of-type(1){
-	background: url(../img/por_comm_s.min_z_d131991.png) -7px -20px no-repeat;
+	background: url(/oa/img/por_comm_s.min_z_d131991.png) -7px -20px no-repeat;
 }
 
 .f_head_tubiao>a:nth-of-type(2){
-	background: url(../img/por_comm_s.min_z_d131991.png) -7px -45px no-repeat;
+	background: url(/oa/img/por_comm_s.min_z_d131991.png) -7px -45px no-repeat;
 }
 
 .f_head_tubiao>a:nth-of-type(3){
-	background: url(../img/por_comm_s.min_z_d131991.png) -7px -145px no-repeat;
+	background: url(/oa/img/por_comm_s.min_z_d131991.png) -7px -145px no-repeat;
 }
 
 .f_head_tubiao>a:nth-of-type(4){
-	background: url(../img/por_comm_s.min_z_d131991.png) -7px -70px no-repeat;
+	background: url(/oa/img/por_comm_s.min_z_d131991.png) -7px -70px no-repeat;
 }
 
 .f_head_tubiao>a:nth-of-type(5){
-	background: url(../img/por_comm_s.min_z_d131991.png) -7px -95px no-repeat;
+	background: url(/oa/img/por_comm_s.min_z_d131991.png) -7px -95px no-repeat;
 }
 
 .f_head_tubiao>a:nth-of-type(6){
-	background: url(../img/por_comm_s.min_z_d131991.png) -7px -120px no-repeat;
+	background: url(/oa/img/por_comm_s.min_z_d131991.png) -7px -120px no-repeat;
 }
 
 .s_left {
@@ -182,7 +187,7 @@ ul{
 	font-size: 15px;
 }
 .s_left_1_all{
-	background: url(../img/n_arrow.gif)110px 13px no-repeat;
+	background: url(/oa/img/n_arrow.gif)110px 13px no-repeat;
 }
 .s_left_1_hui{
 	width: 100px;
