@@ -80,8 +80,20 @@ public class UserServices {
 		return map;
 	}
 
-  
-
+  //获取用户信息
+	public Map<String, Object> searchMap(String name){
+		UserDao userDao = new UserDao();
+		List<Map<String, Object>> list = userDao.dosearchMap(name);
+		System.out.println(list);
+		Map<String, Object> map = list.get(0);
+		return map;	
+	}
 	
+
+	public static void main(String[] args) {
+		 UserServices userServices = new UserServices();
+		 Map<String, Object> map = userServices.searchMap("姜伟");
+		 System.out.println(map);
+	}
 
 }

@@ -109,7 +109,7 @@
 		</ul>
 		
 		 <div class="f_head_msg">
-			   欢迎： <a href="#">${user}</a>
+			   欢迎： <a href="/oa/MEmploye.jsp">${user}</a>
 	     </div>
 		<p class="f_head_tubiao">
 		     

@@ -34,6 +34,7 @@ public class UserController {
 		}
 
 	}
+	
     //发送短信
 	public void sendSms(HttpServletRequest request, HttpServletResponse response) throws IOException{
          String number = request.getParameter("Number");
@@ -63,8 +64,14 @@ public class UserController {
 	
 	
 	//个人信息查看
-	public void searchUser(HttpServletRequest request, HttpServletResponse response){
-		
+	public void searchUser(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		String username = (String) request.getSession().getAttribute("user");
+		//调用方法
+		UserServices userServices =new UserServices();
+		Map<String, Object> map = userServices.searchMap(username);
+	    System.out.println(map);
+		String json = JSON.toJSONString(map);
+		response.getWriter().write(json);
 	}
 	
 	

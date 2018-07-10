@@ -2,7 +2,7 @@ package cn.oa.entity;
 
 public class UserState {
 	private Integer UserStateId;
-	private String UserStateIdName;
+	private String UserStateName;
 	
 	
 	public Integer getUserStateId() {
@@ -12,20 +12,20 @@ public class UserState {
 		UserStateId = userStateId;
 	}
 	public String getUserStateIdName() {
-		return UserStateIdName;
+		return UserStateName;
 	}
 	public void setUserStateIdName(String userStateIdName) {
-		UserStateIdName = userStateIdName;
+		UserStateName = userStateIdName;
 	}
 	@Override
 	public String toString() {
 		return "UserState [UserStateId=" + UserStateId + ", UserStateIdName="
-				+ UserStateIdName + "]";
+				+ UserStateName + "]";
 	}
 	public UserState(Integer userStateId, String userStateIdName) {
 		super();
 		UserStateId = userStateId;
-		UserStateIdName = userStateIdName;
+		UserStateName = userStateIdName;
 	}
 	public UserState() {
 		super();
