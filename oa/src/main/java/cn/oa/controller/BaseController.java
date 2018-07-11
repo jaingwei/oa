@@ -17,14 +17,11 @@ public class BaseController extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-
 		String url = request.getRequestURI();
 		String method = url.substring(0,url.lastIndexOf("/"));
 		method = method.substring(method.lastIndexOf("/")+1);
 		String action = url.substring(url.lastIndexOf("/")+1, url.lastIndexOf("."));
-		System.out.println(method);
 		String clazzName=method.substring(0,1).toUpperCase()+method.substring(1)+"Controller";
-		System.out.println(clazzName);
 		
 		//反射
 		try {

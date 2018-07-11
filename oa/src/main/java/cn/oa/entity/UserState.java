@@ -1,35 +1,37 @@
 package cn.oa.entity;
 
 public class UserState {
-	private Integer UserStateId;
-	private String UserStateName;
+	private Integer user_state_id;
+	private String user_state_name;
 	
-	
-	public Integer getUserStateId() {
-		return UserStateId;
+	public Integer getUser_state_id() {
+		return user_state_id;
 	}
-	public void setUserStateId(Integer userStateId) {
-		UserStateId = userStateId;
+	public void setUser_state_id(Integer user_state_id) {
+		this.user_state_id = user_state_id;
 	}
-	public String getUserStateIdName() {
-		return UserStateName;
+	public String getUser_state_name() {
+		return user_state_name;
 	}
-	public void setUserStateIdName(String userStateIdName) {
-		UserStateName = userStateIdName;
+	public void setUser_state_name(String user_state_name) {
+		this.user_state_name = user_state_name;
 	}
 	@Override
 	public String toString() {
-		return "UserState [UserStateId=" + UserStateId + ", UserStateIdName="
-				+ UserStateName + "]";
+		return "UserState [user_state_id=" + user_state_id
+				+ ", user_state_name=" + user_state_name + "]";
 	}
-	public UserState(Integer userStateId, String userStateIdName) {
+	public UserState(Integer user_state_id, String user_state_name) {
 		super();
-		UserStateId = userStateId;
-		UserStateName = userStateIdName;
+		this.user_state_id = user_state_id;
+		this.user_state_name = user_state_name;
 	}
 	public UserState() {
 		super();
 	}
+	
+	
+	
 
 
 

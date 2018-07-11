@@ -1,42 +1,43 @@
 package cn.oa.entity;
 
 public class RolrInfo {
-	private Integer RoleId;
-	private String RoleName;
-	private String RoleDesc;
-	public Integer getRoleId() {
-		return RoleId;
+	private Integer role_id;
+	private String role_name;
+	private String role_desc;
+	public Integer getRole_id() {
+		return role_id;
 	}
-	public void setRoleId(Integer roleId) {
-		RoleId = roleId;
+	public void setRole_id(Integer role_id) {
+		this.role_id = role_id;
 	}
-	public String getRoleName() {
-		return RoleName;
+	public String getRole_name() {
+		return role_name;
 	}
-	public void setRoleName(String roleName) {
-		RoleName = roleName;
+	public void setRole_name(String role_name) {
+		this.role_name = role_name;
 	}
-	public String getRoleDesc() {
-		return RoleDesc;
+	public String getRole_desc() {
+		return role_desc;
 	}
-	public void setRoleDesc(String roleDesc) {
-		RoleDesc = roleDesc;
+	public void setRole_desc(String role_desc) {
+		this.role_desc = role_desc;
 	}
 	@Override
 	public String toString() {
-		return "RolrInfo [RoleId=" + RoleId + ", RoleName=" + RoleName
-				+ ", RoleDesc=" + RoleDesc + "]";
+		return "RolrInfo [role_id=" + role_id + ", role_name=" + role_name
+				+ ", role_desc=" + role_desc + "]";
 	}
-	public RolrInfo(Integer roleId, String roleName, String roleDesc) {
+	public RolrInfo(Integer role_id, String role_name, String role_desc) {
 		super();
-		RoleId = roleId;
-		RoleName = roleName;
-		RoleDesc = roleDesc;
+		this.role_id = role_id;
+		this.role_name = role_name;
+		this.role_desc = role_desc;
 	}
 	public RolrInfo() {
 		super();
 	}
-
+	
+	
 
 
 }

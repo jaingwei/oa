@@ -40,13 +40,13 @@
 						$(".f_right_body_img").css("background-image","url("+data['image']+")");
 						var msg = $(".f_right_body1");
 						var ps = "<p>"+"用户名："+data['UserId']+"</p>"
-							+"<p>姓名："+data['UserName']+"</p>"
-							+"<p>密码："+data['PassWord']+"</p>"
+							+"<p>姓名："+data['user_name']+"</p>"
+							+"<p>密码："+data['pass_word']+"</p>"
 							+"<p>手机号码："+data['number']+"</p>"
-							+"<p>部门："+data['DepartName']+"</p>"
-							+"<p>性别："+data['Gender']+"</p>"
-							+"<p>角色："+data['RoleName']+"</p>"
-							+"<p>用户状态:"+data['UserStateName']+"</p>"
+							+"<p>部门："+data['depart_name']+"</p>"
+							+"<p>性别："+data['gender']+"</p>"
+							+"<p>角色："+data['role_name']+"</p>"
+							+"<p>用户状态:"+data['user_state_name']+"</p>"
 							msg.append(ps);
 							
 					},

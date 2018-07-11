@@ -25,8 +25,7 @@ public class UserController {
 		UserServices userServices = new UserServices();
 		try {
 			UserInfo userInfo =userServices.dologin(username, password);
-			System.out.println("报错");
-			request.getSession().setAttribute("user", userInfo.getUserName());
+			request.getSession().setAttribute("user",userInfo);
 			response.sendRedirect("/oa/first.jsp");
 		} catch (Exception e) {
 			request.getSession().setAttribute("msg", e.getMessage());
@@ -54,22 +53,19 @@ public class UserController {
 		 String msg = (String) map.get("msg");
 		 UserInfo userInfo = (UserInfo) map.get("userInfo");
 		 if ("验证成功".equals(msg) && userInfo!=null) {
-			request.getSession().setAttribute("user",userInfo.getUserName());
+			request.getSession().setAttribute("user",userInfo);
 			response.sendRedirect("/oa/first.jsp");
 		}else{
 			response.sendRedirect("/oa/Prodeng.jsp");
 		}
-
 	}
-	
 	
 	//个人信息查看
 	public void searchUser(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		String username = (String) request.getSession().getAttribute("user");
+		UserInfo userInfo = (UserInfo) request.getSession().getAttribute("user");
 		//调用方法
 		UserServices userServices =new UserServices();
-		Map<String, Object> map = userServices.searchMap(username);
-	    System.out.println(map);
+		Map<String, Object> map = userServices.searchMap(userInfo.getUser_name());
 		String json = JSON.toJSONString(map);
 		response.getWriter().write(json);
 	}

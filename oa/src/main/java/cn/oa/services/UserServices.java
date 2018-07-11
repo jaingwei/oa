@@ -18,7 +18,7 @@ public class UserServices {
 			throw new Exception("账户名不存在");
 		}else{
 			UserInfo userInfo = list.get(0);
-			if (!password.equals(userInfo.getPassWord())) {
+			if (!password.equals(userInfo.getPass_word())) {
 				throw new Exception("账户密码错误");
 			}else{
 				return userInfo;
