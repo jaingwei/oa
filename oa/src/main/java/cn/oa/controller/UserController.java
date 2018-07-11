@@ -59,6 +59,10 @@ public class UserController {
 			response.sendRedirect("/oa/Prodeng.jsp");
 		}
 	}
+	//退出，清除session
+	public void removeSession(){
+		
+	}
 	
 	//个人信息查看
 	public void searchUser(HttpServletRequest request, HttpServletResponse response) throws IOException{

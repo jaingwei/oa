@@ -125,7 +125,6 @@
 	<div class="section">
 		<div class="s_left">
 			<div class="s_left_1">
-			   
 				<ul>
 					<li><a href="#">快捷方式</a></li>
 					<li><a href="#">消息提醒</a></li>
