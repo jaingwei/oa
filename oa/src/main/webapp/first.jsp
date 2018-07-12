@@ -186,7 +186,7 @@
 				})
 			}
 			function removesession(){
-				if (confirm("是否退出")) {
+				if ( confirm("是否退出") ) {
 					$.ajax({
 						type:"post",
 						data:{
@@ -201,7 +201,6 @@
 							
 						}
 					})
-					
 				}
 				
 			}
@@ -268,9 +267,7 @@
 			<a href="#"></a> 
 			<a href="/oa/first.jsp"></a> 
 			<a href="#"></a> 
-			<a href="#"></a> 
-			<a href="#"></a> 
-			<a href="/oa/Prodeng.jsp" onclick="removesession()" ></a>
+			<a href="/oa/first.jsp" onclick="removesession()" ></a>
 		</p>
 	</div>
 

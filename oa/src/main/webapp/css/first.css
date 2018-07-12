@@ -557,7 +557,9 @@ ul {
 .s_left_1_ul>li{
 	color: white;
 	font-weight: 500;
-	
+}
+.s_left_1_ul>li:hover{
+	cursor:pointer;
 }
 .s_left_1_ul>li>ul>li>a{
 	color: white;

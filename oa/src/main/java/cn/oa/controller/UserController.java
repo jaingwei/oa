@@ -62,7 +62,6 @@ public class UserController {
 	//退出，清除session
 	public void removeSession(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		request.getSession().removeAttribute("user");
-		//response.sendRedirect("/oa/Prodeng.jsp");
 	}
 	
 	//个人信息查看
