@@ -9,11 +9,17 @@
 <script src="/oa/js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
    $(function(){
+	   
 	   click();
 	   tijiao1();
 	   tijiao2();
+	   
    })
-
+   
+    function start(){
+	   $(".pp2_span2").html("");
+	   $(".pp>span").html("");
+   }
 	function click() {
 		$(".password").click(function() {
 			$(".p4").show();

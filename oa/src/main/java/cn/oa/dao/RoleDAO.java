@@ -21,6 +21,9 @@ public class RoleDAO extends BaseDAO<SysFun>{
 		return list;
 	}
 	
-	
+	public static void main(String[] args) {
+		RoleDAO roleDAO = new RoleDAO();
+		roleDAO.getsys(1);
+	}
    
 }

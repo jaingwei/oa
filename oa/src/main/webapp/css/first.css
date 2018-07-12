@@ -554,4 +554,20 @@ ul {
 .f_down{
 	height: 10px;
 }
-
+.s_left_1_ul>li{
+	color: white;
+	font-weight: 500;
+	
+}
+.s_left_1_ul>li>ul>li>a{
+	color: white;
+	font-weight: 400px;
+	font-weight: 400;
+	font-size: 14px;
+}
+.s_left_1_ul>li>ul{
+	display: none;
+}
+.s_left_1_ul>li>ul{
+	margin-left: 10px;
+}
