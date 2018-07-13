@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.oa.entity.Roleinfo;
+import cn.oa.entity.UserInfo;
 import cn.oa.util.DBhelper;
 
 /**
@@ -138,6 +140,8 @@ public class BaseDAO<T> {
 		return list;
 		
 	}
+
+	
 	
 	
 	

@@ -3,27 +3,55 @@ package cn.oa.dao;
 import java.util.List;
 import java.util.Map;
 
-import cn.oa.entity.SysFun;
+import javax.management.relation.RoleInfo;
 
-public class RoleDAO extends BaseDAO<SysFun>{
-	//拿取菜单信息
-	public List<Map<String,Object>> getsys( Integer roleid){
-		String sql = "SELECT s1.display_name,s1.node_url,s1.display_order,"
-			   +" s1.parent_node_id,f1.parent_name,"
-			   +" f1.parent_order FROM sysfun s1" 
-               +" INNER JOIN parentfun f1 ON s1.parent_node_id=f1.parent_id"
-               +" WHERE s1.node_id" 
-               +" IN(SELECT r1.node_id FROM roleright r1 "
-               +" WHERE r1.role_id=?)";
-		Object[] obj = {roleid};
-		List<Map<String, Object>> list = super.queryListMap(sql, obj);
-		System.out.println(list);
+import cn.oa.entity.Roleinfo;
+import cn.oa.entity.SysFun;
+import cn.oa.entity.UserInfo;
+public class RoleDAO extends BaseDAO<Roleinfo>{
+	
+
+	//角色信息搜索
+	public List<Roleinfo> getrole(Roleinfo roleinfo){
+		String sql = " SELECT r1.role_id,r1.role_name,"
+				    +" r1.role_desc FROM roleinfo r1 where 1=1";
+		int num = 0;
+		if (roleinfo.getRole_id() != null) {
+			sql+=" and r1.role_id=?";
+			num++;
+		}
+		Object[] obj =new Object[num];
+		num = 0;
+		if (roleinfo.getRole_id() != null) {
+			obj[num] = roleinfo.getRole_id();
+			num++;
+		}
+		sql+=" ORDER BY r1.role_id";
+	    List<Roleinfo> list = super.queryList(sql, obj, Roleinfo.class);
 		return list;
 	}
-	
-	public static void main(String[] args) {
-		RoleDAO roleDAO = new RoleDAO();
-		roleDAO.getsys(1);
+	//角色信息修改
+	public int updaterole(Roleinfo roleinfo){
+		String sql = " UPDATE roleinfo r1 SET r1.role_name=?,"
+				+ " r1.role_desc=? WHERE r1.role_id=?";
+		Object[] obj ={roleinfo.getRole_name(),roleinfo.getRole_desc(),roleinfo.getRole_id()};
+        int result = super.update(sql, obj);
+		return result;
 	}
-   
+	//角色信息添加
+	public int addrole(Roleinfo roleinfo){
+		String sql = "INSERT INTO roleinfo(role_name,role_desc) VALUES(?,?)";
+		Object[] obj ={roleinfo.getRole_name(),roleinfo.getRole_desc()};
+        int reuslt = super.update(sql, obj);
+		return reuslt;
+	}
+	//角色信息删除
+	public int removerole(Roleinfo roleinfo){
+		String sql = "DELETE FROM roleinfo WHERE roleinfo.role_id=?";
+		Object[] obj ={roleinfo.getRole_id()};
+		return super.update(sql, obj);
+	}
+	
+
+
 }

@@ -1,9 +1,11 @@
 package cn.oa.entity;
 
-public class RolrInfo {
+public class Roleinfo {
 	private Integer role_id;
 	private String role_name;
 	private String role_desc;
+	
+	
 	public Integer getRole_id() {
 		return role_id;
 	}
@@ -24,20 +26,20 @@ public class RolrInfo {
 	}
 	@Override
 	public String toString() {
-		return "RolrInfo [role_id=" + role_id + ", role_name=" + role_name
+		return "Roleinfo [role_id=" + role_id + ", role_name=" + role_name
 				+ ", role_desc=" + role_desc + "]";
 	}
-	public RolrInfo(Integer role_id, String role_name, String role_desc) {
+	public Roleinfo(Integer role_id, String role_name, String role_desc) {
 		super();
 		this.role_id = role_id;
 		this.role_name = role_name;
 		this.role_desc = role_desc;
 	}
-	public RolrInfo() {
+	public Roleinfo() {
 		super();
 	}
-	
-	
+
+
 
 
 }
