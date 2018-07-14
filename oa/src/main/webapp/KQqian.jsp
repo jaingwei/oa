@@ -28,27 +28,68 @@
 				})
 			}
 		  function addSign(tag){
-			  var text = $(".table10");
-			  alert(text.val());
+			  
 			  $.ajax({
 				  type:"post",
 				  data:{
 					  signTag:tag,
-					  signDesc:text.val()
+					  signDesc:$(".table10").val()
 				  },
 				  dataType:"json",
 				  url:"/oa/sign/addSign.do",
-				  success:function(data){
-					  alert(data);
-					  
+				  success:function(data){ 
+					     $(".table10").val("");
+						 $(".input10").attr("value",data['role_name']);
+						 $(".input11").attr("value",data['user_name']);
+						 $(".input12").attr("value",data['depart_name']);
+						 $(".input13").attr("value",data['BranchName']);
+						 var sp = "<span>"+data['sign_time']+"</span>";
+						 $(".qiandaot").append(sp);
+						 $(".text20").val(data['sign_desc']);
 				  },
 				  error:function(){
-					  
+					  alert("失败");
 				  }
 			  })
 		  }
 		  
+		  function addSigntui(tagtui){
+			  
+			  $.ajax({
+				  type:"post",
+				  data:{
+					  signTag:tagtui,
+					  signDesc:$(".table10").val()
+				  },
+				  dataType:"json",
+				  url:"/oa/sign/addSign.do",
+				  success:function(data){
+					     $(".table10").val("");
+						 $(".input20").attr("value",data['role_name']);
+						 $(".input21").attr("value",data['user_name']);
+						 $(".input22").attr("value",data['depart_name']);
+						 $(".input23").attr("value",data['BranchName']);
+						 var sp = "<span>"+data['sign_time']+"</span>";
+						 $(".qiandaotuit").append(sp);
+						 $(".texttui").val(data['sign_desc']);
+						 
+				  },
+				  error:function(){
+					  alert("失败");
+				  }
+			  })
+		  }
 			
+		  
+		 
+		  function dao(){
+			  $(".f_right_body_two").show();
+			  $(".f_right_body_three").hide();
+		  }
+		  function tui(){
+			  $(".f_right_body_two").hide();
+			  $(".f_right_body_three").show();
+		  }
 			
 		</script>
 </head>
@@ -188,10 +229,10 @@
 					<p class="f_right_biao">员工签到，签退</p>
 					<div class="f_right_body">
 						<p>员工填写区</p>
-						<form class="f_right_body_from">
+						<form  class="f_right_body_from">
 							<p>
-								<input type="submit" value="签到" onclick="addSign(1)"/>
-								<input type="submit" value="签退" onclick="addSign(0)"/>
+								<input type="button"  value="签到" onclick="addSign(1);dao()"/>
+								<input type="button" value="签退" onclick="addSigntui(0);tui()"/>
 							</p>
 
 							<p>
@@ -207,17 +248,17 @@
 
 					<div class="f_right_body_two">
 						<p>您的签到信息</p>
-						<form action="#" method="get" class="f_right_body_from_two">
+						<form  class="f_right_body_from_two">
 							<p>
-								<span class="f_right_body_from_two_1">用</span>户：<input name="sucessid" type="text" />
-								<span class="f_right_body_from_two_2">姓</span>名：<input name="sucessname" type="text" />
+								<span class="f_right_body_from_two_1">用</span>户：<input class="input10" name="sucessid" type="text"/>
+								<span class="f_right_body_from_two_2">姓</span>名：<input class="input11" name="sucessname" type="text"  />
 							</p>
 							<p>
-								<span class="f_right_body_from_two_3">所属部门：</span><input name="sucessid" type="text" />
-								<span class="f_right_body_from_two_4">所属公司： </span> <input name="sucessname" type="text"/>
+								<span class="f_right_body_from_two_3">所属部门：</span><input class="input12" name="sucessid" type="text" />
+								<span class="f_right_body_from_two_4">所属公司： </span> <input class="input13" name="sucessname" type="text" />
 							</p>
-							<p>
-								<span>您的签到时间：</span>
+							<p class="qiandaot">
+								<span >您的签到时间：</span>
 							</p>
 							<p>
 								<span>您的地址：</span>
@@ -226,7 +267,7 @@
 							<p>
 								签到备注：
 							</p>
-							<textarea name="beizhu" rows="5" cols="30" style="resize: none;"></textarea>
+							<textarea class="text20" name="beizhu" rows="5" cols="30" style="resize: none;"></textarea>
 						</form>
 					</div>
 					
@@ -235,14 +276,14 @@
 						<p>您的签退信息</p>
 						<form action="#" method="get" class="f_right_body_from_three">
 							<p>
-								<span class="f_right_body_from_three_1">用</span>户：<input name="sucessid" type="text" />
-								<span class="f_right_body_from_three_2">姓</span>名：<input name="sucessname" type="text" />
+								<span class="f_right_body_from_three_1">用</span>户：<input class="input20" name="sucessid" type="text" />
+								<span class="f_right_body_from_three_2">姓</span>名：<input  class="input21" name="sucessname" type="text" />
 							</p>
 							<p>
-								<span class="f_right_body_from_three_3">所属部门：</span><input name="sucessid" type="text" />
-								<span class="f_right_body_from_three_4">所属公司：</span> <input name="sucessname" type="text"/>
+								<span class="f_right_body_from_three_3">所属部门：</span><input  class="input22" name="sucessid" type="text" />
+								<span class="f_right_body_from_three_4">所属公司：</span> <input  class="input23" name="sucessname" type="text"/>
 							</p>
-							<p>
+							<p class="qiandaotuit">
 								<span>您的签退时间：</span>
 							</p>
 							<p>
@@ -252,7 +293,7 @@
 							<p>
 								签到备注：
 							</p>
-							<textarea name="beizhu" rows="5" cols="30" style="resize: none;"></textarea>
+							<textarea class="texttui" name="beizhu" rows="5" cols="30" style="resize: none;"></textarea>
 						</form>
 					</div>
 

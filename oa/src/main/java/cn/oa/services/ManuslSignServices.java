@@ -8,9 +8,13 @@ import cn.oa.entity.ManualSign;
 
 public class ManuslSignServices {
     ManuslSignDAO manuslSignDAO = new ManuslSignDAO();
-    //添加签到信息
-    public int addSign(ManualSign manualSign){
-		return manuslSignDAO.addSign(manualSign);
+    //添加并且显示签到信息
+    public List<Map<String, Object>> addSign(ManualSign manualSign){
+    	int reuslt = manuslSignDAO.addSign(manualSign);
+    	List<Map<String, Object>> list=null;
+    	list =  this.getSign(manualSign);
+		return list;
+		
     }
 	//查新签到签退信息
     public List<Map<String, Object>> getSign(ManualSign manualSign){

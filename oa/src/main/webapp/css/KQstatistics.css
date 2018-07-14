@@ -1,0 +1,107 @@
+.f_right{
+	float: right;
+	width: 1170px;
+	background-color: white;
+}
+.s_left_1>ul>li:nth-of-type(1)>p{
+	font-size: 17px;
+	color: white;
+}
+.f_right_top{
+	height: 40px;
+	margin-left: 20px;
+}
+.f_right_top>p:nth-of-type(1){
+	float: left;
+	margin-left: 30px;
+	
+}
+.f_right_top>p:nth-of-type(2){
+	 margin-left: 10px;
+     float: left;
+}
+.f_right_biao{
+  width: 1170px;
+  text-align: center;
+}
+.f_right_body{
+	width: 1000px;
+	border: 1px solid black;
+	margin-left: 80px;
+	margin-top: 10px;
+}
+.f_right_body>form>p:nth-of-type(1){
+	height: 60px;
+	width: 960px;
+	line-height: 60px;
+	border-bottom: 1px solid #23527C;
+	margin-left: 20px;
+}
+
+.f_right_body>form>p:nth-of-type(1)>span:nth-of-type(2){
+	margin-left: 70px;
+}
+.f_right_body>form>p:nth-of-type(1)>span:nth-of-type(4){
+	margin-left: 100px;
+	letter-spacing: 2px;
+}
+.f_right_body>form>p:nth-of-type(1)>span:nth-of-type(5){
+	letter-spacing: 2px;
+}
+.f_right_body>form>p:nth-of-type(1)>span:nth-of-type(6){
+	letter-spacing: 2px;
+}
+.f_right_body>form>p:nth-of-type(2){
+	height: 60px;
+	width: 960px;
+	line-height: 60px;
+	border-bottom: 1px solid #23527C;
+	margin-left: 20px;
+}
+.f_right_body>form>p:nth-of-type(2)>span:nth-of-type(2){
+	margin-left: 60px;
+}
+.f_right_body>form>p:nth-of-type(3){
+	height: 60px;
+	width: 960px;
+	line-height: 60px;
+	margin-left: 20px;
+}
+.f_right_body>form>p:nth-of-type(3)>input{
+  width: 80px;
+  height: 20px;
+}
+.f_right_body>form>p:nth-of-type(3)>span:nth-of-type(3){
+	margin-left: 100px;
+}
+
+.f_right_body>form>p:nth-of-type(4){
+	width: 960px;
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+}
+.f_right_body>form>p:nth-of-type(4)>input{
+	width: 160px;
+	height: 30px;
+	background-color: orange;
+	color: white;
+}
+
+.f_right_body_table{
+	width: 960px;
+	margin-left: 20px;
+	border: 1px solid black;
+}
+.f_right_body_table>table>tr>td:nth-of-type(1){
+	width: 200px;
+}
+.tongji{
+	width: 60px;
+	height: 30px;
+	background-color: orange;
+	margin-left: 10px;
+}
+.f_right_body select{
+	width: 150px;
+}
