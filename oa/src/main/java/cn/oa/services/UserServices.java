@@ -80,20 +80,55 @@ public class UserServices {
 		return map;
 	}
 
-  //获取用户信息
-	public Map<String, Object> searchMap(String name){
+  //多表获取用户信息
+	public List<Map<String, Object>> searchMap(UserInfo userInfo){
 		UserDao userDao = new UserDao();
-		List<Map<String, Object>> list = userDao.dosearchMap(name);
-		System.out.println(list);
-		Map<String, Object> map = list.get(0);
-		return map;	
+		List<Map<String, Object>> list = userDao.dosearchMap(userInfo);
+		return list;	
 	}
 	
-
-	public static void main(String[] args) {
-		 UserServices userServices = new UserServices();
-		 Map<String, Object> map = userServices.searchMap("姜伟");
-		 System.out.println(map);
+	 //多条件搜索用户
+	public List<UserInfo> getUsers(UserInfo userInfo){
+		UserDao userDao = new UserDao();
+		List<UserInfo> list = userDao.getUsers(userInfo);
+		return list;
 	}
+	
+	
+	//用户信息修改
+	public List<UserInfo> updateUser(UserInfo userInfo){
+		UserDao userDao = new UserDao();
+		int result = userDao.updateUser(userInfo);
+		List<UserInfo> list = null;
+		if (result==1) {
+		 String username = userInfo.getUser_id();
+		 list = userDao.dosearch(username);
+		}
+		return list;			
+	}
+	
+	//多属性用户信息修改
+		public String updateUsers(UserInfo userInfo){
+			UserDao userDao = new UserDao();
+			int result = userDao.updateUsers(userInfo);
+			String msg = null;
+			if (result==1) {
+			 msg="修改成功";
+			}else{
+				msg="修改失败";
+			}
+			return msg;			
+		}
+	
+	//用户删除
+	public int removeUser(UserInfo userInfo){
+		UserDao userDao =new UserDao();
+		return userDao.removeUser(userInfo);
+	}
+	
+	
+	
+
+	
 
 }

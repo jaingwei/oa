@@ -4,9 +4,9 @@ public class Departinfo {
     private Integer depart_id;
     private String depart_name;
     private String principa_user;
-    private Integer connect_tel_no;
-    private Integer connect_mobile_no;
-    private Integer faxes;
+    private Long connect_tel_no;
+    private Long connect_mobile_no;
+    private Long faxes;
     private Integer branch_id;
 	public Integer getDepart_id() {
 		return depart_id;
@@ -26,22 +26,22 @@ public class Departinfo {
 	public void setPrincipa_user(String principa_user) {
 		this.principa_user = principa_user;
 	}
-	public Integer getConnect_tel_no() {
+	public Long getConnect_tel_no() {
 		return connect_tel_no;
 	}
-	public void setConnect_tel_no(Integer connect_tel_no) {
+	public void setConnect_tel_no(Long connect_tel_no) {
 		this.connect_tel_no = connect_tel_no;
 	}
-	public Integer getConnect_mobile_no() {
+	public Long getConnect_mobile_no() {
 		return connect_mobile_no;
 	}
-	public void setConnect_mobile_no(Integer connect_mobile_no) {
+	public void setConnect_mobile_no(Long connect_mobile_no) {
 		this.connect_mobile_no = connect_mobile_no;
 	}
-	public Integer getFaxes() {
+	public Long getFaxes() {
 		return faxes;
 	}
-	public void setFaxes(Integer faxes) {
+	public void setFaxes(Long faxes) {
 		this.faxes = faxes;
 	}
 	public Integer getBranch_id() {
@@ -59,8 +59,8 @@ public class Departinfo {
 				+ branch_id + "]";
 	}
 	public Departinfo(Integer depart_id, String depart_name,
-			String principa_user, Integer connect_tel_no,
-			Integer connect_mobile_no, Integer faxes, Integer branch_id) {
+			String principa_user, Long connect_tel_no, Long connect_mobile_no,
+			Long faxes, Integer branch_id) {
 		super();
 		this.depart_id = depart_id;
 		this.depart_name = depart_name;
@@ -73,7 +73,7 @@ public class Departinfo {
 	public Departinfo() {
 		super();
 	}
-    
+	
     
     
     

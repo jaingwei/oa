@@ -71,8 +71,7 @@
 						 $(".input23").attr("value",data['BranchName']);
 						 var sp = "<span>"+data['sign_time']+"</span>";
 						 $(".qiandaotuit").append(sp);
-						 $(".texttui").val(data['sign_desc']);
-						 
+						 $(".texttui").val(data['sign_desc']);	 
 				  },
 				  error:function(){
 					  alert("失败");

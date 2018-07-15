@@ -23,7 +23,6 @@ public class SignController {
 		String userId = userInfo.getUser_id();
 		String signDesc = request.getParameter("signDesc");
 		String signTag = request.getParameter("signTag");
-		
 		ManualSign manualSign =new ManualSign();
 		manualSign.setUser_id(userId);
 		manualSign.setSign_desc(signDesc);
@@ -32,7 +31,6 @@ public class SignController {
 		ManuslSignServices manuslSignServices =new ManuslSignServices();
 		List<Map<String, Object>> list = manuslSignServices.addSign(manualSign);
 		Map<String, Object> map = list.get(0);
-		System.out.println(map);
 		String json = JSON.toJSONString(map);
 		response.getWriter().write(json);
 	}

@@ -22,11 +22,11 @@ public class ManuslSignDAO extends BaseDAO<ManualSign>{
    //查找
 	public List<Map<String, Object>> getSign(ManualSign manualSign){
 		String sql = " SELECT m1.sign_desc,m1.sign_time,m1.sign_tag,u1.user_name,"
-                  +" r1.role_name,d1.depart_name,b1.BranchName FROM manualsign m1"
+                  +" r1.role_name,d1.depart_name,b1.branch_name FROM manualsign m1"
                   +" INNER JOIN userinfo u1 ON u1.user_id=m1.user_id"
                   +" INNER JOIN roleinfo r1 ON r1.role_id = u1.role_id"
                   +" INNER JOIN departinfo d1 ON d1.depart_id=u1.depart_id"
-                  +" INNER JOIN branchinfo b1 ON b1.BranchId=d1.branch_id"
+                  +" INNER JOIN branchinfo b1 ON b1.branch_id=d1.branch_id"
                   +" WHERE m1.user_id =? and m1.sign_time=?";
 		Object[] obj = {manualSign.getUser_id() ,manualSign.getSign_time()};
 		List<Map<String, Object>> list = super.queryListMap(sql, obj);

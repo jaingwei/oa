@@ -52,6 +52,11 @@ public class RoleDAO extends BaseDAO<Roleinfo>{
 		return super.update(sql, obj);
 	}
 	
-
+  public static void main(String[] args) {
+	RoleDAO roleDAO =new RoleDAO();
+	Roleinfo roleinfo =new Roleinfo();
+	List<Roleinfo> list = roleDAO.getrole(roleinfo);
+	System.out.println(list);
+}
 
 }

@@ -35,10 +35,20 @@ public class RoleController {
 			request.getSession().setAttribute("id", id);
 		}
 		List<Roleinfo> list = roleServices.getroles(roleinfo);
-		System.out.println(list);
 		String json = JSON.toJSONString(list);
 		response.getWriter().write(json);
 	}
+	
+	//所有角色信息搜索
+		public void getRoles(HttpServletRequest request, HttpServletResponse response) throws IOException{	
+			System.out.println("角色");
+			RoleServices roleServices = new RoleServices();
+			Roleinfo roleinfo = new Roleinfo();
+			List<Roleinfo> list = roleServices.getroles(roleinfo);
+			System.out.println(list);
+			String json = JSON.toJSONString(list);
+			response.getWriter().write(json);
+		}
 	
 	//角色信息修改
 	public void updaterole(HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -70,7 +80,6 @@ public class RoleController {
 			String msg =null;
 			String name = request.getParameter("name");
 			String desc = request.getParameter("desc");
-			System.out.println("xingm"+name);
 			RoleServices roleServices = new RoleServices();
 			Roleinfo roleinfo = new Roleinfo();
 			roleinfo.setRole_name(name);
@@ -90,7 +99,6 @@ public class RoleController {
 	 public void removerole(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		 String msg=null;
 		 String id = request.getParameter("roleid");
-		 System.out.println("删除"+id);
 		 RoleServices roleServices =new RoleServices();
 		 Roleinfo roleinfo = new Roleinfo();
 		 if (id !=null) {
@@ -131,8 +139,6 @@ public class RoleController {
       public void addSys(HttpServletRequest request, HttpServletResponse response) throws IOException{
     	 String roleId= (String) request.getSession().getAttribute("id");
     	 String nodeId=request.getParameter("nodeid");
-    	 System.out.println("角色权限"+roleId);
-    	 System.out.println("角色权限"+nodeId);
     	 RoleServices roleServices =new RoleServices();
     	 String msg = roleServices.addSys(Integer.valueOf(roleId),Integer.valueOf(nodeId)); 
     	 String json = JSON.toJSONString(msg);
