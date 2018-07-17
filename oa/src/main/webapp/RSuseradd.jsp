@@ -64,7 +64,7 @@
 				  url:"/oa/depart/getDeparts.do",
 				  success:function(data){ 
 					  $.each(data,function(i,v){
-						  var bu ="<option  value='"+v['depart_id']+"'>"+v['depart_name']+"</option>";
+						  var bu ="<option selected='selected' value='"+v['depart_id']+"'>"+v['depart_name']+"</option>";
 						  $(".select10").append(bu);
 						 
 					   })
@@ -86,7 +86,7 @@
 				  url:"/oa/role/getRoles.do",
 				  success:function(data){ 
 					  $.each(data,function(i,v){
-						  var role ="<option value='"+v['role_id']+"'>"+v['role_name']+"</option>";
+						  var role ="<option selected='selected' value='"+v['role_id']+"'>"+v['role_name']+"</option>";
 						  $(".select11").append(role);
 					   })
 				  },
@@ -123,6 +123,19 @@
 					}
 				})
 			}
+		 
+		 function reStart(){
+			 $(".msgp").html("");
+			 $(".input10").val("");
+			 $(".input11").val("");
+			 $(".input111").val("");
+			 $(".input12").val("");
+			 $(".input13").val("");
+			 $(".select10>option[value=-1]").attr("selected","selected");
+			 $(".select11>option[value=-1]").attr("selected","selected");
+		 }
+		 
+		 
 		</script>
 </head>
 <body>
@@ -308,21 +321,23 @@
 							<input name="name"  class="input12" /><br /> 
 							所&nbsp;在&nbsp;部&nbsp;门:
 							<select name="select1" class="select10">
-								<option selected='selected' value="-1">--请选择--</option>
+								<option  value="-1">--请选择--</option>
 							</select>
 							<div class="bb4">
 							</div>
 							<input class="bb5" type="file" /><br /> 
 							角&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;色:
 							<select name="select2" class="select11">
-								<option selected='selected' value="-1">--请选择--</option>
+								<option  value="-1">--请选择--</option>
 							</select>
 							<br /> 当&nbsp;&nbsp;状&nbsp;态:
 							<input type="text" class="input13"/>
 							<br />
 							<input type="button" value="保存" onclick="updateUser()" />
-							<input type="button" value="全部重写" />
+							<input type="button" value="全部重写" onclick="reStart()"/>
+							<a href="/oa/RSuserSearcch.jsp">
 							<input type="button" value="返回" />
+							</a>
 						</form>
 						<p class="msgp"></p>
 					</div>

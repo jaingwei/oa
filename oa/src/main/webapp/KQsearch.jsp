@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=URF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -6,23 +6,30 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>华天协同OA平台</title>
 		<link rel="stylesheet" type="text/css" href="/oa/css/public.css" />
-		<link rel="stylesheet" type="text/css" href="/oa/css/KQsearch.css" />
+		<link rel="stylesheet" type="text/css" href="/oa/css/KQstatistics.css" />
 		<script type="text/javascript" src="/oa/js/jquery-1.12.4.js"></script>
-		<script type="text/javascript">$(function() {
-	$('.h_click_li_return').click(function() {
-		$('.h_over').toggle();
-	})
-	$('.s_left_1_hui').click(function() {
-		var index = $('.s_left_1_hui').index($(this));
-		$('.s_left_1_hui_ul').eq(index).toggle();
-	})
-	$('.h_head>ul>li').mouseover(function() {
-		$(this).css('background-color', '#3A5FCD')
-	}).mouseout(function() {
-		$(this).css('background-color', '#039adf')
-	})
-})
-</script>
+		<script type="text/javascript">
+		 $(function() {
+			  click();
+           })
+			function click(){
+				$('.h_click_li_return').click(function() {
+					$('.h_over').toggle();
+				})
+				$('.s_left_1_hui').click(function(){
+					var index = $('.s_left_1_hui').index($(this));
+					$('.s_left_1_hui_ul').eq(index).toggle();
+				})
+		
+				$('.h_head>ul>li').mouseover(function(){
+					$(this).css('background-color','#3A5FCD')
+				}).mouseout(function(){
+					$(this).css('background-color','#039adf')
+				})
+			}
+		 
+		 
+		</script>
 </head>
 <body>
 <header>
@@ -136,7 +143,7 @@
 					<div class="s_left_1">
 						<ul>
 							<li>
-								<p>考勤管理</p>
+								<p>员工考勤统计</p>
 							</li>
 							<li>
 								<a href="#">员工签到</a>
@@ -154,52 +161,45 @@
 				<div class="f_right">
 					<div class="f_right_top">
 						<p>当前位置:</p>
-						<p>考勤历史查询</p>
+						<p>员工考勤统计</p>
 					</div>
-					<p class="f_right_biao">员工考勤查询</p>
+					<p class="f_right_biao">员工考勤统计</p>
 					<div class="f_right_body">
 						<form>
 							<p>
-								<span>输入时间段:</span> 
+								<span>输入时间段:</span>
 								<span>开始时间</span>
 								<input name="startdate" type="date" />
 								<span>-------结束时间</span>
-								<input name="endsate" type="date" /> 
-								<span>本日</span><input type="radio" />
-								<span>本周</span><input type="radio" />
-								<span>本月</span><input type="radio" />
+								<input name="endsate" type="date" />
+								<span>本日</span><input type="radio" name="time"/>
+								<span>本周</span><input type="radio" name="time"/>
+								<span>本月</span><input type="radio" name="time"/>
 							</p>
 
 							<p>
-								<span>查找范围:</span>
-								<span>按机构</span><input type="radio" />
-								<span>按部门</span><input type="radio" />
-								<span>按员工号</span><input type="radio" />
-								<span>按姓名</span><input type="radio" />
-							</p>
-							<p>
-								<span>公司</span>
-								<select>
-									<option value="华天">华天</option>
 
-								</select>
-								<span>部门</span>
-								<select>
-									<option value="华天">华天</option>
-
-								</select>
-								<span>员工号</span>
-								<input type="text" />
-								<span>姓名</span>
-								<input type="text" />
+								<span>按机构</span>
+								<select ></select>
+								<span>按部门</span>
+								<select></select>
+								<input type="button" value="统计" class="tongji"/>
 							</p>
-							<p>
-								<input type="submit" value="搜索" />
 
 							</p>
 						</form>
 						<div class="f_right_body_table">
 							<table cellspacing="0" border="1" frame="void" width="100%">
+								<tr>
+									<th>姓名</th>
+									<th>出勤率</th>
+									<th>迟到次数</th>
+									<th>早退次数</th>
+									<th>旷工次数</th>
+									<th>所属部门</th>
+									<th>所属公司</th>
+								</tr>
+
 								<tr>
 									<td>签到员工</td>
 									<td>签卡时间</td>
@@ -207,26 +207,12 @@
 									<td>签卡备注</td>
 									<td>所属部门</td>
 									<td>所属公司</td>
-								</tr>
-								
-									<tr>
-									<td>签到员工</td>
-									<td>签卡时间</td>
-									<td>签卡标记</td>
-									<td>签卡备注</td>
-									<td>所属部门</td>
 									<td>所属公司</td>
 								</tr>
-								
-									</tr>
-								
-								
-								
+
 							</table>
 
 						</div>
-						
-						
 
 					</div>
 

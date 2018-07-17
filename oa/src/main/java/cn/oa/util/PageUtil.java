@@ -9,14 +9,7 @@ public class PageUtil {
 	public Integer pageSize;
 	public Integer totalCount;
 	public Integer totalPage;
-	public List<Object> list;
-	
-	public List<Object> getList() {
-		return list;
-	}
-	public void setList(List<Object> list) {
-		this.list = list;
-	}
+	public List<Map<String, Object>> list;
 	public Integer getIndex() {
 		return index;
 	}
@@ -41,6 +34,14 @@ public class PageUtil {
 	public void setTotalPage(Integer totalPage) {
 		this.totalPage = totalPage;
 	}
+	public List<Map<String, Object>> getList() {
+		return list;
+	}
+	public void setList(List<Map<String, Object>> list) {
+		this.list = list;
+	}
+	
+	
 
 	
 }

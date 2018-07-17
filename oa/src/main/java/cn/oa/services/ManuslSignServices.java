@@ -5,6 +5,7 @@ import java.util.Map;
 
 import cn.oa.dao.ManuslSignDAO;
 import cn.oa.entity.ManualSign;
+import cn.oa.util.PageUtil;
 
 public class ManuslSignServices {
     ManuslSignDAO manuslSignDAO = new ManuslSignDAO();
@@ -16,11 +17,22 @@ public class ManuslSignServices {
 		return list;
 		
     }
-	//查新签到签退信息
+	//查找新签到签退信息
     public List<Map<String, Object>> getSign(ManualSign manualSign){
 		return manuslSignDAO.getSign(manualSign);	
     }
     
-    
+	//查找签到信息，分页
+    public List<Map<String, Object>> getSigns(ManualSign manualSign,Integer index, Integer page){
+		PageUtil pageUtil =new PageUtil();
+		//查询总的签到信息
+		List<Map<String,Object>> list = manuslSignDAO.getSign(manualSign, index, page);
+    	//查询信息总数
+		
+		
+		
+		
+		return list;
+    }
     
 }

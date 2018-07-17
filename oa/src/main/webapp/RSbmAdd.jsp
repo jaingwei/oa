@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -87,8 +87,10 @@
 				  dataType:"json",
 				  url:"/oa/user/getUsers.do",
 				  success:function(data){ 
+					  var userIn= $(".input11").val();
+					  
 					   $.each(data,function(i,v){
-						   var user ="<p onclick='updateUser("+v['user_id']+");hide()'>"+v['user_name']+"</p>"
+						   var user ="<p onclick=updateUser("+v['user_id']+");hide();update('"+userIn+"')>"+v['user_name']+"</p>"
 						   $(".userman").append(user);
 					   })
 				  },
@@ -112,6 +114,26 @@
 						  $(".input12").attr("value",v['number']);
 					   })
 					  getUsers();
+				  },
+				  error:function(){
+					  alert("失败");
+				  }
+			  })
+		  }
+		  //文本框中的用户信息改为普通用户
+		  function update(userName){
+			  alert(userName);
+			  $.ajax({
+				  type:"post",
+				  data:{
+					  username:userName
+				  },
+				  dataType:"json",
+				  url:"/oa/user/updateUserIn.do",
+				  success:function(data){ 
+					  
+					  getUsers();
+					  alert("成功");
 				  },
 				  error:function(){
 					  alert("失败");
@@ -297,7 +319,8 @@
 							<li>部门名称：</li>
 							<li><input type="text" class="input10"/></li>
 							<li>部门负责人：</li>
-							<li><input type="text" class="input11"/> <input type="button" value="请选择" onclick="getUsers();show()"/>
+							<li><input type="text" class="input11"/> 
+							<input type="button" value="请选择" onclick="getUsers();show()"/>
 							</li>
 							<li>联系电话：</li>
 							<li><input type="text" class="input12"/></li>

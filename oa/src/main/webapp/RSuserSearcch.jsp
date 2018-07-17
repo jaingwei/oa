@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-title>华天协同OA平台
+<title>华天协同OA平台
 </title>
 <link rel="stylesheet" type="text/css" href="/oa/css/public.css" />
 <link rel="stylesheet" type="text/css" href="/oa/css/RSuserSearch.css" />
@@ -12,7 +12,9 @@ title>华天协同OA平台
 <script type="text/javascript">
 $(function() {
 	  click();
-	  getDepart();
+	  getUser();
+	  getRoles();
+	  getDeparts();
  })
 	function click(){
 		$('.h_click_li_return').click(function() {
@@ -29,11 +31,16 @@ $(function() {
 			$(this).css('background-color','#039adf')
 		})
 	}
-function getDepart(){
+	//拿到所有用户信息
+function getUser(){
+	$(".table").html("");
 	  $.ajax({
 		  type:"post",
 		  data:{
-			 
+			 name:$(".input10").val(),
+			 id:$(".input11").val(),	 
+			 depart:$(".select10>option:selected").val(),
+			 role:$(".select11>option:selected").val()
 		  },
 		  dataType:"json",
 		  url:"/oa/user/getUsersAll.do",
@@ -58,7 +65,50 @@ function getDepart(){
 	  })
     }
 
-
+	//获取所有部门信息
+	function getDeparts(){
+			  $.ajax({
+				  type:"post",
+				  data:{
+					 
+				  },
+				  dataType:"json",
+				  url:"/oa/depart/getDeparts.do",
+				  success:function(data){ 
+					  $.each(data,function(i,v){
+						  var bu ="<option  value='"+v['depart_id']+"'>"+v['depart_name']+"</option>";
+						  $(".select10").append(bu);
+						 
+					   })
+				  },
+				  error:function(){
+					  alert("失败");
+				  }
+			  })
+		  }
+	//获取所有角色信息
+	function getRoles(){
+			 
+			  $.ajax({
+				  type:"post",
+				  data:{
+					 
+				  },
+				  dataType:"json",
+				  url:"/oa/role/getRoles.do",
+				  success:function(data){ 
+					  $.each(data,function(i,v){
+						  var role ="<option  value='"+v['role_id']+"'>"+v['role_name']+"</option>";
+						  $(".select11").append(role);
+					   })
+				  },
+				  error:function(){
+					  alert("失败");
+				  }
+			  })
+		  }
+		
+   //删除用户信息
 	function removeUser(userId) {
 		$(".table").html("");
 		$.ajax({
@@ -168,7 +218,23 @@ function getDepart(){
 		<div class="f_right">
 			<div class="gg">
 				<p>用户管理</p>
-				<input type="button" value="添加用户" />
+				<span>用户名：</span>
+				<input type="text" class="input10"/>
+				<span>工号：</span>
+				<input type="text" class="input11"/>
+				<span>部门：</span>
+				<select class="select10">
+				<option value="-1" selected='selected'>请选择———</option>
+				</select>
+				<span>角色：</span>
+				<select class="select11">
+				<option value="-1" selected='selected'>请选择———</option>
+				</select>
+				<input type="button" onclick="getUser()" value="搜索" class="buttom2"/>
+				
+				<a href="/oa/RSuser.jsp">
+				<input type="button" value="添加用户"  class="buttom1"/>
+				</a>
 				<table border="1px" cellspacing="0px" >
 					<tr>
 						<th>用户ID</th>

@@ -25,7 +25,7 @@ public class UserServices {
 			}
 		}
 	}
-	
+
 	//号码搜索账号发验证码
 	public String number(String number){
 		String msg= null;
@@ -80,55 +80,81 @@ public class UserServices {
 		return map;
 	}
 
-  //多表获取用户信息
+	//多表获取用户信息
 	public List<Map<String, Object>> searchMap(UserInfo userInfo){
 		UserDao userDao = new UserDao();
 		List<Map<String, Object>> list = userDao.dosearchMap(userInfo);
 		return list;	
 	}
 	
-	 //多条件搜索用户
+	//按照多表搜索  出角色 和用户状态具体信息（无部门）
+		public List<Map<String, Object>> searchMap11(UserInfo userInfo){
+			UserDao userDao =new UserDao();
+			List<Map<String, Object>> list = userDao.searchMap(userInfo);
+			return list;
+		}
+	
+
+	//多条件搜索用户
 	public List<UserInfo> getUsers(UserInfo userInfo){
 		UserDao userDao = new UserDao();
 		List<UserInfo> list = userDao.getUsers(userInfo);
 		return list;
 	}
-	
-	
+
+
 	//用户信息修改
 	public List<UserInfo> updateUser(UserInfo userInfo){
 		UserDao userDao = new UserDao();
 		int result = userDao.updateUser(userInfo);
 		List<UserInfo> list = null;
 		if (result==1) {
-		 String username = userInfo.getUser_id();
-		 list = userDao.dosearch(username);
+			String username = userInfo.getUser_id();
+			list = userDao.dosearch(username);
 		}
 		return list;			
 	}
-	
+
 	//多属性用户信息修改
-		public String updateUsers(UserInfo userInfo){
-			UserDao userDao = new UserDao();
-			int result = userDao.updateUsers(userInfo);
-			String msg = null;
-			if (result==1) {
-			 msg="修改成功";
-			}else{
-				msg="修改失败";
-			}
-			return msg;			
+	public String updateUsers(UserInfo userInfo){
+		UserDao userDao = new UserDao();
+		int result = userDao.updateUsers(userInfo);
+		String msg = null;
+		if (result==1) {
+			msg="修改成功";
+		}else{
+			msg="修改失败";
 		}
-	
+		return msg;			
+	}
+
 	//用户删除
 	public int removeUser(UserInfo userInfo){
 		UserDao userDao =new UserDao();
 		return userDao.removeUser(userInfo);
 	}
-	
-	
-	
 
-	
+
+	//用户信息添加
+	public String addUser(UserInfo userInfo){
+		UserDao userDao =new UserDao();
+		String msg = "";
+		int result = userDao.addUserInfo(userInfo);
+		if (result==1) {
+			msg="添加用户成功";
+		} else {
+			msg="添加用户失败";
+		}
+		return msg;
+	}
+
+	//用户部门信息复原为  “未分配部门”状态
+	public int updateUserDepart(Integer departid, Integer newid){
+		 UserDao userDao =new UserDao();
+		 int msg = userDao.updateUserDepart(departid,newid);
+		 return msg;
+	}
+
+
 
 }

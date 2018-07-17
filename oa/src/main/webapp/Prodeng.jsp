@@ -9,11 +9,9 @@
 <script src="/oa/js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
    $(function(){
-	   
 	   click();
 	   tijiao1();
-	   tijiao2();
-	   
+	   tijiao2();   
    })
    
     function start(){

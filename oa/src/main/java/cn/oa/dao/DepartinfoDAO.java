@@ -37,15 +37,12 @@ public class DepartinfoDAO extends BaseDAO<Departinfo>{
    //修改部门信息
    public int updateDepart(Departinfo departinfo){
 		String sql = " UPDATE departinfo SET departinfo.depart_name=?,"
-				+" departinfo.principa_user=?, "
-				+" departinfo.connect_tel_no =?, "
-				+" departinfo.connect_mobile_no =?, "
-				+" departinfo.branch_id =?"
-				+" WHERE departinfo.depart_id =?";
+		 			+" WHERE departinfo.depart_id =?";
 		Object[] obj ={departinfo.getDepart_name(),departinfo.getPrincipa_user(),departinfo.getConnect_tel_no(),departinfo.getConnect_mobile_no(),departinfo.getBranch_id(),departinfo.getDepart_id()};
        int result = super.update(sql, obj);
 	   return result;
-	} 
+	
+   } 
    
    
 

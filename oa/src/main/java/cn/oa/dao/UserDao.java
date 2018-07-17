@@ -32,7 +32,6 @@ public class UserDao extends BaseDAO<UserInfo>{
 				+" INNER JOIN departinfo d1 ON d1.depart_id=u1.depart_id"
 				+" WHERE 1=1";
 		int index =0;
-
 		if (userInfo.getUser_name()!=null) {
 			sql+=" and u1.user_name=?";
 			index ++;
@@ -52,10 +51,56 @@ public class UserDao extends BaseDAO<UserInfo>{
 			obj[index] = userInfo.getUser_id();
 			index ++;
 		}
-
 		List<Map<String, Object>> list = super.queryListMap(sql, obj);
 		return list;
 	}
+
+	//按照多表搜索  出角色 和用户状态具体信息（无部门）
+	public List<Map<String, Object>> searchMap(UserInfo userInfo){
+		String sql = " SELECT * FROM userinfo"
+				+" INNER JOIN userstate u2 ON userinfo.user_state=u2.user_state_id"
+				+" INNER JOIN roleinfo r1 ON r1.role_id = userinfo.role_id"
+				+" WHERE 1=1";
+		int index =0;
+		if (userInfo.getUser_name()!=null) {
+			sql+=" and userinfo.user_name LIKE CONCAT('%',?,'%') ";
+			index ++;
+		}
+		if (userInfo.getUser_id() !=null) {
+			sql +=" and userinfo.user_id LIKE CONCAT('%',?,'%')";
+			index++;
+		}
+		if (userInfo.getDepart_id()!=null) {
+			sql +=" and userinfo.depart_id= ? ";
+			index++;
+		}
+		if (userInfo.getRole_id()!=null) {
+			sql +=" and userinfo.role_id=?";
+			index++;
+		}
+
+		Object[] obj =new Object[index];
+		index =0;
+		if (userInfo.getUser_name()!=null) {
+			obj[index] = userInfo.getUser_name();
+			index ++;
+		}
+		if (userInfo.getUser_id() !=null) {
+			obj[index] = userInfo.getUser_id();
+			index ++;
+		}
+		if (userInfo.getDepart_id()!=null) {
+			obj[index] = userInfo.getDepart_id();
+			index++;
+		}
+		if (userInfo.getRole_id()!=null) {
+			obj[index] = userInfo.getRole_id();
+			index++;
+		}
+		List<Map<String, Object>> list = super.queryListMap(sql, obj);
+		return list;
+	}
+
 
 
 	//用户名按职位搜索
@@ -70,6 +115,10 @@ public class UserDao extends BaseDAO<UserInfo>{
 			sql+=" and u1.user_id=?";
 			index++;
 		}
+		if (userInfo.getRole_id()!=null) {
+			sql+=" and u1.role_id=?";
+			index++;
+		}
 		Object[] obj =new Object[index];
 		index =0;
 		if (userInfo.getDepart_id()!=null) {
@@ -80,20 +129,61 @@ public class UserDao extends BaseDAO<UserInfo>{
 			obj[index] = userInfo.getUser_id();
 			index++;
 		}
+		if (userInfo.getRole_id()!=null) {
+			obj[index] = userInfo.getRole_id();
+			index++;
+		}
 		List<UserInfo> list = super.queryList(sql, obj, UserInfo.class);
 		return list;
 	}
 
 	//用户信息修改
 	public int updateUser(UserInfo userInfo){
-		String sql = " UPDATE userinfo SET userinfo.depart_id=? "
-				+ " WHERE userinfo.user_id= ? ";
-		Object[] obj ={userInfo.getDepart_id() ,userInfo.getUser_id()};
+		String sql = " UPDATE userinfo SET userinfo.role_id=? "
+				+ " WHERE 1=1 ";
+		int index =1;
+		if (userInfo.getUser_id()!=null) {
+			sql+=" and userinfo.user_id= ?";
+			index++;
+		}
+		if (userInfo.getUser_name()!=null) {
+			sql+=" and userinfo.user_name= ?";
+			index++;
+		}
+		if (userInfo.getDepart_id()!=null) {
+			sql+=" and userinfo.depart_id= ?";
+			index++;
+		}
+		Object[] obj = new Object[index];
+		index =0;
+		obj[index] = userInfo.getRole_id();
+		index++;
+		if (userInfo.getUser_id()!=null) {
+			obj[index] = userInfo.getUser_id();
+			index++;
+		}
+		if (userInfo.getUser_name()!=null) {
+			obj[index] = userInfo.getUser_name();
+			index++;
+		}
+		if (userInfo.getDepart_id()!=null) {
+			obj[index] = userInfo.getDepart_id();
+			index++;
+		}
 		int result = super.update(sql, obj);
 		return result;
 	}
 
-	//添加用户信息
+	//用户部门信息复原为  “未分配部门”状态
+	public int updateUserDepart(Integer departid, Integer newid){
+		String sql = " UPDATE userinfo SET userinfo.depart_id= ? "
+				+ " WHERE userinfo.depart_id= ? ";
+		Object[] obj = {newid,departid }; 
+		int result = super.update(sql, obj);
+		return result;
+	}
+
+	//添加用户部门信息
 	public int addUser(Departinfo departinfo){
 		String sql="INSERT INTO departinfo(depart_name,principa_user,connect_tel_no,connect_mobile_no,branch_id) VALUES (?,?,?,?,?)";
 		Object[] obj = {departinfo.getDepart_name(),departinfo.getPrincipa_user(),departinfo.getConnect_tel_no(),departinfo.getConnect_mobile_no(),departinfo.getBranch_id()};
@@ -116,6 +206,23 @@ public class UserDao extends BaseDAO<UserInfo>{
 		int result = super.update(sql, obj);
 		return result;
 	}
+
+	//添加用户基本信息
+	public int addUserInfo(UserInfo userInfo){
+		String sql="INSERT INTO userinfo(user_id,user_name,pass_word,depart_id,gender,role_id,user_state,number) VALUES (?,?,?,?,?,?,?,?)";
+		Object[] obj = new Object[8];
+		obj[0] = userInfo.getUser_id();
+		obj[1] = userInfo.getUser_name();
+		obj[2] = userInfo.getPass_word();
+		obj[3] = userInfo.getDepart_id();
+		obj[4] = userInfo.getGender();
+		obj[5] = userInfo.getRole_id();
+		obj[6] = userInfo.getUser_state();
+		obj[7] = userInfo.getNumber();
+		return super.update(sql, obj);
+
+	}
+
 
 
 }

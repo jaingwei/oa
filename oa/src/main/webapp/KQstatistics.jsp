@@ -3,26 +3,32 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-title>华天协同OA平台</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>华天协同OA平台</title>
 		<link rel="stylesheet" type="text/css" href="/oa/css/public.css" />
 		<link rel="stylesheet" type="text/css" href="/oa/css/KQstatistics.css" />
 		<script type="text/javascript" src="/oa/js/jquery-1.12.4.js"></script>
 		<script type="text/javascript">
-			$(function() {
+		 $(function() {
+			  click();
+           })
+			function click(){
 				$('.h_click_li_return').click(function() {
 					$('.h_over').toggle();
 				})
-				$('.s_left_1_hui').click(function() {
+				$('.s_left_1_hui').click(function(){
 					var index = $('.s_left_1_hui').index($(this));
 					$('.s_left_1_hui_ul').eq(index).toggle();
 				})
-				$('.h_head>ul>li').mouseover(function() {
-					$(this).css('background-color', '#3A5FCD')
-				}).mouseout(function() {
-					$(this).css('background-color', '#039adf')
+		
+				$('.h_head>ul>li').mouseover(function(){
+					$(this).css('background-color','#3A5FCD')
+				}).mouseout(function(){
+					$(this).css('background-color','#039adf')
 				})
-			})
+			}
+		 
+		 
 		</script>
 </head>
 <body>

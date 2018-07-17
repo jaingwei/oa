@@ -11,9 +11,9 @@
 		<script type="text/javascript">
 		$(function() {
 			  click();
-			  getDepart();
-			  
-       })
+			  getDeparts();
+			  getRoles();
+         })
 			function click(){
 				$('.h_click_li_return').click(function() {
 					$('.h_over').toggle();
@@ -30,21 +30,20 @@
 				})
 			}
 			
-			//拿取修改用户的信息
-		function getDepart(){
+		//拿取所有部门
+		function getDeparts(){
 			  $.ajax({
 				  type:"post",
 				  data:{
 					 
 				  },
 				  dataType:"json",
-				  url:"/oa/user/getOneUser.do",
+				  url:"/oa/depart/getDeparts.do",
 				  success:function(data){ 
-					   $.each(data,function(i,v){
-						  $(".input10").attr("value",v['depart_name']);
-						  $(".input11").attr("value",v['principa_user']);
-						  $(".input12").attr("value",v['connect_tel_no']);
-						  $(".input13").attr("value",v['connect_mobile_no']);
+					  $.each(data,function(i,v){
+						  var bu ="<option  value='"+v['depart_id']+"'>"+v['depart_name']+"</option>";
+						  $(".select10").append(bu);
+						 
 					   })
 				  },
 				  error:function(){
@@ -52,19 +51,45 @@
 				  }
 			  })
 		  }
-		   //修改部门信息
-		  function updateDepart(){
-			   
+		//拿取所有角色
+		function getRoles(){
+			 
+			  $.ajax({
+				  type:"post",
+				  data:{
+					 
+				  },
+				  dataType:"json",
+				  url:"/oa/role/getRoles.do",
+				  success:function(data){ 
+					  $.each(data,function(i,v){
+						  var role ="<option  value='"+v['role_id']+"'>"+v['role_name']+"</option>";
+						  $(".select11").append(role);
+					   })
+				  },
+				  error:function(){
+					  alert("失败");
+				  }
+			  })
+		  }
+		
+		 //添加用户信息
+		  function addUser(){
 				$.ajax({
 					type:"post",
 					data:{
-						name:$(".input10").val(),
-						user:$(".input11").val(),
-						number:$(".input12").val(),
-						tel:$(".input13").val()
+						userId:$(".input10").val(),
+						password1:$(".input11").val(),
+						password2:$(".input111").val(),
+						name:$(".input12").val(),
+						state:$(".input13").val(),
+						number:$(".input14").val(),
+						depart:$(".select10>option:selected").val(),
+						role:$(".select11>option:selected").val(), 
+						sex:$('input[name="sex"]:checked').val()
 					},
 					dataType:"json",
-					url:"/oa/depart/updateDepart.do",
+					url:"/oa/user/addUser.do",
 					success:function(data){
 						 $(".msgp").html(data);
 						 $(".input10").val("");
@@ -77,48 +102,18 @@
 					}
 				})
 			}
-		  //拿取用户信息
-		  function getUsers(){
-			  $(".userman").html("");
-			  $.ajax({
-				  type:"post",
-				  data:{
-					 
-				  },
-				  dataType:"json",
-				  url:"/oa/user/getUsers.do",
-				  success:function(data){ 
-					   $.each(data,function(i,v){
-						   var user ="<p onclick='updateUser("+v['user_id']+");hide()'>"+v['user_name']+"</p>"
-						   $(".userman").append(user);
-					   })
-				  },
-				  error:function(){
-					  alert("失败");
-				  }
-			  })
-		  }
-		  //修改用户信息
-		  function updateUser(userId){
-			  $.ajax({
-				  type:"post",
-				  data:{
-					  userId:userId
-				  },
-				  dataType:"json",
-				  url:"/oa/user/updateUser.do",
-				  success:function(data){ 
-					  $.each(data,function(i,v){
-						  $(".input11").attr("value",v['user_name']);
-						  $(".input12").attr("value",v['number']);
-					   })
-					  getUsers();
-				  },
-				  error:function(){
-					  alert("失败");
-				  }
-			  })
-		  }
+		 
+		 function reStart(){
+			 $(".msgp").html("");
+			 $(".input10").val("");
+			 $(".input11").val("");
+			 $(".input111").val("");
+			 $(".input12").val("");
+			 $(".input13").val("");
+			 $(".select10>option[value=-1]").attr("selected","selected");
+			 $(".select11>option[value=-1]").attr("selected","selected");
+		 }
+		 
 		</script>
 </head>
 <body>
@@ -294,26 +289,41 @@
 					</div>
 					<p>_______________________________________________________________________________________________________________________________________________________________________</p>
 					<div class="bb3">
-						<form action="#" method="post">
-							用户登录名:<input name="username" class="input10"/><br /> 密 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:<input type="password" name="password" /><br /> 确&nbsp;认&nbsp;密&nbsp;码:
-							<input type="password"  class="input11"/><br /> 真&nbsp;实&nbsp;姓&nbsp;名:
-							<input name="name"  class="input12"/><br /> 所&nbsp;在&nbsp;部&nbsp;门:
+						<form >
+							用户登录名:<input name="username" class="input10"/><br /> 
+							密 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:
+							<input type="password" name="password" class="input11"/><br /> 
+							确&nbsp;认&nbsp;密&nbsp;码:
+							<input type="password"  class="input111"/><br /> 
+							真&nbsp;实&nbsp;姓&nbsp;名:
+							<input name="name"  class="input12"/><br /> 
+							所&nbsp;在&nbsp;部&nbsp;门:
 							<select name="select1" class="select10">
-								<option selected="selected">--请选择--</option>
+								<option selected="selected" value="-1">--请选择--</option>
 								
 							</select><br /> 性别:
 							<br />
-							<input type="radio"  name="gender"/>男
-							<input type="radio"  name="gender"/>女
+							<input type="radio"  name="sex" value="1" class="sex"/>男
+							<input type="radio"  name="sex" value="0" class="sex"/>女
 							<div class="bb4">
 							</div>
-							<input class="bb5" type="file" /><br /> 角&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;色:
-							<input /><br /> 当&nbsp;&nbsp;状&nbsp;态:
-							<input /><br />
-							<input type="submit" value="保存" />
-							<input type="button" value="全部重写" />
-							<input type="button" value="返回" />
+							<input class="bb5" type="file" /><br /> 
+							角&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;色:
+							<select name="select2" class="select11">
+								<option selected="selected" value="-1">--请选择--</option>
+								
+							</select><br /> 
+							当前状态:
+							<input type="text" class="input13"/><br />
+							用户号码:
+							<input name="number"  class="input14"/><br /> 
+							<input type="button" value="保存" onclick="addUser()"/>
+							<input type="button" value="全部重写" onclick="reStart()" />
+							<a href="/oa/RSuserSearcch.jsp">
+							<input type="button" value="返回"  />
+							</a>
 						</form>
+						<p class="msgp"></p>
 					</div>
 				</div>
 		</section>

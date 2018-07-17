@@ -28,6 +28,7 @@ public class DepartController {
 		response.getWriter().write(json);
 	}
 	
+	
 	public void getDeparts(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		Departinfo departinfo = new Departinfo();
 		DepartinfoServices departinfoServices = new DepartinfoServices();

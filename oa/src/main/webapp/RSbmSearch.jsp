@@ -27,6 +27,7 @@
 					$(this).css('background-color','#039adf')
 				})
 			}
+		 //搜索部门
 		  function getDepart(){
 			  $.ajax({
 				  type:"post",
@@ -38,17 +39,19 @@
 				  success:function(data){ 
 					   
 					   $.each(data,function(i,v){
-						   var tr ="<tr>"
-						   +"<td>"+v['depart_name']+"</td>"
-						   +"<td>"+v['branch_name']+"</td>"
-						   +"<td>"+v['principa_user']+"</td>"
-						   +"<td>"+v['connect_mobile_no']+"</td>"
-						   +"<td>"+v['connect_tel_no']+"</td>"
-						   +"<td>"+v['faxes']+"</td>" 
-						   +"<td><a href='/oa/depart/toUser.do?userId="+v['user_id']+"'>修改</a></td>"
-						   +"<td><a href='javascript:void(0)' onclick='removeDepart("+v['depart_id']+")'>删除</a></td>"
-						   +"</tr>";
-						   $(".table").append(tr);
+						   if (v['depart_id'] !=0) {
+							   var tr ="<tr>"
+								   +"<td>"+v['depart_name']+"</td>"
+								   +"<td>"+v['branch_name']+"</td>"
+								   +"<td>"+v['principa_user']+"</td>"
+								   +"<td>"+v['connect_mobile_no']+"</td>"
+								   +"<td>"+v['connect_tel_no']+"</td>"
+								   +"<td>"+v['faxes']+"</td>" 
+								   +"<td><a href='/oa/depart/toDepart.do?departId="+v['depart_id']+"'>修改</a></td>"
+								   +"<td><a href='javascript:void(0)' onclick='removeDepart("+v['depart_id']+");removeUser("+v['depart_id']+")'>删除</a></td>"
+								   +"</tr>";
+								   $(".table").append(tr);
+						   }
 					   })
 				  },
 				  error:function(){
@@ -56,7 +59,7 @@
 				  }
 			  })
 		  }
-		  
+		  //删除部门信息
 		  function removeDepart(depardId){
 			  $(".table").html("");
 			  $.ajax({
@@ -67,16 +70,32 @@
 				  dataType:"json",
 				  url:"/oa/depart/removeDepart.do",
 				  success:function(data){   
-					  getDepart();
-					   
+					 
 				  },
 				  error:function(){
 					  alert("失败");
 				  }
 			  })
 		  }
-		  
-		
+		  //将所有正在删除部门中人的部门编号设为0（未分配）
+		  function removeUser(depardId){
+			  $(".table").html("");
+			  $.ajax({
+				  type:"post",
+				  data:{
+					  depardId:depardId
+				  },
+				  dataType:"json",
+				  url:"/oa/user/updateUserDepart.do",
+				  success:function(data){   
+					  getDepart();  
+					  alert("成功");
+				  },
+				  error:function(){
+					  alert("失败");
+				  }
+			  })
+		  }
 		  
 		</script>
 </head>
