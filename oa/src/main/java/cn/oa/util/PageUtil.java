@@ -40,6 +40,12 @@ public class PageUtil {
 	public void setList(List<Map<String, Object>> list) {
 		this.list = list;
 	}
+	@Override
+	public String toString() {
+		return "PageUtil [index=" + index + ", pageSize=" + pageSize
+				+ ", totalCount=" + totalCount + ", totalPage=" + totalPage
+				+ ", list=" + list + "]";
+	}
 	
 	
 

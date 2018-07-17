@@ -11,6 +11,7 @@
 		<script type="text/javascript">
 		 $(function() {
 			  click();
+			  getSign();
            })
 			function click(){
 				$('.h_click_li_return').click(function() {
@@ -27,7 +28,53 @@
 					$(this).css('background-color','#039adf')
 				})
 			}
-		 
+		   function getSign(i){
+			   $(".table10").html("");
+				  $.ajax({
+					  type:"post",
+					  data:{
+						 index:i,
+					  },
+					  dataType:"json",
+					  url:"/oa/sign/getSign.do",
+					  success:function(data){ 
+						   $.each(data['list'],function(i,v){
+							   var tr ="<tr>"
+							   +"<td>"+v['user_name']+"</td>"
+							   +"<td>"+v['sign_time']+"</td>"
+							   +"<td>"+(v['sign_tag']==1?'签到':'签退')+"</td>"
+							   +"<td>"+v['sign_desc']+"</td>"
+							   +"<td>"+v['depart_name']+"</td>"
+							   +"<td>"+v['branch_name']+"</td>"
+							   +"</tr>";
+							   $(".table10").append(tr);
+						   })
+				    var prePage= data['index']-1;
+					var nextPage= data['index']+1;
+					if(prePage<=0){
+						prePage = 1;
+					}
+					if(nextPage>data['totalPage']){
+						nextPage = data['totalPage'];
+					}
+					        var page = "<tr><td colspan=6>"
+							+"<a href='javascript:void(0)' onclick='getSign(1)'>首页</a>"
+							+"<a href='javascript:void(0)' onclick='getSign("+prePage+")'>上一页</a>"
+							+"<a href='javascript:void(0)' onclick='getSign("+nextPage+")'>下一页</a>"
+							+"<a href='javascript:void(0)' onclick='getSign("+data["totalPage"]+")'>末页</a>"
+							+"&nbsp;&nbsp;&nbsp;<span>共有："+data['totalPage']+"页</span>"
+							+"&nbsp;&nbsp;&nbsp;<span><input type= 'text' width='30px'/>"
+							+ "&nbsp;&nbsp;<input type='button' value='GO' style='background-color: orange;' /></span>"
+							+"</td></tr>";
+							$(".table10").append(page);
+					console.log(data);
+						   
+					  },
+					  error:function(){
+						  alert("失败");
+					  }
+				  }) 
+		   }
 		 
 		</script>
 </head>
@@ -183,7 +230,7 @@
 								<select ></select>
 								<span>按部门</span>
 								<select></select>
-								<input type="button" value="统计" class="tongji"/>
+								<input type="button" value="统计" class="tongji" style="background-color: origen;"/>
 							</p>
 
 							</p>
@@ -191,25 +238,16 @@
 						<div class="f_right_body_table">
 							<table cellspacing="0" border="1" frame="void" width="100%">
 								<tr>
-									<th>姓名</th>
-									<th>出勤率</th>
-									<th>迟到次数</th>
-									<th>早退次数</th>
-									<th>旷工次数</th>
+									<th>签到员工</th>
+									<th>签卡时间</th>
+									<th>签卡标记</th>
+									<th>签卡备注</th>
 									<th>所属部门</th>
 									<th>所属公司</th>
 								</tr>
-
-								<tr>
-									<td>签到员工</td>
-									<td>签卡时间</td>
-									<td>签卡标记</td>
-									<td>签卡备注</td>
-									<td>所属部门</td>
-									<td>所属公司</td>
-									<td>所属公司</td>
-								</tr>
-
+								
+                                 <tbody class="table10"></tbody>
+								
 							</table>
 
 						</div>

@@ -13,6 +13,7 @@ import com.alibaba.fastjson.JSON;
 import cn.oa.entity.ManualSign;
 import cn.oa.entity.UserInfo;
 import cn.oa.services.ManuslSignServices;
+import cn.oa.util.PageUtil;
 
 public class SignController {
     //添加签到签退信息
@@ -35,7 +36,23 @@ public class SignController {
 		response.getWriter().write(json);
 	}
 	
-	
+	//查找签到信息
+	public void getSign(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		//拿取页面数据
+		String index = request.getParameter("index");
+		System.out.println(index +"======================");
+		if (index == null) {
+		  index = "1";
+		}
+		//调用后台方法
+		ManualSign manualSign =new ManualSign();
+		ManuslSignServices manuslSignServices = new ManuslSignServices();
+		PageUtil pageUtil = manuslSignServices.getSigns(manualSign,Integer.valueOf(index), 10);
+		//json向页扔数据
+        String json = JSON.toJSONString(pageUtil);
+        response.getWriter().write(json);
+		
+	}
 	
 	
 }

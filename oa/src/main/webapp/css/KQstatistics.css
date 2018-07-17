@@ -105,3 +105,9 @@
 .f_right_body select{
 	width: 150px;
 }
+.table10>tr>td{
+	text-align: center;
+}
+.table10 input{
+width: 30px;	
+}

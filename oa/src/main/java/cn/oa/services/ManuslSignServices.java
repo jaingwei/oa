@@ -22,17 +22,29 @@ public class ManuslSignServices {
 		return manuslSignDAO.getSign(manualSign);	
     }
     
+    
 	//查找签到信息，分页
-    public List<Map<String, Object>> getSigns(ManualSign manualSign,Integer index, Integer page){
+    public PageUtil getSigns(ManualSign manualSign,Integer index, Integer page){
 		PageUtil pageUtil =new PageUtil();
 		//查询总的签到信息
 		List<Map<String,Object>> list = manuslSignDAO.getSign(manualSign, index, page);
     	//查询信息总数
-		
-		
-		
-		
-		return list;
+		int totalCount = manuslSignDAO.getCount(manualSign);
+		//计算总页数
+		int totalPage = (totalCount-1)/page+1;
+		pageUtil.setIndex(index);
+		pageUtil.setList(list);
+		pageUtil.setPageSize(page);
+		pageUtil.setTotalCount(totalCount);
+		pageUtil.setTotalPage(totalPage);
+		return pageUtil;
     }
+    public static void main(String[] args) {
+		ManuslSignServices manuslSignServices =new ManuslSignServices();
+		ManualSign manualSign =new ManualSign();
+		PageUtil pageUtil =manuslSignServices.getSigns(manualSign, 1, 10);
+		System.out.println(pageUtil);
+		
+	}
     
 }

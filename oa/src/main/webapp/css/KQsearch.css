@@ -96,5 +96,7 @@
 .f_right_body_table>table>tr>td:nth-of-type(1){
 	width: 200px;
 }
-
+.table10>tr>td{
+	text-align: center;
+}
 
