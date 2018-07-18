@@ -12,6 +12,10 @@
 		 $(function() {
 			  click();
 			  getSign();
+			  getDeparts();
+			  getUser();
+			  getRole();
+			 
            })
 			function click(){
 				$('.h_click_li_return').click(function() {
@@ -28,12 +32,18 @@
 					$(this).css('background-color','#039adf')
 				})
 			}
+		 //拿取签到信息
 		   function getSign(i){
+			 alert($(".day:checked").val());
 			   $(".table10").html("");
 				  $.ajax({
 					  type:"post",
 					  data:{
 						 index:i,
+						 end:$(".end").val(),
+						 name:$(".select10>option:selected").val(),
+						 depart:$(".select11>option:selected").val(),
+						 timeType:$(".day:checked").val()
 					  },
 					  dataType:"json",
 					  url:"/oa/sign/getSign.do",
@@ -57,6 +67,7 @@
 					if(nextPage>data['totalPage']){
 						nextPage = data['totalPage'];
 					}
+					
 					        var page = "<tr><td colspan=6>"
 							+"<a href='javascript:void(0)' onclick='getSign(1)'>首页</a>"
 							+"<a href='javascript:void(0)' onclick='getSign("+prePage+")'>上一页</a>"
@@ -67,7 +78,7 @@
 							+ "&nbsp;&nbsp;<input type='button' value='GO' style='background-color: orange;' /></span>"
 							+"</td></tr>";
 							$(".table10").append(page);
-					console.log(data);
+					        
 						   
 					  },
 					  error:function(){
@@ -75,7 +86,84 @@
 					  }
 				  }) 
 		   }
-		 
+		   
+		   //拿取所有人员信息（根据部门中）
+		 function getUser(){
+	      $(".table").html("");
+	       $.ajax({
+		     type:"post",
+		        data:{
+		  },
+		  dataType:"json",
+		  url:"/oa/user/getUserName.do",
+		  success:function(data){ 
+			   $.each(data,function(i,v){
+				   var bu ="<option  value='"+v['user_id']+"'>"+v['user_name']+"</option>";
+				   $(".select10").append(bu);
+			   })
+			   
+		  },
+		  error:function(){
+			  alert("失败");
+		  }
+	  })
+    }
+		   //拿取所有部门信息
+		   function getDeparts(){
+			  $.ajax({
+				  type:"post",
+				  data:{
+					 
+				  },
+				  dataType:"json",
+				  url:"/oa/depart/getDeparts.do",
+				  success:function(data){ 
+					  $.each(data,function(i,v){
+						  var bu ="<option  value='"+v['depart_id']+"'>"+v['depart_name']+"</option>";
+						  $(".select11").append(bu);
+						 
+						  
+					   })
+				  },
+				  error:function(){
+					  alert("失败");
+				  }
+			  })
+		  }
+		   //拿取权限信息
+		  function getRole(){
+	       $.ajax({
+		     type:"post",
+		        data:{
+		  },
+		  dataType:"json",
+		  url:"/oa/user/getRole.do",
+		  success:function(data){
+			   if (data==1) {
+				   $(".span10").hide();
+				   $(".select10").hide();
+				   $(".span11").hide();
+				   $(".select11").hide();
+			   }
+			   if (data==2) {
+				   $(".span10").show();
+				   $(".select10").show();
+				   $(".span11").hide();
+				   $(".select11").hide();
+			   }
+			   if (data==3) {
+				   $(".span10").show();
+				   $(".select10").show();
+				   $(".span11").show();
+				   $(".select11").show();
+			   }
+		  },
+		  error:function(){
+			  alert("失败");
+		  }
+	  })
+    }
+		   
 		</script>
 </head>
 <body>
@@ -216,21 +304,25 @@
 							<p>
 								<span>输入时间段:</span>
 								<span>开始时间</span>
-								<input name="startdate" type="date" />
+								<input name="startdate" type="date" class="start"/>
 								<span>-------结束时间</span>
-								<input name="endsate" type="date" />
-								<span>本日</span><input type="radio" name="time"/>
-								<span>本周</span><input type="radio" name="time"/>
-								<span>本月</span><input type="radio" name="time"/>
+								<input name="endsate" type="date"  class="end"/>
+								<span>本日</span><input type="radio" name="time" class="day" value="1"/>
+								<span>本周</span><input type="radio" name="time" class="day" value="2"/>
+								<span>本月</span><input type="radio" name="time" class="day" value="3"/>
 							</p>
 
-							<p>
+							<p class="condition">
 
-								<span>按机构</span>
-								<select ></select>
-								<span>按部门</span>
-								<select></select>
-								<input type="button" value="统计" class="tongji" style="background-color: origen;"/>
+								<span class="span10">按姓名</span>
+								<select class="select10">
+								<option value="-1" selected='selected'>请选择———</option>
+								</select>
+								<span class="span11">按部门</span>
+								<select class="select11">
+								<option value="-1" selected='selected'>请选择———</option>
+								</select>
+								<input type="button" value="统计" class="tongji" onclick="getSign(1)" style="background-color: origen;"/>
 							</p>
 
 							</p>

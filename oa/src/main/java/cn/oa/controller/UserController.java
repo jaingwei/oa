@@ -91,7 +91,6 @@ public class UserController {
 		String id = request.getParameter("id");
 		String depart = request.getParameter("depart");
 		String role = request.getParameter("role");
-		System.out.println("+++++++++++++" +name +"="+ id +"="+ depart+"="+ role);
 		//向对象中属性赋值
 		UserInfo userInfo =new UserInfo();
          if (name != null) {
@@ -111,6 +110,29 @@ public class UserController {
 		String json = JSON.toJSONString(list);
 		response.getWriter().write(json);
 	}
+	
+	
+	//根据权限获取相应的用户账号信息
+		public void getUserName(HttpServletRequest request, HttpServletResponse response) throws IOException{
+			UserInfo userInfo2 = new UserInfo();
+ 			//获取值
+			UserInfo userInfo =(UserInfo) request.getSession().getAttribute("user");
+			Integer role = userInfo.getRole_id();
+			if (role ==1) {
+				String userId = userInfo.getUser_id();
+				userInfo2.setUser_id(userId);
+			}
+            if (role ==2) {
+				Integer depart = userInfo.getDepart_id();
+				userInfo2.setDepart_id(depart);
+			}	
+			//向对象中属性赋值
+			
+			UserServices userServices = new UserServices();
+			List<Map<String, Object>> list = userServices.searchMap11(userInfo2);
+			String json = JSON.toJSONString(list);
+			response.getWriter().write(json);
+		}
 
 
 	//RS修改用户账号部门角色信息
@@ -266,6 +288,13 @@ public class UserController {
 		String msg = userServices.addUser(userInfo);
 		String json = JSON.toJSONString(msg);
 		response.getWriter().write(json);  
+	}
+	//将当前登录用户role扔到页面
+	public void getRole(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	    UserInfo userInfo = (UserInfo) request.getSession().getAttribute("user");
+		Integer role = userInfo.getRole_id();
+		String json = JSON.toJSONString(role);
+		response.getWriter().write(json);
 	}
 
 }

@@ -5,7 +5,9 @@ import java.util.Map;
 
 import cn.oa.dao.ManuslSignDAO;
 import cn.oa.entity.ManualSign;
+import cn.oa.entity.UserInfo;
 import cn.oa.util.PageUtil;
+import cn.oa.util.Time;
 
 public class ManuslSignServices {
     ManuslSignDAO manuslSignDAO = new ManuslSignDAO();
@@ -24,12 +26,12 @@ public class ManuslSignServices {
     
     
 	//查找签到信息，分页
-    public PageUtil getSigns(ManualSign manualSign,Integer index, Integer page){
+    public PageUtil getSigns(Time time,UserInfo userInfo,ManualSign manualSign,Integer index, Integer page){
 		PageUtil pageUtil =new PageUtil();
 		//查询总的签到信息
-		List<Map<String,Object>> list = manuslSignDAO.getSign(manualSign, index, page);
+		List<Map<String,Object>> list = manuslSignDAO.getSign(time,userInfo, manualSign, index, page);
     	//查询信息总数
-		int totalCount = manuslSignDAO.getCount(manualSign);
+		int totalCount = manuslSignDAO.getCount(manualSign, userInfo);
 		//计算总页数
 		int totalPage = (totalCount-1)/page+1;
 		pageUtil.setIndex(index);
@@ -39,12 +41,6 @@ public class ManuslSignServices {
 		pageUtil.setTotalPage(totalPage);
 		return pageUtil;
     }
-    public static void main(String[] args) {
-		ManuslSignServices manuslSignServices =new ManuslSignServices();
-		ManualSign manualSign =new ManualSign();
-		PageUtil pageUtil =manuslSignServices.getSigns(manualSign, 1, 10);
-		System.out.println(pageUtil);
-		
-	}
+   
     
 }
