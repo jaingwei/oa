@@ -34,7 +34,7 @@
 			}
 		 //拿取签到信息
 		   function getSign(i){
-			 alert($(".day:checked").val());
+			
 			   $(".table10").html("");
 				  $.ajax({
 					  type:"post",

@@ -31,7 +31,7 @@ public class ManuslSignServices {
 		//查询总的签到信息
 		List<Map<String,Object>> list = manuslSignDAO.getSign(time,userInfo, manualSign, index, page);
     	//查询信息总数
-		int totalCount = manuslSignDAO.getCount(manualSign, userInfo);
+		int totalCount = manuslSignDAO.getCount(manualSign, userInfo,time);
 		//计算总页数
 		int totalPage = (totalCount-1)/page+1;
 		pageUtil.setIndex(index);

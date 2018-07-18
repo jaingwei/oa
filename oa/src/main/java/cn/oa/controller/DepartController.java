@@ -106,7 +106,7 @@ public class DepartController {
    //删除部门
 	public void removeDepart(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String id = request.getParameter("depardId");
-		System.out.println("删除");
+		
 		Departinfo departinfo = new Departinfo();
 		departinfo.setDepart_id(Integer.valueOf(id));
 		DepartinfoServices departinfoServices = new DepartinfoServices();

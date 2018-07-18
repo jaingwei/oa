@@ -85,10 +85,6 @@ public class ManuslSignDAO extends BaseDAO<ManualSign>{
 			sql+=" and u1.user_id =?";
 			num++;
 		}
-        if (time.getTimeType()!=null) {
-        	sql+="";
-        	num++;
-		}
 		if (time.getStartTime()!=null) {
 			sql+=" and DATE(m1.sign_time) BETWEEN ?";
 			num++;
@@ -97,7 +93,18 @@ public class ManuslSignDAO extends BaseDAO<ManualSign>{
 			sql+=" AND ?";
 			num++;
 		}
-		
+		if (time.getTimeType()!=null) {
+			Integer t = Integer.valueOf(time.getTimeType());
+			System.out.println("DAO"+t);
+			if (t==1) {
+				sql +=" and TO_DAYS(m1.sign_time)=TO_DAYS(NOW()) ";
+			}else if (t==2) {
+				sql +=" and DATE_SUB(CURDATE(),INTERVAL 7 DAY) <=DATE(m1.sign_time) ";
+			}else if (t==3) {
+				sql +=" and DATE_FORMAT(m1.sign_time,'%Y%m') = DATE_FORMAT(CURDATE(),'%Y%m') ";
+			}
+			
+		}
 		
 		Object[] obj = new Object[num];
 		num=0;
@@ -121,10 +128,6 @@ public class ManuslSignDAO extends BaseDAO<ManualSign>{
 			obj[num] = userInfo.getUser_id();
 			num++;
 		}
-	    if (time.getTimeType()!=null) {
-        	obj[num] = time.getTimeType();
-        	num++;
-		}
 		if (time.getStartTime()!=null) {
 			obj[num] = time.getStartTime();
 			num++;
@@ -133,15 +136,15 @@ public class ManuslSignDAO extends BaseDAO<ManualSign>{
 			obj[num] = time.getEndTime();
 			num++;
 		}
+		
 		sql+=" limit "+(index-1)*page+","+page;
-		System.out.println(sql);
 		List<Map<String, Object>> list = super.queryListMap(sql, obj);
 		return list;
 
 	}
 
 	//获取签到信息总数
-	public int getCount(ManualSign manualSign,UserInfo userInfo){
+	public int getCount(ManualSign manualSign,UserInfo userInfo,Time time){
 		String sql = " SELECT count(1) FROM manualsign m1"
 				+" INNER JOIN userinfo u1 ON u1.user_id=m1.user_id"
 				+" WHERE 1=1";
@@ -162,6 +165,30 @@ public class ManuslSignDAO extends BaseDAO<ManualSign>{
 			sql+=" and u1.depart_id = ? ";
 			num++;
 		}
+        if (userInfo.getUser_id()!=null) {
+			sql+=" and u1.user_id =?";
+			num++;
+		}
+		if (time.getStartTime()!=null) {
+			sql+=" and DATE(m1.sign_time) BETWEEN ?";
+			num++;
+		}
+		if (time.getEndTime()!=null) {
+			sql+=" AND ?";
+			num++;
+		}
+		if (time.getTimeType()!=null) {
+			Integer t = Integer.valueOf(time.getTimeType());
+			System.out.println("DAO"+t);
+			if (t==1) {
+				sql +=" and TO_DAYS(m1.sign_time)=TO_DAYS(NOW()) ";
+			}else if (t==2) {
+				sql +=" and DATE_SUB(CURDATE(),INTERVAL 7 DAY) <=DATE(m1.sign_time) ";
+			}else if (t==3) {
+				sql +=" and DATE_FORMAT(m1.sign_time,'%Y%m') = DATE_FORMAT(CURDATE(),'%Y%m') ";
+			}
+			
+		}
 		
 		Object[] obj = new Object[num];
 		num=0;
@@ -179,8 +206,21 @@ public class ManuslSignDAO extends BaseDAO<ManualSign>{
 		}
 		if (userInfo.getDepart_id()!=null) {
 			obj[num] = userInfo.getDepart_id();
+			num++;
 		}
-
+		if (userInfo.getUser_id()!=null) {
+			obj[num] = userInfo.getUser_id();
+			num++;
+		}
+		if (time.getStartTime()!=null) {
+			obj[num] = time.getStartTime();
+			num++;
+		}
+		if (time.getEndTime()!=null) {
+			obj[num] = time.getEndTime();
+			num++;
+		}
+		
 		List<Map<String, Object>> list = super.queryListMap(sql, obj);
 		int count = Integer.valueOf(list.get(0).get("count(1)").toString());
 		return count;

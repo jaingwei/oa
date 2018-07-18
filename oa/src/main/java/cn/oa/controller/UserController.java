@@ -206,7 +206,6 @@ public class UserController {
 		UserServices userServices = new UserServices();
 		UserInfo userInfo =new UserInfo();
 		userInfo.setUser_id(userId);
-		System.out.println("kongzhi"+userId);
 		List<Map<String, Object>> list = userServices.searchMap(userInfo);
 		Map<String, Object> map = list.get(0);
 
@@ -228,10 +227,7 @@ public class UserController {
 			System.out.println("错误");
 			return;
 		}
-		System.out.println(userId+","+username+","+password1+","+password2+","+depart+","+role+","+state);
-
-
-
+	
 		UserInfo userInfo =new UserInfo();
 		userInfo.setUser_id(userId);
 		userInfo.setUser_name(username);
@@ -264,13 +260,9 @@ public class UserController {
 		String sex =request.getParameter("sex");
 
 		if (Integer.valueOf(role)==-1 || Integer.valueOf(depart)==-1) {
-			System.out.println("错误");
 			return;
 		}
-		System.out.println(userId+","+username+","+password1+","+password2+","+depart+","+role+","+state+","+number+","+sex);
-
-
-
+		
 		UserInfo userInfo =new UserInfo();
 		userInfo.setUser_id(userId);
 		userInfo.setUser_name(username);

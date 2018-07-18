@@ -48,8 +48,6 @@ public class SignController {
 		String userId = request.getParameter("name");
 		String UserDepart = request.getParameter("depart");
 		String timeType = request.getParameter("timeType");
-		
-		System.out.println(userId+"============="+UserDepart+"=========="+timeType);
 		Time time = new Time(); 
 		if ( start !="") {
 			time.setStartTime(start);
@@ -93,6 +91,7 @@ public class SignController {
 		//调用后台方法
 		
 		ManuslSignServices manuslSignServices = new ManuslSignServices();
+		
 		PageUtil pageUtil = manuslSignServices.getSigns(time,userInfo2, manualSign,Integer.valueOf(index), 10);
 		//json向页扔数据
         String json = JSON.toJSONString(pageUtil);

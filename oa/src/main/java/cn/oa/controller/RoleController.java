@@ -41,11 +41,9 @@ public class RoleController {
 	
 	//所有角色信息搜索
 		public void getRoles(HttpServletRequest request, HttpServletResponse response) throws IOException{	
-			System.out.println("角色");
 			RoleServices roleServices = new RoleServices();
 			Roleinfo roleinfo = new Roleinfo();
 			List<Roleinfo> list = roleServices.getroles(roleinfo);
-			System.out.println(list);
 			String json = JSON.toJSONString(list);
 			response.getWriter().write(json);
 		}
