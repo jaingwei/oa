@@ -225,16 +225,53 @@ public class ManuslSignDAO extends BaseDAO<ManualSign>{
 		int count = Integer.valueOf(list.get(0).get("count(1)").toString());
 		return count;
 	}
-
-  public static void main(String[] args) {
-	ManuslSignDAO manuslSignDAO = new ManuslSignDAO();
-	UserInfo userInfo =new UserInfo();
-	ManualSign manualSign =new ManualSign();
-	Time time = new Time();
+  //获取用户出勤次数
+	public Integer getAttendance(UserInfo userInfo, Integer tag){
+		String sql =" SELECT count(1) FROM manualsign WHERE " 
+             +" manualsign.user_id=? AND manualsign.sign_tag=? "
+             +" AND DATE_FORMAT(manualsign.sign_time,'%Y%m') = DATE_FORMAT(CURDATE(),'%Y%m')";
+		Object[] obj = {userInfo.getUser_id(), tag};
+		List<Map<String, Object>> list = super.queryListMap(sql, obj);
+		int num = Integer.valueOf(list.get(0).get("count(1)").toString());
+		return num;
+	}
+  //获取用户迟到次数
+	public Integer getlate(UserInfo userInfo, Integer tag){
+		String sql =" SELECT count(1) FROM manualsign WHERE " 
+             +" manualsign.user_id=? AND manualsign.sign_tag=? "
+             +" AND DATE_FORMAT(manualsign.sign_time,'%Y%m') = DATE_FORMAT(CURDATE(),'%Y%m')"
+		     +" AND DATE_FORMAT(manualsign.sign_time,'%T')> "
+		     +" (SELECT worktime.on_duty_time FROM worktime)";
+		Object[] obj = {userInfo.getUser_id(), tag};
+		List<Map<String, Object>> list = super.queryListMap(sql, obj);
+		int num = Integer.valueOf(list.get(0).get("count(1)").toString());
+		return num;
+	}
+  //获取用户早退次数
+	public Integer getearly(UserInfo userInfo, Integer tag){
+		String sql =" SELECT count(1) FROM manualsign WHERE " 
+             +" manualsign.user_id=? AND manualsign.sign_tag=? "
+             +" AND DATE_FORMAT(manualsign.sign_time,'%Y%m') = DATE_FORMAT(CURDATE(),'%Y%m')"
+		     +" AND DATE_FORMAT(manualsign.sign_time,'%T')< "
+		     +" ( SELECT worktime.off_duty_time FROM worktime)";
+		Object[] obj = {userInfo.getUser_id(), tag};
+		List<Map<String, Object>> list = super.queryListMap(sql, obj);
+		int num = Integer.valueOf(list.get(0).get("count(1)").toString());
+		return num;
+	}
+  //获取用户旷工次数
+	public Integer getday(UserInfo userInfo, Integer tag){
+		String sql =" select DATEDIFF(date_add(curdate()-day(curdate())+1,interval 1 month ),"
+				+" DATE_ADD(curdate(),interval -day(curdate())+1 day)) d from dual";
+		Object[] obj = {};
+		List<Map<String, Object>> list = super.queryListMap(sql, obj);
+		int allday = Integer.valueOf(list.get(0).get("d").toString());
+		ManuslSignDAO manuslSignDAO = new ManuslSignDAO();
+		int day = manuslSignDAO.getAttendance(userInfo, tag);
+		int noday = allday-day;
+		return noday;
+	}
+		
 	
-	List<Map<String, Object>> list = manuslSignDAO.getSign(time, userInfo, manualSign, 1, 10);
-	System.out.println(list);
-	
-  }
 
 }

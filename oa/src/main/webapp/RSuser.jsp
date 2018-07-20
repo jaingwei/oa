@@ -13,6 +13,8 @@
 			  click();
 			  getDeparts();
 			  getRoles();
+			  role();
+			  roleclick();
          })
 			function click(){
 				$('.h_click_li_return').click(function() {
@@ -30,6 +32,133 @@
 				})
 			}
 			
+		
+		//获取菜单
+		function role(){
+			$.ajax({
+				type:"post",
+				data:{
+					
+				},
+				dataType:"json",
+				url:"/oa/role/getsys.do",
+				success:function(data){
+					var num=0;
+					var i1 =0;
+					var i2 =0;
+					var i3 =0;
+					var i4 =0;
+					var i5 =0;
+					var i6 =0;
+					var roleul=$(".s_left_1_ul");
+					$.each(data,function(i,v){
+						if (v['parent_order']==1 && i1==0) {
+							var li1 = "<li>"+v['parent_name']
+							+ "<ul></ul>"
+							+ "</li>"
+							i1++;
+							num++;
+							roleul.append(li1);
+						}
+						if (v['parent_order']==1 && i1==1) {
+							var li11 = "<li><a href= "+v['node_url']+">"+v['display_name']
+							+ "</a></li>";
+							$(".s_left_1_ul>li:nth-of-type("+num+")>ul").append(li11);
+						}
+						
+						if (v['parent_order']==2 && i2==0) {
+							var li2 = "<li>"+v['parent_name']
+							+ "<ul></ul>"
+							+ "</li>"
+							i2++;
+							num++;
+							roleul.append(li2);
+						}
+						if (v['parent_order']==2 && i2==1) {
+							var li22 = "<li><a href= "+v['node_url']+">"+v['display_name']
+							+ "</a></li>";
+							$(".s_left_1_ul>li:nth-of-type("+num+")>ul").append(li22);
+						}
+						
+						if (v['parent_order']==3 && i3==0) {
+							var li3 = "<li>"+v['parent_name']
+							+ "<ul></ul>"
+							+ "</li>"
+							i3++;
+							num++;
+							roleul.append(li3);
+						}
+						
+						if (v['parent_order']==3 && i3==1) {
+							
+							var li33 = "<li><a href= "+v['node_url']+">"+v['display_name']
+							+ "</a></li>";
+							$(".s_left_1_ul>li:nth-of-type("+num+")>ul").append(li33);
+						}
+						
+						if (v['parent_order']==4 && i4==0) {
+							var li4 = "<li>"+v['parent_name']
+							+ "<ul></ul>"
+							+ "</li>"
+							i4++;
+							num++;
+							roleul.append(li4);
+						}
+						
+						if (v['parent_order']==4 && i4==1) {
+							
+							var li33 = "<li><a href= "+v['node_url']+">"+v['display_name']
+							+ "</a></li>";
+							$(".s_left_1_ul>li:nth-of-type("+num+")>ul").append(li33);
+						}
+						
+						if (v['parent_order']==5 && i5==0) {
+							var li3 = "<li>"+v['parent_name']
+							+ "<ul></ul>"
+							+ "</li>"
+							i5++;
+							num++;
+							roleul.append(li3);
+						}
+						
+						if (v['parent_order']==5 && i5==1) {
+							
+							var li33 = "<li><a href= "+v['node_url']+">"+v['display_name']
+							+ "</a></li>";
+							$(".s_left_1_ul>li:nth-of-type("+num+")>ul").append(li33);
+						}
+						
+						if (v['parent_order']==6 && i6==0) {
+							var li3 = "<li>"+v['parent_name']
+							+ "<ul></ul>"
+							+ "</li>"
+							i6++;
+							num++;
+							roleul.append(li3);
+						}
+						
+						if (v['parent_order']==6 && i6==1) {
+							
+							var li33 = "<li><a href= "+v['node_url']+">"+v['display_name']
+							+"</a></li>";
+							$(".s_left_1_ul>li:nth-of-type("+num+")>ul").append(li33);
+						}
+						
+					})
+				},
+				error:function(){
+					
+				}
+				
+			})
+		
+		
+		}
+		function roleclick(){
+			$(document).on("click",".s_left_1_ul>li",function(){
+				$(this).find('ul').toggle();
+			})
+		}
 		//拿取所有部门
 		function getDeparts(){
 			  $.ajax({
@@ -75,6 +204,19 @@
 		
 		 //添加用户信息
 		  function addUser(){
+			 if (!Yid) {
+				 yid();
+			}else if(!Yname) {
+				yname();
+			}else if(!Ypassword1) {
+				checkPassword();
+			}else if(!Ypassword2) {
+				checkRepass(); 
+			}else if (!Ystate) {
+				ystate();
+			}else if (!Ynumber) {
+				ynumber()
+			}else{
 				$.ajax({
 					type:"post",
 					data:{
@@ -101,8 +243,8 @@
 					
 					}
 				})
+			}	
 			}
-		 
 		 function reStart(){
 			 $(".msgp").html("");
 			 $(".input10").val("");
@@ -110,10 +252,112 @@
 			 $(".input111").val("");
 			 $(".input12").val("");
 			 $(".input13").val("");
+			 $(".input14").val(""),
 			 $(".select10>option[value=-1]").attr("selected","selected");
 			 $(".select11>option[value=-1]").attr("selected","selected");
 		 }
 		 
+		 
+		 //表单验证
+		 var Yid = false;
+		 var Yname = false;
+		 var Ypassword1 = false;
+		 var Ypassword2 = false;
+		 var Ystate= false;
+		 var Ynumber= false;
+		 
+		 function yid() {
+		  var id = 	$(".input10").val();
+		  if (id==""){
+			$(".span1").text("用户id不可为空");
+		  }else{
+			  $.ajax({
+					type:"post",
+					data:{
+						userId:$(".input10").val()
+					},
+					dataType:"json",
+					url:"/oa/user/YgetUser.do",
+					success:function(data){
+						
+						if (data == "1") {
+							  $(".span1").text("用户名已有，请重新输入");
+						}else{
+							  Yid=true;
+							  $(".span1").text("输入成功");
+						}
+					},
+					error:function(){
+					
+					}
+				})  
+		   }
+		 }
+		 //第一次密码验证
+		 function checkPassword() {
+				var pswd_reg = /^[a-zA-Z][a-zA-Z0-9]{5,17}$/;		
+				var password = $(".input11");		
+				var flag = pswd_reg.test(password.val());		
+				if (flag) {
+					 $(".span2").text("验证成功");
+					 Ypassword1 = true;
+				} else {
+					 $(".span2").text("密码由6-18位字母，数字组合");
+				}
+
+			}
+			//第二次密码验证（js验证）
+			function checkRepass() {
+				var password = $(".input11");
+				var repass = $(".input111");
+				if (repass.val() == password.val()) {
+					 $(".span3").text("验证成功");
+					Ypassword2 = true;
+				} else {
+					$(".span3").text("请输入相同的密码");
+				}
+
+			}
+		 function yname() {
+			 var tel = $(".input12").val();
+			 if (tel=="") {
+			 	  $(".span4").text("姓名不可为空，请输入");
+			  }else{
+					  Yname = true;
+				 $(".span4").text("输入成功");
+			  }
+		}
+		 
+		 function ystate() {
+			var state = $(".input13").val();
+			if (state=="") {
+			 	  $(".span5").text("内容不可为空，请输入");
+			  }else{
+				  if (state=="正常状态" || state=="屏蔽状态") {
+					  Ystate = true;
+					$(".span5").text("输入成功");
+				} else {
+					$(".span5").text(" 状态只有'正常状态'和'屏蔽状态' 这两种 ");
+				}
+				
+			  }
+		}
+		 
+		 function ynumber() {
+			  var pswd_reg = /^[0-9]{11}$/;
+			  var tel = $(".input14").val();
+			  var flag = pswd_reg.test(tel);
+			  if (tel=="") {
+			 	  $(".span6").text("号码不可为空，请输入");
+			  }else{
+				  if (flag) {
+					  Ynumber = true;
+					  $(".span6").text("输入成功");
+				 }else{
+					 $(".span6").text("号码由11位数字组合");
+				 }  
+			  }
+		}
 		</script>
 </head>
 <body>
@@ -210,77 +454,31 @@
 						</div>
 					</li>
 				</ul>
-				<div class="f_head_msg">
-					欢迎：
-					<a href="#">姜伟</a>
-				</div>
+				
 
-				<p class="f_head_tubiao">
-					<a href="#"></a>
-					<a href="first.html"></a>
-					<a href="#"></a>
-					<a href="#"></a>
-					<a href="#"></a>
-					<a href="#"></a>
-				</p>
+			<div class="f_head_msg">
+		
+			   欢迎： <a href="/oa/RSMmploye.jsp">${user.user_name}</a>
+	     </div>
+		<p class="f_head_tubiao">
+		     
+			<a href="#"></a> 
+			<a href="/oa/first.jsp"></a> 
+			<a href="#"></a> 
+			<a href="/oa/first.jsp" onclick="removesession()" ></a>
+		</p>
 			</div>
 
 		</header>
 		<section>
 			<div class="section">
 				<div class="s_left">
-					<div class="s_left_1">
-						<ul>
-							<li>
-								<a href="#">快捷方式</a>
-							</li>
-							<li>
-								<a href="#">消息提醒</a>
-							</li>
-							<li>
-								<a href="#">我的信息</a>
-							</li>
-							<li>
-								<a href="#">我的流程</a>
-							</li>
-							<li class="s_left_1_all">
-								<a href="#" class="s_left_1_hui">我的行政</a>
-								<ul class="s_left_1_hui_ul">
-									<li>
-										<a href="#">会议日历</a>
-									</li>
-									<li>
-										<a href="#">会议发起</a>
-									</li>
-									<li>
-										<a href="#">我的用车</a>
-									</li>
-									<li>
-										<a href="#">用车日历</a>
-									</li>
-									<li>
-										<a href="#">用品领取</a>
-									</li>
-									<li>
-										<a href="#">我的考勤</a>
-									</li>
-									<li>
-										<a href="#">考勤申请记录</a>
-									</li>
-									<li>
-										<a href="#">我的图书</a>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<a href="#">文件柜</a>
-							</li>
-							<li>
-								<a href="#">通讯录</a>
-							</li>
-						</ul>
-					</div>
+				<div class="s_left_1">
+					<ul class="s_left_1_ul">
+
+					</ul>
 				</div>
+			</div>
 				<div class="section_1"></div>
 				<div class="f_right">
 					<h3>当前位置:文件搜索</h3>
@@ -290,13 +488,15 @@
 					<p>_______________________________________________________________________________________________________________________________________________________________________</p>
 					<div class="bb3">
 						<form >
-							用户登录名:<input name="username" class="input10"/><br /> 
+							用户登录名:<input name="username" class="input10" onblur="yid()"/><span class="span1"></span><br /> 	
 							密 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:
-							<input type="password" name="password" class="input11"/><br /> 
+							<input type="password" name="password" class="input11" onblur="checkPassword()"/><span class="span2"></span><br /> 
 							确&nbsp;认&nbsp;密&nbsp;码:
-							<input type="password"  class="input111"/><br /> 
+							<input type="password"  class="input111" onblur="checkRepass()"/><span class="span3"></span><br /> 
+							
 							真&nbsp;实&nbsp;姓&nbsp;名:
-							<input name="name"  class="input12"/><br /> 
+							<input name="name"  class="input12" onblur="yname()"/><span class="span4"></span><br /> 
+							
 							所&nbsp;在&nbsp;部&nbsp;门:
 							<select name="select1" class="select10">
 								<option selected="selected" value="-1">--请选择--</option>
@@ -314,9 +514,11 @@
 								
 							</select><br /> 
 							当前状态:
-							<input type="text" class="input13"/><br />
+							<input type="text" class="input13" onblur="ystate()"/><span class="span5"></span><br />
+							
 							用户号码:
-							<input name="number"  class="input14"/><br /> 
+							<input name="number"  class="input14" onblur="ynumber()"/><span class="span6"></span><br /> 
+							
 							<input type="button" value="保存" onclick="addUser()"/>
 							<input type="button" value="全部重写" onclick="reStart()" />
 							<a href="/oa/RSuserSearcch.jsp">

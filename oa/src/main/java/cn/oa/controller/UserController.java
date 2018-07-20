@@ -208,7 +208,6 @@ public class UserController {
 		userInfo.setUser_id(userId);
 		List<Map<String, Object>> list = userServices.searchMap(userInfo);
 		Map<String, Object> map = list.get(0);
-
 		String json = JSON.toJSONString(map);
 		response.getWriter().write(json);
 	}
@@ -288,5 +287,24 @@ public class UserController {
 		String json = JSON.toJSONString(role);
 		response.getWriter().write(json);
 	}
+	
+	//获取某一账户的信息
+		public void YgetUser(HttpServletRequest request, HttpServletResponse response) throws IOException{
+			String userId = request.getParameter("userId");
+			UserServices userServices = new UserServices();
+			UserInfo userInfo =new UserInfo();
+			userInfo.setUser_id(userId);
+			List<Map<String, Object>> list = userServices.searchMap(userInfo);
+			String msg = "";
+			if (list==null||list.size()==0) {
+			   	msg = "0";
+			}else{
+				msg = "1";
+			}
+			String json = JSON.toJSONString(msg);
+			response.getWriter().write(json);
+		}
+	
+	
 
 }

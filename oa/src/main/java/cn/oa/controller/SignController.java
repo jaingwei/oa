@@ -17,7 +17,7 @@ import cn.oa.util.PageUtil;
 import cn.oa.util.Time;
 
 public class SignController {
-    //添加签到签退信息
+	//添加签到签退信息
 	public void addSign(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String msg =null;
 		UserInfo userInfo = (UserInfo) request.getSession().getAttribute("user");
@@ -35,10 +35,10 @@ public class SignController {
 		String json = JSON.toJSONString(map);
 		response.getWriter().write(json);
 	}
-	
+
 	//查找签到信息
 	public void getSign(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		
+
 		ManualSign manualSign =new ManualSign();
 		//拿取页面数据
 		String index = request.getParameter("index");
@@ -62,21 +62,21 @@ public class SignController {
 		UserInfo userInfo = (UserInfo) request.getSession().getAttribute("user"); 
 		//拿取当前权限id
 		Integer roleId = userInfo.getRole_id();
-		
+
 		//新建用户类，方法传参
 		UserInfo userInfo2 = new UserInfo();
 		if (roleId==1) {
 			String name = userInfo.getUser_name();
 			userInfo2.setUser_name(name);
 		}
-        if (roleId==2) {
+		if (roleId==2) {
 			Integer depart = userInfo.getDepart_id();
 			userInfo2.setDepart_id(depart);
 			if (Integer.valueOf(userId) != -1) {
 				userInfo2.setUser_id(userId);
 			}
 		}
-        if (roleId==3) {
+		if (roleId==3) {
 			if (Integer.valueOf(userId) !=-1 ) {
 				userInfo2.setUser_id(userId);
 			}
@@ -84,20 +84,40 @@ public class SignController {
 				userInfo2.setDepart_id(Integer.valueOf(UserDepart));
 			}
 		}
-		
+
 		if (index == null) {
-		  index = "1";
+			index = "1";
 		}
 		//调用后台方法
-		
+
 		ManuslSignServices manuslSignServices = new ManuslSignServices();
-		
+
 		PageUtil pageUtil = manuslSignServices.getSigns(time,userInfo2, manualSign,Integer.valueOf(index), 10);
 		//json向页扔数据
-        String json = JSON.toJSONString(pageUtil);
-        response.getWriter().write(json);
-		
+		String json = JSON.toJSONString(pageUtil);
+		response.getWriter().write(json);
+
 	}
-	
-	
+
+	public void getsignNum( HttpServletRequest request, HttpServletResponse response) throws IOException{
+		//拿取数据
+		String name = request.getParameter("name");
+		String depart = request.getParameter("depart");
+
+
+		ManuslSignServices manuslSignServices = new ManuslSignServices();
+		UserInfo userInfo = new UserInfo();
+		if (Integer.valueOf(name)!=-1) {
+              userInfo.setUser_id(name);
+		}
+		if (Integer.valueOf(depart)!=-1) {
+			userInfo.setDepart_id(Integer.valueOf(depart));
+		}
+		List<Map<String, Object>> list = manuslSignServices.getStatistic(userInfo);
+		System.out.println(list);
+		String json = JSON.toJSONString(list);
+		response.getWriter().write(json);
+	}
+
+
 }

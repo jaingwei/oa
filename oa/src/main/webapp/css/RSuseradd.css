@@ -6,7 +6,7 @@
 .bb{
 		float: left;
 	width: 1200px;
-	height: 640px;
+	height: 685px;
 	background-color: #7FFFD4;
 }
 form{
@@ -19,10 +19,14 @@ form{
 	margin-top: 50px;
 }
 .bb3{
-	width: 400px;
-	height: 520px;
+	width: 500px;
+	height: 685px;
 	background-color: whitesmoke;
 	margin: 0 auto;
+}
+.bb3 span{
+	font-size: 14px;
+	color: red;
 }
 .bb4{
 	width: 50px;

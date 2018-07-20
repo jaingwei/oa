@@ -3,14 +3,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>华天协同OA平台</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>华天协同OA平台</title>
 		<link rel="stylesheet" type="text/css" href="/oa/css/public.css" />
 		<link rel="stylesheet" type="text/css" href="/oa/css/KQstatistics.css" />
 		<script type="text/javascript" src="/oa/js/jquery-1.12.4.js"></script>
 		<script type="text/javascript">
 		 $(function() {
 			  click();
+			  getSign();
+			  getDeparts();
+			  getUser();
+			 
+			  role();
+			  roleclick();
+			 
            })
 			function click(){
 				$('.h_click_li_return').click(function() {
@@ -27,8 +34,210 @@
 					$(this).css('background-color','#039adf')
 				})
 			}
-		 
-		 
+		//获取菜单
+			function role(){
+				$.ajax({
+					type:"post",
+					data:{
+						
+					},
+					dataType:"json",
+					url:"/oa/role/getsys.do",
+					success:function(data){
+						var num=0;
+						var i1 =0;
+						var i2 =0;
+						var i3 =0;
+						var i4 =0;
+						var i5 =0;
+						var i6 =0;
+						var roleul=$(".s_left_1_ul");
+						$.each(data,function(i,v){
+							if (v['parent_order']==1 && i1==0) {
+								var li1 = "<li>"+v['parent_name']
+								+ "<ul></ul>"
+								+ "</li>"
+								i1++;
+								num++;
+								roleul.append(li1);
+							}
+							if (v['parent_order']==1 && i1==1) {
+								var li11 = "<li><a href= "+v['node_url']+">"+v['display_name']
+								+ "</a></li>";
+								$(".s_left_1_ul>li:nth-of-type("+num+")>ul").append(li11);
+							}
+							
+							if (v['parent_order']==2 && i2==0) {
+								var li2 = "<li>"+v['parent_name']
+								+ "<ul></ul>"
+								+ "</li>"
+								i2++;
+								num++;
+								roleul.append(li2);
+							}
+							if (v['parent_order']==2 && i2==1) {
+								var li22 = "<li><a href= "+v['node_url']+">"+v['display_name']
+								+ "</a></li>";
+								$(".s_left_1_ul>li:nth-of-type("+num+")>ul").append(li22);
+							}
+							
+							if (v['parent_order']==3 && i3==0) {
+								var li3 = "<li>"+v['parent_name']
+								+ "<ul></ul>"
+								+ "</li>"
+								i3++;
+								num++;
+								roleul.append(li3);
+							}
+							
+							if (v['parent_order']==3 && i3==1) {
+								
+								var li33 = "<li><a href= "+v['node_url']+">"+v['display_name']
+								+ "</a></li>";
+								$(".s_left_1_ul>li:nth-of-type("+num+")>ul").append(li33);
+							}
+							
+							if (v['parent_order']==4 && i4==0) {
+								var li4 = "<li>"+v['parent_name']
+								+ "<ul></ul>"
+								+ "</li>"
+								i4++;
+								num++;
+								roleul.append(li4);
+							}
+							
+							if (v['parent_order']==4 && i4==1) {
+								
+								var li33 = "<li><a href= "+v['node_url']+">"+v['display_name']
+								+ "</a></li>";
+								$(".s_left_1_ul>li:nth-of-type("+num+")>ul").append(li33);
+							}
+							
+							if (v['parent_order']==5 && i5==0) {
+								var li3 = "<li>"+v['parent_name']
+								+ "<ul></ul>"
+								+ "</li>"
+								i5++;
+								num++;
+								roleul.append(li3);
+							}
+							
+							if (v['parent_order']==5 && i5==1) {
+								
+								var li33 = "<li><a href= "+v['node_url']+">"+v['display_name']
+								+ "</a></li>";
+								$(".s_left_1_ul>li:nth-of-type("+num+")>ul").append(li33);
+							}
+							
+							if (v['parent_order']==6 && i6==0) {
+								var li3 = "<li>"+v['parent_name']
+								+ "<ul></ul>"
+								+ "</li>"
+								i6++;
+								num++;
+								roleul.append(li3);
+							}
+							
+							if (v['parent_order']==6 && i6==1) {
+								
+								var li33 = "<li><a href= "+v['node_url']+">"+v['display_name']
+								+"</a></li>";
+								$(".s_left_1_ul>li:nth-of-type("+num+")>ul").append(li33);
+							}
+							
+						})
+					},
+					error:function(){
+						
+					}
+					
+				})
+			
+			
+			}
+			function roleclick(){
+				$(document).on("click",".s_left_1_ul>li",function(){
+					$(this).find('ul').toggle();
+				})
+			}
+		 //拿取签到信息
+		   function getSign(i){
+			   
+			   $(".table10").html("");
+				  $.ajax({
+					  type:"post",
+					  data:{
+						 name:$(".select10>option:selected").val(),
+						 depart:$(".select11>option:selected").val()
+					  },
+					  dataType:"json",
+					  url:"/oa/sign/getsignNum.do",
+					  success:function(data){ 
+						   $.each(data,function(i,v){
+							   var tr ="<tr>"
+							   +"<td>"+v['username']+"</td>"
+							   +"<td>"+v['attendance']+"</td>"
+							   +"<td>"+(v['late'])+"</td>"
+							   +"<td>"+(v['early'])+"</td>"
+							   +"<td>"+v['noday']+"</td>"
+							   +"<td>"+v['depart']+"</td>"
+							   +"<td>"+v['branch']+"</td>"
+							   +"</tr>";
+							   $(".table10").append(tr);
+						   })
+  
+					  },
+					  error:function(){
+						  alert("失败");
+					  }
+				  }) 
+		   }
+		   
+		   //拿取所有人员信息（根据部门中）
+		 function getUser(){
+	      $(".table").html("");
+	       $.ajax({
+		     type:"post",
+		        data:{
+		  },
+		  dataType:"json",
+		  url:"/oa/user/getUserName.do",
+		  success:function(data){ 
+			   $.each(data,function(i,v){
+				   var bu ="<option  value='"+v['user_id']+"'>"+v['user_name']+"</option>";
+				   $(".select10").append(bu);
+			   })
+			   
+		  },
+		  error:function(){
+			  alert("失败");
+		  }
+	  })
+    }
+		   //拿取所有部门信息
+		   function getDeparts(){
+			  $.ajax({
+				  type:"post",
+				  data:{
+					 
+				  },
+				  dataType:"json",
+				  url:"/oa/depart/getDeparts.do",
+				  success:function(data){ 
+					  $.each(data,function(i,v){
+						  var bu ="<option  value='"+v['depart_id']+"'>"+v['depart_name']+"</option>";
+						  $(".select11").append(bu);
+						 
+						  
+					   })
+				  },
+				  error:function(){
+					  alert("失败");
+				  }
+			  })
+		  }
+		  
+		   
 		</script>
 </head>
 <body>
@@ -126,37 +335,29 @@
 					</li>
 				</ul>
 
-				<p class="f_head_tubiao">
-					<a href="#"></a>
-					<a href="first.html"></a>
-					<a href="#"></a>
-					<a href="#"></a>
-					<a href="#"></a>
-					<a href="#"></a>
-				</p>
+			<div class="f_head_msg">
+		
+			   欢迎： <a href="/oa/RSMmploye.jsp">${user.user_name}</a>
+	     </div>
+		<p class="f_head_tubiao">
+		     
+			<a href="#"></a> 
+			<a href="/oa/first.jsp"></a> 
+			<a href="#"></a> 
+			<a href="/oa/first.jsp" onclick="removesession()" ></a>
+		</p>
 			</div>
 
 		</header>
 		<section>
 			<div class="section">
 				<div class="s_left">
-					<div class="s_left_1">
-						<ul>
-							<li>
-								<p>员工考勤统计</p>
-							</li>
-							<li>
-								<a href="#">员工签到</a>
-							</li>
-							<li>
-								<a href="#">考勤历史查询</a>
-							</li>
-							<li>
-								<a href="#">考勤统计</a>
-							</li>
-						</ul>
-					</div>
+				<div class="s_left_1">
+					<ul class="s_left_1_ul">
+
+					</ul>
 				</div>
+			</div>
 				<div class="section_1"></div>
 				<div class="f_right">
 					<div class="f_right_top">
@@ -166,24 +367,19 @@
 					<p class="f_right_biao">员工考勤统计</p>
 					<div class="f_right_body">
 						<form>
-							<p>
-								<span>输入时间段:</span>
-								<span>开始时间</span>
-								<input name="startdate" type="date" />
-								<span>-------结束时间</span>
-								<input name="endsate" type="date" />
-								<span>本日</span><input type="radio" />
-								<span>本周</span><input type="radio" />
-								<span>本月</span><input type="radio" />
-							</p>
+					
 
-							<p>
+							<p class="condition">
 
-								<span>按机构</span>
-								<select ></select>
-								<span>按部门</span>
-								<select></select>
-								<input type="button" value="统计" class="tongji"/>
+								<span class="span10">按姓名</span>
+								<select class="select10">
+								<option value="-1" selected='selected'>请选择———</option>
+								</select>
+								<span class="span11">按部门</span>
+								<select class="select11">
+								<option value="-1" selected='selected'>请选择———</option>
+								</select>
+								<input type="button" value="统计" class="tongji" onclick="getSign(1)" style="background-color: origen;"/>
 							</p>
 
 							</p>
@@ -199,9 +395,9 @@
 									<th>所属部门</th>
 									<th>所属公司</th>
 								</tr>
-
 								
-
+                                 <tbody class="table10"></tbody>
+								
 							</table>
 
 						</div>

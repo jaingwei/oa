@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -8,20 +8,155 @@
 <link rel="stylesheet" type="text/css" href="/oa/css/public.css" />
 <script type="text/javascript" src="/oa/js/jquery-1.12.4.js"></script>
 <script type="text/javascript">
-			$(function() {
-				$('.h_click_li_return').click(function() {
-					$('.h_over').toggle();
+$(function() {
+    click();
+    role();
+    roleclick();
+  })
+	function click(){
+		$('.h_click_li_return').click(function() {
+			$('.h_over').toggle();
+		})
+		$('.s_left_1_hui').click(function(){
+			var index = $('.s_left_1_hui').index($(this));
+			$('.s_left_1_hui_ul').eq(index).toggle();
+		})
+
+		$('.h_head>ul>li').mouseover(function(){
+			$(this).css('background-color','#3A5FCD')
+		}).mouseout(function(){
+			$(this).css('background-color','#039adf')
+		})
+	}
+			
+			
+			//获取菜单
+			function role(){
+				$.ajax({
+					type:"post",
+					data:{
+						
+					},
+					dataType:"json",
+					url:"/oa/role/getsys.do",
+					success:function(data){
+						var num=0;
+						var i1 =0;
+						var i2 =0;
+						var i3 =0;
+						var i4 =0;
+						var i5 =0;
+						var i6 =0;
+						var roleul=$(".s_left_1_ul");
+						$.each(data,function(i,v){
+							if (v['parent_order']==1 && i1==0) {
+								var li1 = "<li>"+v['parent_name']
+								+ "<ul></ul>"
+								+ "</li>"
+								i1++;
+								num++;
+								roleul.append(li1);
+							}
+							if (v['parent_order']==1 && i1==1) {
+								var li11 = "<li><a href= "+v['node_url']+">"+v['display_name']
+								+ "</a></li>";
+								$(".s_left_1_ul>li:nth-of-type("+num+")>ul").append(li11);
+							}
+							
+							if (v['parent_order']==2 && i2==0) {
+								var li2 = "<li>"+v['parent_name']
+								+ "<ul></ul>"
+								+ "</li>"
+								i2++;
+								num++;
+								roleul.append(li2);
+							}
+							if (v['parent_order']==2 && i2==1) {
+								var li22 = "<li><a href= "+v['node_url']+">"+v['display_name']
+								+ "</a></li>";
+								$(".s_left_1_ul>li:nth-of-type("+num+")>ul").append(li22);
+							}
+							
+							if (v['parent_order']==3 && i3==0) {
+								var li3 = "<li>"+v['parent_name']
+								+ "<ul></ul>"
+								+ "</li>"
+								i3++;
+								num++;
+								roleul.append(li3);
+							}
+							
+							if (v['parent_order']==3 && i3==1) {
+								
+								var li33 = "<li><a href= "+v['node_url']+">"+v['display_name']
+								+ "</a></li>";
+								$(".s_left_1_ul>li:nth-of-type("+num+")>ul").append(li33);
+							}
+							
+							if (v['parent_order']==4 && i4==0) {
+								var li4 = "<li>"+v['parent_name']
+								+ "<ul></ul>"
+								+ "</li>"
+								i4++;
+								num++;
+								roleul.append(li4);
+							}
+							
+							if (v['parent_order']==4 && i4==1) {
+								
+								var li33 = "<li><a href= "+v['node_url']+">"+v['display_name']
+								+ "</a></li>";
+								$(".s_left_1_ul>li:nth-of-type("+num+")>ul").append(li33);
+							}
+							
+							if (v['parent_order']==5 && i5==0) {
+								var li3 = "<li>"+v['parent_name']
+								+ "<ul></ul>"
+								+ "</li>"
+								i5++;
+								num++;
+								roleul.append(li3);
+							}
+							
+							if (v['parent_order']==5 && i5==1) {
+								
+								var li33 = "<li><a href= "+v['node_url']+">"+v['display_name']
+								+ "</a></li>";
+								$(".s_left_1_ul>li:nth-of-type("+num+")>ul").append(li33);
+							}
+							
+							if (v['parent_order']==6 && i6==0) {
+								var li3 = "<li>"+v['parent_name']
+								+ "<ul></ul>"
+								+ "</li>"
+								i6++;
+								num++;
+								roleul.append(li3);
+							}
+							
+							if (v['parent_order']==6 && i6==1) {
+								
+								var li33 = "<li><a href= "+v['node_url']+">"+v['display_name']
+								+"</a></li>";
+								$(".s_left_1_ul>li:nth-of-type("+num+")>ul").append(li33);
+							}
+							
+						})
+					},
+					error:function(){
+						
+					}
+					
 				})
-				$('.s_left_1_hui').click(function(){
-					var index = $('.s_left_1_hui').index($(this));
-					$('.s_left_1_hui_ul').eq(index).toggle();
+			
+			
+			}
+			
+			function roleclick(){
+				$(document).on("click",".s_left_1_ul>li",function(){
+					$(this).find('ul').toggle();
 				})
-				$('.h_head>ul>li').mouseover(function(){
-					$(this).css('background-color','#3A5FCD')
-				}).mouseout(function(){
-					$(this).css('background-color','#039adf')
-				})
-			})
+			}
 		</script>
 </head>
 <body>
@@ -74,9 +209,16 @@
 			</li>
 		</ul>
 
+		 <div class="f_head_msg">
+		
+			   欢迎： <a href="/oa/RSMmploye.jsp">${user.user_name}</a>
+	     </div>
 		<p class="f_head_tubiao">
-			<a href="#"></a> <a href="first.html"></a> <a href="#"></a> <a
-				href="#"></a> <a href="#"></a> <a href="#"></a>
+		     
+			<a href="#"></a> 
+			<a href="/oa/first.jsp"></a> 
+			<a href="#"></a> 
+			<a href="/oa/first.jsp" onclick="removesession()" ></a>
 		</p>
 	</div>
 
@@ -85,24 +227,8 @@
 	<div class="section">
 		<div class="s_left">
 			<div class="s_left_1">
-				<ul>
-					<li><a href="#">快捷方式</a></li>
-					<li><a href="#">消息提醒</a></li>
-					<li><a href="#">我的信息</a></li>
-					<li><a href="#">我的流程</a></li>
-					<li class="s_left_1_all"><a href="#" class="s_left_1_hui">我的行政</a>
-						<ul class="s_left_1_hui_ul">
-							<li><a href="#">会议日历</a></li>
-							<li><a href="#">会议发起</a></li>
-							<li><a href="#">我的用车</a></li>
-							<li><a href="#">用车日历</a></li>
-							<li><a href="#">用品领取</a></li>
-							<li><a href="#">我的考勤</a></li>
-							<li><a href="#">考勤申请记录</a></li>
-							<li><a href="#">我的图书</a></li>
-						</ul></li>
-					<li><a href="#">文件柜</a></li>
-					<li><a href="#">通讯录</a></li>
+				<ul class="s_left_1_ul">
+						
 				</ul>
 			</div>
 		</div>

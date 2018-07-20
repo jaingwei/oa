@@ -23,22 +23,17 @@ public class DepartController {
 			request.getSession().setAttribute("depardId", depardid);
 		}
 		List<Map<String, Object>> list = departinfoServices.getDepart(departinfo);
-		
 		String json = JSON.toJSONString(list);
 		response.getWriter().write(json);
 	}
-	
 	
 	public void getDeparts(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		Departinfo departinfo = new Departinfo();
 		DepartinfoServices departinfoServices = new DepartinfoServices();
 		List<Map<String, Object>> list = departinfoServices.getDepart(departinfo);
-		
 		String json = JSON.toJSONString(list);
 		response.getWriter().write(json);
 	}
-	
-	
 	
 	
 	public void toDepart(HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -106,7 +101,6 @@ public class DepartController {
    //删除部门
 	public void removeDepart(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		String id = request.getParameter("depardId");
-		
 		Departinfo departinfo = new Departinfo();
 		departinfo.setDepart_id(Integer.valueOf(id));
 		DepartinfoServices departinfoServices = new DepartinfoServices();
@@ -114,6 +108,23 @@ public class DepartController {
 		String json = JSON.toJSONString(result);
 		response.getWriter().write(json);
 		
+	}
+	//查找部门
+	public void search(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		String depart = request.getParameter("depart");
+		Departinfo departinfo = new Departinfo();
+		departinfo.setDepart_name(depart);
+		DepartinfoServices departinfoServices = new  DepartinfoServices();
+		List<Map<String, Object>> list = departinfoServices.getDepart(departinfo);
+		String msg = null;
+		
+		if (list==null||list.size()==0) {
+		   	msg = "0";
+		}else{
+			msg = "1";
+		}
+		String json = JSON.toJSONString(msg);
+		response.getWriter().write(json);
 	}
 	
 }

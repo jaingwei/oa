@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/oa/css/Pro.css" />
 <script src="/oa/js/jquery-1.12.4.js" type="text/javascript" charset="utf-8"></script>
@@ -80,18 +80,18 @@
 				return;
 			}
 			if(usename.validity.patternMismatch){
-				usename.setCustomValidity("用户名必须6位")
+				usename.setCustomValidity("用户名必须3到6位")
 				return;
 			}
 			usename.setCustomValidity("");
 			
 			var numbe = $('.p7_pass')[0];
 			if (numbe.validity.valueMissing) {
-				numbe.setCustomValidity('号码不能为空');
+				numbe.setCustomValidity('密码不能为空');
 				return;
 			}
 			if (numbe.validity.patternMismatch) {
-				numbe.setCustomValidity('号码格式不对');
+				numbe.setCustomValidity('密码格式不对');
 				return;
 			}
 			numbe.setCustomValidity('');
@@ -122,6 +122,7 @@
 			numbe.setCustomValidity('');
 		})
 	}	
+	
 </script>
 </head>
 <body>
@@ -143,7 +144,7 @@
 			<div class="p7">
 				<form action="/oa/user/dologin.do" method="post">
 					<input type="text" name="name" placeholder="请输入账户名" class="p7_num" pattern="\d{3,6}" required/> 
-					<input type="password" name="password" placeholder="请输入密码" class="p7_pass" required/> 
+					<input type="password" name="password" placeholder="请输入密码" class="p7_pass" required pattern="\d{6,10}"/> 
 					<input type="submit" name="sunmit" value="登录" class="submit1" />
 				</form>
 				<p class="pp">
@@ -160,8 +161,8 @@
 			</div>
 			<div class="p7">
 				<form action="/oa/user/sendLogin.do" method="post">
-					<input required class="num" type="text" name="number" placeholder="请输入手机号码" />
-					<input required class="pass" type="password" name="verification" placeholder="请输入验证码" /> 
+					<input required class="num" type="text" name="number" placeholder="请输入手机号码" pattern="\d{11}"/>
+					<input required class="pass" type="password" name="verification" placeholder="请输入验证码" pattern="\d{4,4}"/> 
 					<input type="submit" name="sunmit" value="登录" class="submit2"/>
 				</form>
 

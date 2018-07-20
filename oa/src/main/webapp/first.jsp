@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="/oa/css/public.css" charset="UTF-8"/>
 <link rel="stylesheet" type="text/css" href="/oa/css/first.css" charset="UTF-8"/>
@@ -59,6 +59,7 @@
 				})
 			}
 			
+			//获取菜单
 			function role(){
 				$.ajax({
 					type:"post",
@@ -260,7 +261,7 @@
 		
 		 <div class="f_head_msg">
 		
-			   欢迎： <a href="/oa/MEmploye.jsp">${user.user_name}</a>
+			   欢迎： <a href="/oa/RSMmploye.jsp">${user.user_name}</a>
 	     </div>
 		<p class="f_head_tubiao">
 		     

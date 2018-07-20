@@ -40,6 +40,7 @@ public class UserDao extends BaseDAO<UserInfo>{
 			sql +=" and u1.user_id=?";
 			index++;
 		}
+		
 
 		Object[] obj =new Object[index];
 		index =0;
@@ -223,6 +224,45 @@ public class UserDao extends BaseDAO<UserInfo>{
 
 	}
 
+	//多表搜索
+		public List<Map<String, Object>> map(UserInfo userInfo){
+			String sql = "SELECT * FROM userstate u2"
+					+" INNER JOIN userinfo u1 ON u1.user_state=u2.user_state_id"
+					+" INNER JOIN roleinfo r1 ON r1.role_id = u1.role_id"
+					+" INNER JOIN departinfo d1 ON d1.depart_id=u1.depart_id"
+					+" INNER JOIN branchinfo b1 ON b1.branch_id=d1.branch_id"
+					+" WHERE 1=1";
+			int index =0;
+			if (userInfo.getUser_name()!=null) {
+				sql+=" and u1.user_name=?";
+				index ++;
+			}
+			if (userInfo.getUser_id() !=null) {
+				sql +=" and u1.user_id=?";
+				index++;
+			}
+			if (userInfo.getDepart_id()!=null) {
+				sql +=" and u1.depart_id =?";
+				index++;
+			}
 
+			Object[] obj =new Object[index];
+			index =0;
+			if (userInfo.getUser_name()!=null) {
+				obj[index] = userInfo.getUser_name();
+				index ++;
+			}
+			if (userInfo.getUser_id() !=null) {
+				obj[index] = userInfo.getUser_id();
+				index ++;
+			}
+			if (userInfo.getDepart_id()!=null) {
+				obj[index] = userInfo.getDepart_id();
+				index++;
+			}
+			List<Map<String, Object>> list = super.queryListMap(sql, obj);
+			return list;
+		}
+ 
 
 }
