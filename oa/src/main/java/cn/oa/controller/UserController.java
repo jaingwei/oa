@@ -1,6 +1,7 @@
 package cn.oa.controller;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
 
+import cn.oa.entity.LoginLog;
 import cn.oa.entity.UserInfo;
+import cn.oa.services.LoginLogServices;
 import cn.oa.services.UserServices;
 import cn.oa.util.MobileMessageSend;
 
@@ -23,7 +26,17 @@ public class UserController {
 		//调用方法
 		UserServices userServices = new UserServices();
 		try {
+			//存用户信息到session中
 			UserInfo userInfo =userServices.dologin(username, password);
+			//登录信息添加
+			LoginLog loginLog =new LoginLog();
+			LoginLogServices loginLogServices = new LoginLogServices();
+			loginLog.setIf_success(1);
+			loginLog.setLogin_desc("成功登录");
+			loginLog.setLogin_time(new Date());
+			loginLog.setUser_id(userInfo.getUser_id());
+			loginLogServices.addLogin(loginLog);
+		    
 			request.getSession().setAttribute("user",userInfo);
 			response.sendRedirect("/oa/first.jsp");
 		} catch (Exception e) {
@@ -53,6 +66,15 @@ public class UserController {
 		UserInfo userInfo = (UserInfo) map.get("userInfo");
 		if ("验证成功".equals(msg) && userInfo!=null) {
 			request.getSession().setAttribute("user",userInfo);
+			//登录信息添加
+			LoginLog loginLog =new LoginLog();
+			LoginLogServices loginLogServices = new LoginLogServices();
+			loginLog.setIf_success(1);
+			loginLog.setLogin_desc("成功登录");
+			loginLog.setLogin_time(new Date());
+			loginLog.setUser_id(userInfo.getUser_id());
+			loginLogServices.addLogin(loginLog);
+			
 			response.sendRedirect("/oa/first.jsp");
 		}else{
 			response.sendRedirect("/oa/Prodeng.jsp");

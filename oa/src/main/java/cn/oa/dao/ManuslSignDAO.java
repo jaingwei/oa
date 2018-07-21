@@ -6,6 +6,7 @@ import java.util.Map;
 
 import cn.oa.entity.ManualSign;
 import cn.oa.entity.UserInfo;
+import cn.oa.util.DBhelper;
 import cn.oa.util.Time;
 
 public class ManuslSignDAO extends BaseDAO<ManualSign>{
@@ -51,6 +52,7 @@ public class ManuslSignDAO extends BaseDAO<ManualSign>{
 			num++;
 		}
 		List<Map<String, Object>> list = super.queryListMap(sql, obj);
+		DBhelper.allClose(null, null, con);
 		return list;
 
 	}

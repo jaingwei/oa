@@ -1,6 +1,7 @@
 package cn.oa.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -92,11 +93,16 @@ public class SignController {
 
 		ManuslSignServices manuslSignServices = new ManuslSignServices();
 
-		PageUtil pageUtil = manuslSignServices.getSigns(time,userInfo2, manualSign,Integer.valueOf(index), 10);
-		//json向页扔数据
-		String json = JSON.toJSONString(pageUtil);
-		response.getWriter().write(json);
-
+		PageUtil pageUtil;
+		try {
+			pageUtil = manuslSignServices.getSigns(time,userInfo2, manualSign,Integer.valueOf(index), 10);
+			//json向页扔数据
+			String json = JSON.toJSONString(pageUtil);
+			response.getWriter().write(json);
+		} catch (NumberFormatException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void getsignNum( HttpServletRequest request, HttpServletResponse response) throws IOException{

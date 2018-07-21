@@ -69,7 +69,7 @@ public class BaseDAO<T> {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			DBhelper.allClose(rs, pstm, con);
+			DBhelper.allClose(rs, pstm, null);
 		}
 		return list;
 	}
@@ -140,12 +140,5 @@ public class BaseDAO<T> {
 		return list;
 		
 	}
-
-	
-	
-	
-	
-	
-	
 	
 }

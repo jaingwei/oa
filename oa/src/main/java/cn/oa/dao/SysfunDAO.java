@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.oa.entity.SysFun;
+import cn.oa.util.DBhelper;
 
 public class SysfunDAO extends BaseDAO<SysFun>{
 	//拿取菜单信息
@@ -17,7 +18,7 @@ public class SysfunDAO extends BaseDAO<SysFun>{
 					+" WHERE r1.role_id=?)";
 			Object[] obj = {roleid};
 			List<Map<String, Object>> list = super.queryListMap(sql, obj);
-			System.out.println(list);
+			DBhelper.allClose(null, null, con);
 			return list;
 		}
     //拿取已有权限菜单信息
@@ -30,6 +31,7 @@ public class SysfunDAO extends BaseDAO<SysFun>{
                    +" AND roleright.role_id= ? ";
 			Object[] obj ={roleid,roleid};
 			List<Map<String, Object>> list = super.queryListMap(sql, obj);
+			DBhelper.allClose(null, null, con);
 			return list;
 		}
     //拿取未有权限菜单信息
@@ -42,6 +44,7 @@ public class SysfunDAO extends BaseDAO<SysFun>{
                    +" AND roleright.role_id= ? ";
 			Object[] obj ={roleid,3};
 			List<Map<String, Object>> list = super.queryListMap(sql, obj);
+			DBhelper.allClose(null, null, con);
 			return list;
 	   }
 		
@@ -49,7 +52,9 @@ public class SysfunDAO extends BaseDAO<SysFun>{
 	public int addSys(Integer roleid, Integer nodeid){
 		String sql="INSERT INTO roleright(role_id,node_id) VALUES (?,?)";
 		Object[] obj = {roleid,nodeid};
-		return super.update(sql, obj);
+		int result = super.update(sql, obj);
+		DBhelper.allClose(null, null, con);
+		return result;
 		
 	} 	
 	//删除权限
@@ -57,13 +62,11 @@ public class SysfunDAO extends BaseDAO<SysFun>{
 		String sql = " DELETE FROM roleright WHERE roleright.role_id=? "
 				+" AND roleright.node_id=? ";
 		Object[] obj = {roleid,nodeid};
-		return super.update(sql, obj);	
+		int result = super.update(sql, obj);
+		DBhelper.allClose(null, null, con);
+		return result;	
 	} 		
 	
-	public static void main(String[] args) {
-		SysfunDAO sysfunDAO =new SysfunDAO();
-		List<Map<String, Object>> list= sysfunDAO.getNotSys(2);
-		System.out.println(list);
-	}
+	
 	
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import cn.oa.entity.Departinfo;
 import cn.oa.entity.Roleinfo;
+import cn.oa.util.DBhelper;
 
 public class DepartinfoDAO extends BaseDAO<Departinfo>{
 	//搜索部门信息
@@ -33,6 +34,7 @@ public class DepartinfoDAO extends BaseDAO<Departinfo>{
 		}
 
 		List<Map<String, Object>> list = super.queryListMap(sql, obj);
+		DBhelper.allClose(null, null, con);
 		return list;   
 	} 
 
@@ -40,7 +42,8 @@ public class DepartinfoDAO extends BaseDAO<Departinfo>{
 	public int addDepart(Departinfo departinfo){
 		String sql="INSERT INTO departinfo(depart_name,principa_user,connect_tel_no,connect_mobile_no,branch_id) VALUES (?,?,?,?,?)";
 		Object[] obj = {departinfo.getDepart_name(),departinfo.getPrincipa_user(),departinfo.getConnect_tel_no(),departinfo.getConnect_mobile_no(),departinfo.getBranch_id()};
-		return super.update(sql, obj);
+		int result = super.update(sql, obj);
+		return result;
 
 	}
 	//修改部门信息
@@ -49,6 +52,7 @@ public class DepartinfoDAO extends BaseDAO<Departinfo>{
 				+" WHERE departinfo.depart_id =?";
 		Object[] obj ={departinfo.getDepart_name(),departinfo.getPrincipa_user(),departinfo.getConnect_tel_no(),departinfo.getConnect_mobile_no(),departinfo.getBranch_id(),departinfo.getDepart_id()};
 		int result = super.update(sql, obj);
+		DBhelper.allClose(null, null, con);
 		return result;
 
 	} 
@@ -59,7 +63,8 @@ public class DepartinfoDAO extends BaseDAO<Departinfo>{
 	public int removeDepart(Departinfo departinfo){
 		String sql = " DELETE FROM departinfo WHERE depart_id=? ";
 		Object[] obj ={departinfo.getDepart_id()};
-		return super.update(sql, obj);
+		int result = super.update(sql, obj);
+		return result;
 	}
 
 

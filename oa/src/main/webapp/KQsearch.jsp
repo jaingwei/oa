@@ -168,6 +168,7 @@
 					  type:"post",
 					  data:{
 						 index:i,
+						 start:$(".start").val(),
 						 end:$(".end").val(),
 						 name:$(".select10>option:selected").val(),
 						 depart:$(".select11>option:selected").val(),

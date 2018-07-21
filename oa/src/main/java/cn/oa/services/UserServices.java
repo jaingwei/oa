@@ -7,6 +7,7 @@ import java.util.Map;
 
 import cn.oa.dao.UserDao;
 import cn.oa.entity.UserInfo;
+import cn.oa.util.DBhelper;
 import cn.oa.util.MobileMessageCheck;
 import cn.oa.util.MobileMessageSend;
 public class UserServices {
@@ -28,6 +29,7 @@ public class UserServices {
 
 	//号码搜索账号发验证码
 	public String number(String number){
+		
 		String msg= null;
 		MobileMessageSend mobileMessageSend = new MobileMessageSend();
 		UserDao userDao = new UserDao();

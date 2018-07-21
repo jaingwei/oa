@@ -1,0 +1,53 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+.f_right{
+	width: 1169px;
+	border: 1px solid black;
+	height: 700px;
+	background-color: bisque;
+}
+
+h1{
+	text-align: center;
+	margin-top: 10px;
+}
+.login,.operation{
+	left: 200px;
+	background-color: bisque;
+	text-align: center;
+}
+.table1,.table2{
+	width: 800px;
+	
+	vertical-align: middle;
+    text-align: center;
+    
+}
+.login_one{
+	padding-top: 10px;
+}
+.login_one>button{
+	display: block;
+}
+.login_one>button:nth-of-type(1){
+	background-color: orange;
+	border-radius: 5px;
+	color: white;
+	margin-left: 250px;
+	margin-top: 20px;
+}
+.login_one>button:nth-of-type(2){
+	margin-left: 900px;
+	margin-top: 20px;
+	
+}
+.all{
+	margin-left: -700px;
+    margin-top: -20px;
+}
+.table1{
+	margin-left: 200px;
+	margin-top: 10px;
+}

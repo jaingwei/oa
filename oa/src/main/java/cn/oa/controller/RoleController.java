@@ -84,9 +84,9 @@ public class RoleController {
 			roleinfo.setRole_desc(desc);
 			int reuslt = roleServices.addrole(roleinfo);
 			if (reuslt ==1) {
-				msg ="修改信息成功";
+				msg ="添加信息成功";
 			} else {
-				msg ="修改信息失败";
+				msg ="添加信息失败";
 			}
 			String json = JSON.toJSONString(msg);
 			response.getWriter().write(json);
@@ -152,6 +152,23 @@ public class RoleController {
      	 response.getWriter().write(json);
        }
       
-      
+     //表单验证菜单信息
+     public void yGetrole(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    	 String rolename = request.getParameter("roleName");
+    	 Roleinfo roleinfo = new Roleinfo();
+    	 if (rolename!=null) {
+			roleinfo.setRole_name(rolename);
+		}
+    	 RoleServices roleServices = new RoleServices();
+    	 List<Roleinfo> list = roleServices.getroles(roleinfo);
+    	 String msg = "";
+			if (list==null||list.size()==0) {
+			   	msg = "0";
+			}else{
+				msg = "1";
+			}
+			String json = JSON.toJSONString(msg);
+			response.getWriter().write(json);
+     } 
       
 }

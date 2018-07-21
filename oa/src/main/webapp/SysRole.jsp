@@ -13,7 +13,7 @@
 				click();
 				getrole();
 				role();
-				 roleclick();
+				roleclick();
 			})
 			function click(){
 				$('.h_click_li_return').click(function() {
@@ -222,6 +222,11 @@
 			}
 			
 			function updaterole(){
+				if (!Yrolename) {
+					yrilename();
+				}else if(!Yroletext){
+					yroletext();
+				}else{
 				 $(".system_bd_p").html("");
 				 $(".system_bg_p").html("");
 				$.ajax({
@@ -235,7 +240,7 @@
 					success:function(data){
 						 $(".system_bd_p").append(data);
 						 if (data=="修改信息成功") {
-							 $(".system_bd_input").attr("value","");
+							 $(".system_bd_input").attr("value",'');
 							 $(".system_bd_text").html("");
 							 $(".button2").css("background-color","#1B6D85");
 							 getrole();
@@ -245,31 +250,43 @@
 					
 					}
 				})
+				
+				}
 			}
 			
 			function addrole(){
-			    $(".system_bd_p").html("");
-			    $(".system_bg_p").html("");
-				$.ajax({
-					type:"post",
-					data:{
-						name:$(".system_bd_input").val(),
-						desc:$(".system_bd_text").val()
-					},
-					dataType:"json",
-					url:"/oa/role/addrole.do",
-					success:function(data){
-						 $(".system_bd_p").append(data);
-						 if (data=="修改信息成功") {
-							 $(".system_bd_input").attr("value","");
-							 $(".system_bd_text").html("");
-							 getrole();
-						 }
-					},
-					error:function(){
-					
-					}
-				})
+				if (!Yrolename) {
+					yrilename();
+				}else if(!Yroletext){
+					yroletext();
+				}else{
+					$(".system_bd_p").html("");
+				    $(".system_bg_p").html("");
+					$.ajax({
+						type:"post",
+						data:{
+							name:$(".system_bd_input").val(),
+							desc:$(".system_bd_text").val()
+						},
+						dataType:"json",
+						url:"/oa/role/addrole.do",
+						success:function(data){
+							 $(".system_bd_p").append(data);
+							 
+							 if (data == "添加信息成功") { 
+								 $(".system_bd_input").attr("value","");
+								 $(".system_bd_text").html("");
+								 getrole();
+							 }
+						},
+						error:function(){
+						
+						}
+					})
+					 $(".system_bd_input").attr("value","");
+					 $(".system_bd_text").html("");
+				}
+			    
 			}
 			function removerole(id){
 			    $(".system_bd_p").html("");
@@ -371,7 +388,6 @@
 			}
 			
 			function removeSys(nodeid,roleid){
-				
 			    $(".system_bd_p").html("");
 			    $(".system_bg_p").html("");
 			    $(".system_permission_not div").html("");
@@ -393,6 +409,48 @@
 					}
 				})
 			}
+			
+			//表单验证
+			var Yrolename = false;
+			var Yroletext = false;
+			function yrilename() {
+					  var id = 	$(".system_bd_input").val();
+					  if (id==""){
+						$(".span1").text("用户id不可为空");
+					  }else{
+						  $.ajax({
+								type:"post",
+								data:{
+									roleName:$(".system_bd_input").val()
+								},
+								dataType:"json",
+								url:"/oa/role/yGetrole.do",
+								success:function(data){
+									if (data == "1") {
+										  $(".span1").text("用户名已有，请重新输入");
+									}else{
+										  Yrolename=true;
+										  $(".span1").text("输入成功");
+									}
+								},
+								error:function(){
+								
+								}
+							})  
+					   }
+			}
+            function yroletext() {
+            	var tel = $(".system_bd_text").val();
+   			 if (tel=="") {
+   			 	  $(".span2").text("姓名不可为空，请输入");
+   			  }else{
+   				 Yroletext = true;
+   				 $(".span2").text("输入成功");
+   			  }
+			}
+			
+            
+			
 		</script>
 </head>
 <body>
@@ -519,9 +577,13 @@
 						<div class="system_bd">
 							<ul>
 								<li><span>角色名称</span></li>
-								<li><input type="text" name="userName" style="width: 300px;height: 25px;" class="system_bd_input" /></li>
+								<li><input type="text" name="userName" onblur="yrilename()" style="width: 300px;height: 25px;" class="system_bd_input" />
+								<span class="span1"></span>
+								</li>
 								<li><span>角色说明</span></li>
-								<li><textarea name="userdesc" style="resize: none; width: 300px; height: 100px;" class="system_bd_text"></textarea></li>
+								<li><textarea name="userdesc" onblur="yroletext()" style="resize: none; width: 300px; height: 100px;" class="system_bd_text"></textarea>
+								<span class="span2"></span>
+								</li>
 							</ul>
 							<p class="system_bd_p"></p>
 							<button class="button1" onclick="addrole()"  >添加</button>

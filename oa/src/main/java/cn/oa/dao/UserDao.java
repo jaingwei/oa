@@ -6,6 +6,7 @@ import java.util.Map;
 import cn.oa.entity.Departinfo;
 import cn.oa.entity.Roleinfo;
 import cn.oa.entity.UserInfo;
+import cn.oa.util.DBhelper;
 
 public class UserDao extends BaseDAO<UserInfo>{
 	//用户名搜索
@@ -13,6 +14,7 @@ public class UserDao extends BaseDAO<UserInfo>{
 		String sql = "SELECT * FROM userinfo u1 WHERE  u1.user_id=?";
 		Object[] obj ={username};
 		List<UserInfo> list = super.queryList(sql, obj, UserInfo.class);
+		DBhelper.allClose(null, null, con);
 		return list;
 	}
 
@@ -21,6 +23,7 @@ public class UserDao extends BaseDAO<UserInfo>{
 		String sql = "SELECT * FROM userinfo u1 WHERE  u1.number=?";
 		Object[] obj ={number};
 		List<UserInfo> list = super.queryList(sql, obj, UserInfo.class);
+		DBhelper.allClose(null, null, con);
 		return list;
 	}
 
@@ -53,6 +56,7 @@ public class UserDao extends BaseDAO<UserInfo>{
 			index ++;
 		}
 		List<Map<String, Object>> list = super.queryListMap(sql, obj);
+		DBhelper.allClose(null, null, con);
 		return list;
 	}
 
@@ -99,6 +103,7 @@ public class UserDao extends BaseDAO<UserInfo>{
 			index++;
 		}
 		List<Map<String, Object>> list = super.queryListMap(sql, obj);
+		DBhelper.allClose(null, null, con);
 		return list;
 	}
 
@@ -135,6 +140,7 @@ public class UserDao extends BaseDAO<UserInfo>{
 			index++;
 		}
 		List<UserInfo> list = super.queryList(sql, obj, UserInfo.class);
+		DBhelper.allClose(null, null, con);
 		return list;
 	}
 
@@ -181,6 +187,7 @@ public class UserDao extends BaseDAO<UserInfo>{
 				+ " WHERE userinfo.depart_id= ? ";
 		Object[] obj = {newid,departid }; 
 		int result = super.update(sql, obj);
+		DBhelper.allClose(null, null, con);
 		return result;
 	}
 
@@ -188,6 +195,7 @@ public class UserDao extends BaseDAO<UserInfo>{
 	public int addUser(Departinfo departinfo){
 		String sql="INSERT INTO departinfo(depart_name,principa_user,connect_tel_no,connect_mobile_no,branch_id) VALUES (?,?,?,?,?)";
 		Object[] obj = {departinfo.getDepart_name(),departinfo.getPrincipa_user(),departinfo.getConnect_tel_no(),departinfo.getConnect_mobile_no(),departinfo.getBranch_id()};
+		DBhelper.allClose(null, null, con);
 		return super.update(sql, obj);
 
 	}
@@ -196,6 +204,7 @@ public class UserDao extends BaseDAO<UserInfo>{
 	public int removeUser(UserInfo userInfo){
 		String sql = " DELETE FROM userinfo WHERE user_id=? ";
 		Object[] obj ={userInfo.getUser_id()};
+		DBhelper.allClose(null, null, con);
 		return super.update(sql, obj);
 	}
 
@@ -205,6 +214,7 @@ public class UserDao extends BaseDAO<UserInfo>{
 				+ " WHERE userinfo.user_id= ? ";
 		Object[] obj ={userInfo.getUser_name(),userInfo.getPass_word(),userInfo.getDepart_id(),userInfo.getRole_id(),userInfo.getUser_state(),userInfo.getUser_id()};
 		int result = super.update(sql, obj);
+		DBhelper.allClose(null, null, con);
 		return result;
 	}
 
@@ -220,6 +230,7 @@ public class UserDao extends BaseDAO<UserInfo>{
 		obj[5] = userInfo.getRole_id();
 		obj[6] = userInfo.getUser_state();
 		obj[7] = userInfo.getNumber();
+		DBhelper.allClose(null, null, con);
 		return super.update(sql, obj);
 
 	}
