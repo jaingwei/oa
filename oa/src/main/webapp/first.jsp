@@ -8,7 +8,12 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="/oa/css/public.css" charset="UTF-8"/>
 <link rel="stylesheet" type="text/css" href="/oa/css/first.css" charset="UTF-8"/>
+<link rel="stylesheet" href="/oa/css/simple-calendar.css" />
+<link rel="stylesheet" href="/oa/css/iconfont.css" />
+
 <script type="text/javascript" src="/oa/js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="/oa/js/simple-calendar.js"></script>
+<script src="http://webapi.amap.com/subway?v=1.0&key=a6414d65323db9e2718b31e525a1337d&callback=cbk"></script>
 <script type="text/javascript">
 			
              $(function() {
@@ -17,7 +22,68 @@
 	           click();
 	           role();
 	           roleclick();
+	           
+	           var myCalendar = new SimpleCalendar('#container');
+	           myCalendar.updateSize('220px', '280px');
+	       	$(".seachBtn").click(function(){
+				getWeather($(".intCity").val(),"post",".box1");
+			})
              })
+             
+             //天气插件
+             	function getWeather(location,type,el){
+				var url = "http://restapi.amap.com/v3/weather/weatherInfo";
+		 		var postData = {
+	                key: "dfb9a576fbcb2c9a13a65ab736e47004",
+	                city: location,
+	                extensions: "all"
+	            };
+				$.ajax({
+					url:url,
+					type:type,
+					data:postData,
+					success:function(status,data){
+						console.log(status);
+						var html1 = "";
+						var html2 = "";
+						var htmlOne = "";
+						if(status.forecasts.length == 1){
+							$(".data1").css("display","none");
+							$(".data2").css("display","none");
+							$(".data3").css("display","block");
+							
+							var weatherData = status.forecasts[0].casts;
+							console.log(status.forecasts[0].province+"省"+status.forecasts[0].city);
+							$(".cityName").html(status.forecasts[0].province+"省"+status.forecasts[0].city);
+							$(".left_data").html(status.forecasts[0].reporttime	);
+							$(".left_weather").html(weatherData[0].dayweather+" \ "+weatherData[0].nightweather);
+							$(".left_temp").html(weatherData[0].daytemp+" \ "+weatherData[0].nighttemp);
+							$(".left_wind1").html(weatherData[0].daywind+" \ "+weatherData[0].nightwind);
+							$(".left_wind2").html(weatherData[0].daypower+" \ "+weatherData[0].nightpower);
+							
+							
+							for(var i=1;i<weatherData.length;i++){
+								htmlOne += '<li>'+weatherData[i].date+'</li><li>星期'+weatherData[i].week+'</li><li>'+weatherData[i].dayweather+'"\"'+weatherData[i].nightweather+'</li><li>'+weatherData[i].daytemp+'"\"'+weatherData[i].nighttemp+'</li><li>'+weatherData[i].daywind+'"\"'+weatherData[i].nightwind+'</li><li>'+weatherData[i].daypower+'"\"'+weatherData[i].nightpower+'</li>'
+							}
+							$(".dataOne").html(htmlOne);
+							
+							
+						}else{
+							$(".data1").css("display","block");
+							$(".data2").css("display","block");
+							$(".data3").css("display","none");
+						}
+						
+						
+					},
+					error:function(status){
+					}
+				})
+			}
+		
+             
+             
+
 			function click(){
 				$('.h_click_li_return').click(function() {
 					$('.h_over').toggle();
@@ -324,15 +390,35 @@
 				</div>
 
 			</div>
-			<div class="f_day">1</div>
+			<div class="f_day">
+			<div id="container" style="float:none;margin: 0px auto;"></div>
+			
+			</div>
 			<div class="f_wen">1</div>
 			<div>
 				<div class="f_hui">
-					<div class="f_hui_top">
-						<p>我的会议</p>
-						<p>更多</p>
-					</div>
-					<div class="f_hui_text"></div>
+					<div class="wrap clearfix">
+			<div class="header">
+				<input class="intCity" type="text" placeholder="Please enter the city" value="深圳"/>
+				<input class="seachBtn" type="button" value="Seach"/>
+			</div>
+			<div class="left">
+				<ul>
+					<li><span><i class="icon iconfont icon-chengshi"></i></span><span class="cityName span2"></span></li>
+					<li><span><i class="icon iconfont icon-riqi"></i></span><span class="left_data span2"></span></li>
+					<li><span><i class="icon iconfont icon-weather2"></i></span><span class="left_weather span2"></span></li>
+					<li><span><i class="icon iconfont icon-wendu"></i></span><span class="left_temp span2"></span></li>
+					<li><span><i class="icon iconfont icon-fengxiang"></i></span><span class="left_wind1 span2"></span></li>
+					<li><span><i class="icon iconfont icon-qixiang-fengli"></i></span><span class="left_wind2 span2"></span></li>
+				</ul>
+			</div>
+			<div class="right">
+				<ul class="data1"></ul>
+				<ul class="data2"></ul>
+				
+			</div>
+		</div>
+					
 				</div>
 				<div class="f_image">
 					<div class="f_image_1">

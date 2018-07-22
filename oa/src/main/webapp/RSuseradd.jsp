@@ -7,6 +7,7 @@
 <title>华天协同OA平台</title>
 		<link rel="stylesheet" type="text/css" href="/oa/css/public.css" />
 		<link rel="stylesheet" type="text/css" href="/oa/css/RSuseradd.css" />
+	
 		<script type="text/javascript" src="/oa/js/jquery-1.12.4.js"></script>
 		<script type="text/javascript">
 		$(function() {
@@ -15,8 +16,12 @@
 			  getDeparts();
 			  getRoles();
 			  role();
-			  roleclick();
+			  roleclick();		  
        })
+       
+       
+     
+		
 			function click(){
 				$('.h_click_li_return').click(function() {
 					$('.h_over').toggle();
@@ -265,7 +270,31 @@
 		 }
 		 
 		 
+		 
+		 //弹出框水平垂直居中
+		    (window.onresize = function () {
+		        var win_height = $(window).height();
+		        var win_width = $(window).width();
+		        if (win_width <= 768){
+		            $(".tailoring-content").css({
+		                "top": (win_height - $(".tailoring-content").outerHeight())/2,
+		                "left": 0
+		            });
+		        }else{
+		            $(".tailoring-content").css({
+		                "top": (win_height - $(".tailoring-content").outerHeight())/2,
+		                "left": (win_width - $(".tailoring-content").outerWidth())/2
+		            });
+		        }
+		    })();
+		 
+		 
+
 		</script>
+		
+		
+
+		
 </head>
 <body>
 <header>
@@ -406,9 +435,10 @@
 							<select name="select1" class="select10">
 								<option  value="-1">--请选择--</option>
 							</select>
-							<div class="bb4">
-							</div>
-							<input class="bb5" type="file" /><br /> 
+							
+							<button id="replaceImg" class="l-btn">更换图片</button>
+
+							<p></p>
 							角&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;色:
 							<select name="select2" class="select11">
 								<option  value="-1">--请选择--</option>

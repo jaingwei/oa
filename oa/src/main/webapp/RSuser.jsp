@@ -1,21 +1,99 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html >
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>华天协同OA平台</title>
 		<link rel="stylesheet" type="text/css" href="/oa/css/public.css" />
 		<link rel="stylesheet" type="text/css" href="/oa/css/RSuseradd.css" />
+		  <link rel="stylesheet" href="/oa/css/cropper.min.css">
+           <link rel="stylesheet" href="/oa/css/ImgCropping.css">
+		
 		<script type="text/javascript" src="/oa/js/jquery-1.12.4.js"></script>
+		<script type="text/javascript" src="/oa/js/cropper.min.js"></script>
 		<script type="text/javascript">
 		$(function() {
 			  click();
 			  getDeparts();
 			  getRoles();
 			  role();
-			  roleclick();
+			  roleclick();	
+			  //弹出图片裁剪框
+			    $("#replaceImg").on("click",function () {
+			        $(".tailoring-container").toggle();
+			    });
+			    //弹出框水平垂直居中
+			    (window.onresize = function () {
+			        var win_height = $(window).height();
+			        var win_width = $(window).width();
+			        if (win_width <= 768){
+			            $(".tailoring-content").css({
+			                "top": (win_height - $(".tailoring-content").outerHeight())/2,
+			                "left": 0
+			            });
+			        }else{
+			            $(".tailoring-content").css({
+			                "top": (win_height - $(".tailoring-content").outerHeight())/2,
+			                "left": (win_width - $(".tailoring-content").outerWidth())/2
+			            });
+			        }
+			    })();
+			    
+			    
+			    //cropper图片裁剪
+			    $("#tailoringImg").cropper({
+			        aspectRatio: 1/1,//默认比例
+			        preview: ".previewImg",//预览视图
+			        guides: false,  //裁剪框的虚线(九宫格)
+			        autoCropArea: 0.5,  //0-1之间的数值，定义自动剪裁区域的大小，默认0.8
+			        movable: false, //是否允许移动图片
+			        dragCrop: true,  //是否允许移除当前的剪裁框，并通过拖动来新建一个剪裁框区域
+			        movable: true,  //是否允许移动剪裁框
+			        resizable: true,  //是否允许改变裁剪框的大小
+			        zoomable: false,  //是否允许缩放图片大小
+			        mouseWheelZoom: false,  //是否允许通过鼠标滚轮来缩放图片
+			        touchDragZoom: true,  //是否允许通过触摸移动来缩放图片
+			        rotatable: true,  //是否允许旋转图片
+			        crop: function(e) {
+			            // 输出结果数据裁剪图像。
+			        }
+			    });
+			    //裁剪后的处理
+			    $("#sureCut").on("click",function () {
+			        if ($("#tailoringImg").attr("src") == null ){
+			            return false;
+			        }else{
+			            var cas = $("#tailoringImg").cropper("getCroppedCanvas");//获取被裁剪后的canvas
+			            var base64url = cas.toDataURL("image/png"); //转换为base64地址形式
+			            alert(base64url);
+			            $("#finalImg").prop("src",base64url);//显示为图片的形式
+
+			            //关闭裁剪框
+			            closeTailor();
+			        }
+			    });
+			 
          })
+
+         //图像上传
+    function selectImg(file) {
+        if (!file.files || !file.files[0]){
+            return;
+        }
+        var reader = new FileReader();
+        reader.onload = function (evt) {
+            var replaceSrc = evt.target.result;
+            //更换cropper的图片
+            $("#tailoringImg").cropper("replace", replaceSrc,false);//默认false，适应高度，不失真
+        }
+        reader.readAsDataURL(file.files[0]);
+    }
+       
+		  //关闭裁剪框
+	    function closeTailor() {
+	        $(".tailoring-container").toggle();
+	    }
 			function click(){
 				$('.h_click_li_return').click(function() {
 					$('.h_over').toggle();
@@ -502,27 +580,64 @@
 								<option selected="selected" value="-1">--请选择--</option>
 								
 							</select><br /> 性别:
-							<br />
 							<input type="radio"  name="sex" value="1" class="sex"/>男
 							<input type="radio"  name="sex" value="0" class="sex"/>女
-							<div class="bb4">
-							</div>
-							<input class="bb5" type="file" /><br /> 
+							<p></p>	
 							角&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;色:
 							<select name="select2" class="select11">
-								<option selected="selected" value="-1">--请选择--</option>
-								
+								<option selected="selected" value="-1">--请选择--</option>	
 							</select><br /> 
 							当前状态:
 							<input type="text" class="input13" onblur="ystate()"/><span class="span5"></span><br />
 							
 							用户号码:
 							<input name="number"  class="input14" onblur="ynumber()"/><span class="span6"></span><br /> 
+							<input id="replaceImg" class="l-btn" type="button"/>
+
+<div style="width: 320px;height: 320px;border: solid 1px #555;padding: 5px;margin-top: 10px">
+    <img id="finalImg" src="" width="100%">
+</div>
+
+
+<!--图片裁剪框 start-->
+<div style="display: none" class="tailoring-container">
+    <div class="black-cloth" onClick="closeTailor(this)"></div>
+    <div class="tailoring-content">
+            <div class="tailoring-content-one">
+                <label title="上传图片" for="chooseImg" class="l-btn choose-btn">
+                    <input type="file" accept="image/jpg,image/jpeg,image/png" name="file" id="chooseImg" class="hidden" onChange="selectImg(this)">
+                    选择图片
+                </label>
+                <div class="close-tailoring"  onclick="closeTailor(this)">×</div>
+            </div>
+            <div class="tailoring-content-two">
+                <div class="tailoring-box-parcel">
+                    <img id="tailoringImg">
+                </div>
+                <div class="preview-box-parcel">
+                    <p>图片预览：</p>
+                    <div class="square previewImg"></div>
+                    <div class="circular previewImg"></div>
+                </div>
+            </div>
+            <div class="tailoring-content-three">
+                <button class="l-btn cropper-reset-btn">复位</button>
+                <button class="l-btn cropper-rotate-btn">旋转</button>
+                <button class="l-btn cropper-scaleX-btn">换向</button>
+                <button class="l-btn sureCut" id="sureCut">确定</button>
+            </div>
+        </div>
+</div>
+<!--图片裁剪框 end-->
+							
+						    
+							
 							
 							<input type="button" value="保存" onclick="addUser()"/>
 							<input type="button" value="全部重写" onclick="reStart()" />
 							<a href="/oa/RSuserSearcch.jsp">
 							<input type="button" value="返回"  />
+						
 							</a>
 						</form>
 						<p class="msgp"></p>

@@ -176,7 +176,7 @@
 						   +"<td><input type='checkbox' class='check10' value='"+data['login_id']+"'/></td>"
 						   +"<td>"+v['login_id']+"</td>"
 						   +"<td>"+v['user_id']+"</td>"
-						   +"<td>"+v['login_time']+"</td>"
+						   +"<td>"+formatDate(v['login_time'])+"</td>"
 						   +"<td>"+v['login_userIp']+"</td>"
 						   +"<td>"+(v['if_success']==1?'成功':'失败')+"</td>"
 						   +"<td>"+v['login_desc']+"</td>"
@@ -208,7 +208,26 @@
 				  }
 			  }) 
 	   
-		}
+	     	}
+			
+		//时间格式化
+        function formatDate(time){
+         var date = new Date(time);
+
+          var year = date.getFullYear(),
+           month = date.getMonth() + 1,//月份是从0开始的
+           day = date.getDate(),
+           hour = date.getHours(),
+           min = date.getMinutes(),
+           sec = date.getSeconds();
+           var newTime = year + '-' +
+           month + '-' +
+           day + ' ' +
+           hour + ':' +
+           min + ':' +
+           sec;
+            return newTime;         
+           }
 			//删除登录信息
 			function deletLogin() {
 			        alert($(".check10:checked").val())

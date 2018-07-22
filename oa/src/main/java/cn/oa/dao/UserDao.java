@@ -65,6 +65,7 @@ public class UserDao extends BaseDAO<UserInfo>{
 		String sql = " SELECT * FROM userinfo"
 				+" INNER JOIN userstate u2 ON userinfo.user_state=u2.user_state_id"
 				+" INNER JOIN roleinfo r1 ON r1.role_id = userinfo.role_id"
+				+" INNER JOIN departinfo d1 ON d1.depart_id = userinfo.depart_id"
 				+" WHERE 1=1";
 		int index =0;
 		if (userInfo.getUser_name()!=null) {

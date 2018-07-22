@@ -179,7 +179,7 @@ function getUser(){
 				   var tr ="<tr>"
 				   +"<td>"+v['user_id']+"</td>"
 				   +"<td>"+v['user_name']+"</td>"
-				   +"<td>"+v['pass_word']+"</td>"
+				   +"<td>"+v['depart_name']+"</td>"
 				   +"<td>"+v['role_name']+"</td>"
 				   +"<td>"+v['user_state_name']+"</td>"
 				   +"<td><a href='/oa/user/toUser.do?userId="+v['user_id']+"'>修改</a></td>"
@@ -356,7 +356,7 @@ function getUser(){
 					<tr>
 						<th>用户ID</th>
 						<th>姓名</th>
-						<th>密码</th>
+						<th>部门</th>
 						<th>角色</th>
 						<th>用户状态</th>
 						<th>修改</th>

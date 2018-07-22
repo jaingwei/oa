@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -16,9 +16,100 @@
 			  getUser();
 			  getRole();
 			  role();
-			  roleclick();
-			 
+			  roleclick();			 
            })
+           
+           
+           //打印表格
+        var idTmr;
+ 
+        function getExplorer() {
+            var explorer = window.navigator.userAgent;
+            //ie  
+            if(explorer.indexOf("MSIE") >= 0) {
+                return 'ie';
+            }
+            //firefox  
+            else if(explorer.indexOf("Firefox") >= 0) {
+                return 'Firefox';
+            }
+            //Chrome  
+            else if(explorer.indexOf("Chrome") >= 0) {
+                return 'Chrome';
+            }
+            //Opera  
+            else if(explorer.indexOf("Opera") >= 0) {
+                return 'Opera';
+            }
+            //Safari  
+            else if(explorer.indexOf("Safari") >= 0) {
+                return 'Safari';
+            }
+        }
+ 
+        function method5(tableid) {
+            if(getExplorer() == 'ie') {
+                var curTbl = document.getElementById(tableid);
+                var oXL = new ActiveXObject("Excel.Application");
+                var oWB = oXL.Workbooks.Add();
+                var xlsheet = oWB.Worksheets(1);
+                var sel = document.body.createTextRange();
+                sel.moveToElementText(curTbl);
+                sel.select();
+                sel.execCommand("Copy");
+                xlsheet.Paste();
+                oXL.Visible = true;
+ 
+                try {
+                    var fname = oXL.Application.GetSaveAsFilename("Excel.xls",
+                        "Excel Spreadsheets (*.xls), *.xls");
+                } catch(e) {
+                    print("Nested catch caught " + e);
+                } finally {
+                    oWB.SaveAs(fname);
+                    oWB.Close(savechanges = false);
+                    oXL.Quit();
+                    oXL = null;
+                    idTmr = window.setInterval("Cleanup();", 1);
+                }
+ 
+            } else {
+                tableToExcel(tableid)
+            }
+        }
+ 
+        function Cleanup() {
+            window.clearInterval(idTmr);
+            CollectGarbage();
+        }
+        var tableToExcel = (function() {
+            var uri = 'data:application/vnd.ms-excel;base64,',
+                template = '<html><head><meta charset="UTF-8"></head><body><table  border="1">{table}</table></body></html>',
+                base64 = function(
+                    s) {
+                    return window.btoa(unescape(encodeURIComponent(s)))
+                },
+                format = function(s, c) {
+                    return s.replace(/{(\w+)}/g, function(m, p) {
+                        return c[p];
+                    })
+                }
+            return function(table, name) {
+                if(!table.nodeType)
+                    table = document.getElementById(table)
+                var ctx = {
+                    worksheet: name || 'Worksheet',
+                    table: table.innerHTML
+                }
+                window.location.href = uri + base64(format(template, ctx))
+            }
+        })()
+           
+           
+           
+           
+           
+           
 			function click(){
 				$('.h_click_li_return').click(function() {
 					$('.h_over').toggle();
@@ -162,7 +253,7 @@
 			}
 		 //拿取签到信息
 		   function getSign(i){
-			
+			   $(".fenye").html("");
 			   $(".table10").html("");
 				  $.ajax({
 					  type:"post",
@@ -180,7 +271,7 @@
 						   $.each(data['list'],function(i,v){
 							   var tr ="<tr>"
 							   +"<td>"+v['user_name']+"</td>"
-							   +"<td>"+v['sign_time']+"</td>"
+							   +"<td>"+formatDate(v['sign_time'])+"</td>"
 							   +"<td>"+(v['sign_tag']==1?'签到':'签退')+"</td>"
 							   +"<td>"+v['sign_desc']+"</td>"
 							   +"<td>"+v['depart_name']+"</td>"
@@ -197,15 +288,13 @@
 						nextPage = data['totalPage'];
 					}
 					
-					        var page = "<tr><td colspan=6>"
-							+"<a href='javascript:void(0)' onclick='getSign(1)'>首页</a>"
+					        var page = "<a href='javascript:void(0)' onclick='getSign(1)'>首页</a>"
 							+"<a href='javascript:void(0)' onclick='getSign("+prePage+")'>上一页</a>"
 							+"<a href='javascript:void(0)' onclick='getSign("+nextPage+")'>下一页</a>"
 							+"<a href='javascript:void(0)' onclick='getSign("+data["totalPage"]+")'>末页</a>"
 							+"&nbsp;&nbsp;&nbsp;<span>第："+data['index']+"页</span>"
-							+"&nbsp;&nbsp;&nbsp;<span>共有："+data['totalPage']+"页</span>"
-							+"</td></tr>";
-							$(".table10").append(page);
+							+"&nbsp;&nbsp;&nbsp;<span>共有："+data['totalPage']+"页</span>";
+							$(".fenye").append(page);
 					        
 						   
 					  },
@@ -214,7 +303,25 @@
 					  }
 				  }) 
 		   }
-		   
+		   //时间格式化
+             function formatDate(time){
+              var date = new Date(time);
+
+               var year = date.getFullYear(),
+                month = date.getMonth() + 1,//月份是从0开始的
+                day = date.getDate(),
+                hour = date.getHours(),
+                min = date.getMinutes(),
+                sec = date.getSeconds();
+                var newTime = year + '-' +
+                month + '-' +
+                day + ' ' +
+                hour + ':' +
+                min + ':' +
+                sec;
+                 return newTime;         
+                }
+
 		   //拿取所有人员信息（根据部门中）
 		 function getUser(){
 	      $(".table").html("");
@@ -442,12 +549,13 @@
 								<option value="-1" selected='selected'>请选择———</option>
 								</select>
 								<input type="button" value="统计" class="tongji" onclick="getSign(1)" style="background-color: origen;"/>
+								<button type="button" class="btn green" id="excell" onclick="method5('dataTable')">导出考勤表格</button>
 							</p>
 
 							</p>
 						</form>
 						<div class="f_right_body_table">
-							<table cellspacing="0" border="1" frame="void" width="100%">
+							<table cellspacing="0" border="1" frame="void" width="100%" id="dataTable">
 								<tr>
 									<th>签到员工</th>
 									<th>签卡时间</th>
@@ -458,8 +566,8 @@
 								</tr>
 								
                                  <tbody class="table10"></tbody>
-								
 							</table>
+							<p class="fenye"></p>
 
 						</div>
 
@@ -471,4 +579,7 @@
 
 		</footer>
 </body>
+
+
+
 </html>
