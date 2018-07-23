@@ -29,7 +29,7 @@ public class UserDao extends BaseDAO<UserInfo>{
 
 	//多表搜索
 	public List<Map<String, Object>> dosearchMap(UserInfo userInfo){
-		String sql = "SELECT u1.user_id,u1.pass_word,u1.gender,u1.user_name,u1.number,d1.depart_name,r1.role_name,u2.user_state_name,u1.image,u1.depart_id,u1.role_id,u1.gender,u1.user_state FROM userstate u2"
+		String sql = "SELECT u1.user_id,u1.pass_word,u1.gender,u1.user_name,u1.number,d1.depart_name,r1.role_name,u2.user_state_name,u1.image,u1.depart_id,u1.role_id,u1.gender,u1.user_state,u1.image FROM userstate u2"
 				+" INNER JOIN userinfo u1 ON u1.user_state=u2.user_state_id"
 				+" INNER JOIN roleinfo r1 ON r1.role_id = u1.role_id"
 				+" INNER JOIN departinfo d1 ON d1.depart_id=u1.depart_id"
@@ -211,9 +211,9 @@ public class UserDao extends BaseDAO<UserInfo>{
 
 	//用户信息修改大量信息
 	public int updateUsers(UserInfo userInfo){
-		String sql = " UPDATE userinfo SET  userinfo.user_name=?,userinfo.pass_word=?,userinfo.depart_id=?,userinfo.role_id=?,userinfo.user_state=?"
+		String sql = " UPDATE userinfo SET  userinfo.user_name=?,userinfo.pass_word=?,userinfo.depart_id=?,userinfo.role_id=?,userinfo.user_state=?,userinfo.image=?,userinfo.number=?"
 				+ " WHERE userinfo.user_id= ? ";
-		Object[] obj ={userInfo.getUser_name(),userInfo.getPass_word(),userInfo.getDepart_id(),userInfo.getRole_id(),userInfo.getUser_state(),userInfo.getUser_id()};
+		Object[] obj ={userInfo.getUser_name(),userInfo.getPass_word(),userInfo.getDepart_id(),userInfo.getRole_id(),userInfo.getUser_state(),userInfo.getImage(),userInfo.getNumber(),userInfo.getUser_id()};
 		int result = super.update(sql, obj);
 		DBhelper.allClose(null, null, con);
 		return result;
@@ -221,8 +221,8 @@ public class UserDao extends BaseDAO<UserInfo>{
 
 	//添加用户基本信息
 	public int addUserInfo(UserInfo userInfo){
-		String sql="INSERT INTO userinfo(user_id,user_name,pass_word,depart_id,gender,role_id,user_state,number) VALUES (?,?,?,?,?,?,?,?)";
-		Object[] obj = new Object[8];
+		String sql="INSERT INTO userinfo(user_id,user_name,pass_word,depart_id,gender,role_id,user_state,number,image) VALUES (?,?,?,?,?,?,?,?,?)";
+		Object[] obj = new Object[9];
 		obj[0] = userInfo.getUser_id();
 		obj[1] = userInfo.getUser_name();
 		obj[2] = userInfo.getPass_word();
@@ -231,6 +231,7 @@ public class UserDao extends BaseDAO<UserInfo>{
 		obj[5] = userInfo.getRole_id();
 		obj[6] = userInfo.getUser_state();
 		obj[7] = userInfo.getNumber();
+		obj[8] = userInfo.getImage();
 		DBhelper.allClose(null, null, con);
 		return super.update(sql, obj);
 

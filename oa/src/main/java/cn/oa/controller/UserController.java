@@ -244,6 +244,8 @@ public class UserController {
 		String depart = request.getParameter("depart");
 		String role = request.getParameter("role");
 		String state = request.getParameter("state");
+		String img = request.getParameter("image");
+		String number = request.getParameter("number");
 		if (Integer.valueOf(role)==-1 || Integer.valueOf(depart)==-1) {
 			System.out.println("错误");
 			return;
@@ -255,6 +257,8 @@ public class UserController {
 		userInfo.setPass_word(password1);
 		userInfo.setDepart_id(Integer.valueOf(depart));
 		userInfo.setRole_id(Integer.valueOf(role));
+		userInfo.setImage(img);
+		userInfo.setNumber(number);
 		if ("屏蔽状态".equals(state)) {
 			userInfo.setUser_state(0);
 		} else {
@@ -279,7 +283,8 @@ public class UserController {
 		String state = request.getParameter("state");
 		String number =request.getParameter("number");
 		String sex =request.getParameter("sex");
-
+        String img = request.getParameter("image");
+		
 		if (Integer.valueOf(role)==-1 || Integer.valueOf(depart)==-1) {
 			return;
 		}
@@ -290,6 +295,7 @@ public class UserController {
 		userInfo.setPass_word(password1);
 		userInfo.setDepart_id(Integer.valueOf(depart));
 		userInfo.setRole_id(Integer.valueOf(role));
+		userInfo.setImage(img);
 		if ("屏蔽状态".equals(state)) {
 			userInfo.setUser_state(0);
 		} else {

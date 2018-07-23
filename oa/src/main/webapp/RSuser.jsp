@@ -7,8 +7,8 @@
 <title>华天协同OA平台</title>
 		<link rel="stylesheet" type="text/css" href="/oa/css/public.css" />
 		<link rel="stylesheet" type="text/css" href="/oa/css/RSuseradd.css" />
-		  <link rel="stylesheet" href="/oa/css/cropper.min.css">
-           <link rel="stylesheet" href="/oa/css/ImgCropping.css">
+		<link rel="stylesheet" href="/oa/css/cropper.min.css">
+        <link rel="stylesheet" href="/oa/css/ImgCropping.css">
 		
 		<script type="text/javascript" src="/oa/js/jquery-1.12.4.js"></script>
 		<script type="text/javascript" src="/oa/js/cropper.min.js"></script>
@@ -19,78 +19,85 @@
 			  getRoles();
 			  role();
 			  roleclick();	
-			  //弹出图片裁剪框
-			    $("#replaceImg").on("click",function () {
-			        $(".tailoring-container").toggle();
-			    });
-			    //弹出框水平垂直居中
-			    (window.onresize = function () {
-			        var win_height = $(window).height();
-			        var win_width = $(window).width();
-			        if (win_width <= 768){
-			            $(".tailoring-content").css({
-			                "top": (win_height - $(".tailoring-content").outerHeight())/2,
-			                "left": 0
-			            });
-			        }else{
-			            $(".tailoring-content").css({
-			                "top": (win_height - $(".tailoring-content").outerHeight())/2,
-			                "left": (win_width - $(".tailoring-content").outerWidth())/2
-			            });
-			        }
-			    })();
-			    
-			    
-			    //cropper图片裁剪
-			    $("#tailoringImg").cropper({
-			        aspectRatio: 1/1,//默认比例
-			        preview: ".previewImg",//预览视图
-			        guides: false,  //裁剪框的虚线(九宫格)
-			        autoCropArea: 0.5,  //0-1之间的数值，定义自动剪裁区域的大小，默认0.8
-			        movable: false, //是否允许移动图片
-			        dragCrop: true,  //是否允许移除当前的剪裁框，并通过拖动来新建一个剪裁框区域
-			        movable: true,  //是否允许移动剪裁框
-			        resizable: true,  //是否允许改变裁剪框的大小
-			        zoomable: false,  //是否允许缩放图片大小
-			        mouseWheelZoom: false,  //是否允许通过鼠标滚轮来缩放图片
-			        touchDragZoom: true,  //是否允许通过触摸移动来缩放图片
-			        rotatable: true,  //是否允许旋转图片
-			        crop: function(e) {
-			            // 输出结果数据裁剪图像。
-			        }
-			    });
-			    //裁剪后的处理
-			    $("#sureCut").on("click",function () {
-			        if ($("#tailoringImg").attr("src") == null ){
-			            return false;
-			        }else{
-			            var cas = $("#tailoringImg").cropper("getCroppedCanvas");//获取被裁剪后的canvas
-			            var base64url = cas.toDataURL("image/png"); //转换为base64地址形式
-			            alert(base64url);
-			            $("#finalImg").prop("src",base64url);//显示为图片的形式
-
-			            //关闭裁剪框
-			            closeTailor();
-			        }
-			    });
-			 
+			  tupian();
          })
+         var imgdi = "";
+         //图片插件
+         function tupian(){
+			 //弹出框水平垂直居中
+		    (window.onresize = function () {
+		        var win_height = $(window).height();
+		        var win_width = $(window).width();
+		        if (win_width <= 768){
+		            $(".tailoring-content").css({
+		                "top": (win_height - $(".tailoring-content").outerHeight())/2,
+		                "left": 0
+		            });
+		        }else{
+		            $(".tailoring-content").css({
+		                "top": (win_height - $(".tailoring-content").outerHeight())/2,
+		                "left": (win_width - $(".tailoring-content").outerWidth())/2
+		            });
+		        }
+		    })();
 
-         //图像上传
-    function selectImg(file) {
-        if (!file.files || !file.files[0]){
-            return;
-        }
-        var reader = new FileReader();
-        reader.onload = function (evt) {
-            var replaceSrc = evt.target.result;
-            //更换cropper的图片
-            $("#tailoringImg").cropper("replace", replaceSrc,false);//默认false，适应高度，不失真
-        }
-        reader.readAsDataURL(file.files[0]);
-    }
-       
-		  //关闭裁剪框
+		    //弹出图片裁剪框
+		    $("#replaceImg").on("click",function () {
+		        $(".tailoring-container").toggle();
+		    });
+		        
+		  //cropper图片裁剪
+		    $('#tailoringImg').cropper({
+		        aspectRatio: 1/1,//默认比例
+		        preview: '.previewImg',//预览视图
+		        guides: false,  //裁剪框的虚线(九宫格)
+		        autoCropArea: 0.5,  //0-1之间的数值，定义自动剪裁区域的大小，默认0.8
+		        movable: false, //是否允许移动图片
+		        dragCrop: true,  //是否允许移除当前的剪裁框，并通过拖动来新建一个剪裁框区域
+		        movable: true,  //是否允许移动剪裁框
+		        resizable: true,  //是否允许改变裁剪框的大小
+		        zoomable: false,  //是否允许缩放图片大小
+		        mouseWheelZoom: false,  //是否允许通过鼠标滚轮来缩放图片
+		        touchDragZoom: true,  //是否允许通过触摸移动来缩放图片
+		        rotatable: true,  //是否允许旋转图片
+		        crop: function(e) {
+		            // 输出结果数据裁剪图像。
+		        }
+		    });
+
+		    //裁剪后的处理
+		    $("#sureCut").on("click",function () {
+		        if ($("#tailoringImg").attr("src") == null ){
+		            return false;
+		        }else{
+		            var cas = $('#tailoringImg').cropper('getCroppedCanvas');//获取被裁剪后的canvas
+		            var base64url = cas.toDataURL('image/png'); //转换为base64地址形式
+		            $("#finalImg").prop("src",base64url);//显示为图片的形式
+		            imgdi = base64url;
+		            //关闭裁剪框
+		            closeTailor();
+		        }
+		    });
+		   
+	     	}
+
+		
+		
+		//图像上传
+	    function selectImg(file) {
+	        if (!file.files || !file.files[0]){
+	            return;
+	        }
+	        var reader = new FileReader();
+	        reader.onload = function (evt) {
+	            var replaceSrc = evt.target.result;
+	            //更换cropper的图片
+	            $('#tailoringImg').cropper('replace', replaceSrc,false);//默认false，适应高度，不失真
+	        }
+	        reader.readAsDataURL(file.files[0]);
+	    }
+		
+	    //关闭裁剪框
 	    function closeTailor() {
 	        $(".tailoring-container").toggle();
 	    }
@@ -108,6 +115,8 @@
 				}).mouseout(function(){
 					$(this).css('background-color','#039adf')
 				})
+				
+				
 			}
 			
 		
@@ -306,16 +315,22 @@
 						number:$(".input14").val(),
 						depart:$(".select10>option:selected").val(),
 						role:$(".select11>option:selected").val(), 
-						sex:$('input[name="sex"]:checked').val()
+						sex:$('input[name="sex"]:checked').val(),
+						image:imgdi
+						
 					},
 					dataType:"json",
 					url:"/oa/user/addUser.do",
 					success:function(data){
-						 $(".msgp").html(data);
-						 $(".input10").val("");
+						  $(".msgp").html("");
+						  $(".input10").val("");
 						  $(".input11").val("");
 						  $(".input12").val("");
 						  $(".input13").val("");
+						  $(".input14").val(""),
+						  $(".select10>option[value=-1]").attr("selected","selected");
+						  $(".select11>option[value=-1]").attr("selected","selected");
+						  $("#finalImg").prop("src","");
 					},
 					error:function(){
 					
@@ -333,6 +348,7 @@
 			 $(".input14").val(""),
 			 $(".select10>option[value=-1]").attr("selected","selected");
 			 $(".select11>option[value=-1]").attr("selected","selected");
+			 $("#finalImg").prop("src","");
 		 }
 		 
 		 
@@ -348,6 +364,8 @@
 		  var id = 	$(".input10").val();
 		  if (id==""){
 			$(".span1").text("用户id不可为空");
+		  }else if(id.indexOf("<")!=-1 ||id.indexOf(">")!=-1 ){
+			 $(".span1").text("用户id中含有非法符号，请重新输入");
 		  }else{
 			  $.ajax({
 					type:"post",
@@ -373,33 +391,47 @@
 		 }
 		 //第一次密码验证
 		 function checkPassword() {
-				var pswd_reg = /^[a-zA-Z][a-zA-Z0-9]{5,17}$/;		
+				var pswd_reg = /^[0-9]{5,17}$/;		
 				var password = $(".input11");		
-				var flag = pswd_reg.test(password.val());		
-				if (flag) {
-					 $(".span2").text("验证成功");
-					 Ypassword1 = true;
-				} else {
-					 $(".span2").text("密码由6-18位字母，数字组合");
+				var flag = pswd_reg.test(password.val());	
+				if (password.val()=="") {
+					 $(".span2").text("密码不可为空");
+				}else if(password.val().indexOf("<")!=-1 ||password.val().indexOf(">")!=-1 ){
+					 $(".span2").text("用户id中含有非法符号，请重新输入");
+				}else{
+					if (flag){
+						 $(".span2").text("验证成功");
+						 Ypassword1 = true;
+					} else {
+						 $(".span2").text("密码由6-18位数字组合");
+					}
 				}
-
 			}
+		 
 			//第二次密码验证（js验证）
 			function checkRepass() {
 				var password = $(".input11");
 				var repass = $(".input111");
-				if (repass.val() == password.val()) {
-					 $(".span3").text("验证成功");
-					Ypassword2 = true;
-				} else {
-					$(".span3").text("请输入相同的密码");
+				if (password.val()=="") {
+					 $(".span3").text("密码不可为空");
+				}else{
+					if (repass.val() == password.val()) {
+						 $(".span3").text("验证成功");
+						Ypassword2 = true;
+					} else {
+						$(".span3").text("请输入相同的密码");
+					}
+					
 				}
+				
 
 			}
 		 function yname() {
 			 var tel = $(".input12").val();
-			 if (tel=="") {
+			 if (tel==""){
 			 	  $(".span4").text("姓名不可为空，请输入");
+			  }else if(tel.indexOf("<")!=-1 ||tel.indexOf(">")!=-1 ){
+					 $(".span4").text("用户id中含有非法符号，请重新输入");
 			  }else{
 					  Yname = true;
 				 $(".span4").text("输入成功");
@@ -408,9 +440,11 @@
 		 
 		 function ystate() {
 			var state = $(".input13").val();
-			if (state=="") {
+			 if (state=="") {
 			 	  $(".span5").text("内容不可为空，请输入");
-			  }else{
+			  }else if(state.indexOf("<")!=-1 ||state.indexOf(">")!=-1 ){
+					 $(".span5").text("用户id中含有非法符号，请重新输入");
+				}else{
 				  if (state=="正常状态" || state=="屏蔽状态") {
 					  Ystate = true;
 					$(".span5").text("输入成功");
@@ -427,7 +461,9 @@
 			  var flag = pswd_reg.test(tel);
 			  if (tel=="") {
 			 	  $(".span6").text("号码不可为空，请输入");
-			  }else{
+			  }else if(tel.indexOf("<")!=-1 ||tel.indexOf(">")!=-1 ){
+					 $(".span6").text("用户id中含有非法符号，请重新输入");
+				}else{
 				  if (flag) {
 					  Ynumber = true;
 					  $(".span6").text("输入成功");
@@ -592,13 +628,12 @@
 							
 							用户号码:
 							<input name="number"  class="input14" onblur="ynumber()"/><span class="span6"></span><br /> 
-							<input id="replaceImg" class="l-btn" type="button"/>
-
-<div style="width: 320px;height: 320px;border: solid 1px #555;padding: 5px;margin-top: 10px">
-    <img id="finalImg" src="" width="100%">
-</div>
-
-
+							
+                          
+<input type="button" id="replaceImg" class="l-btn" value="更换图片"/>
+<br/>
+<img id="finalImg" src="" width="200px" height="200px" style="border-radius: 100px" >
+<br/>
 <!--图片裁剪框 start-->
 <div style="display: none" class="tailoring-container">
     <div class="black-cloth" onClick="closeTailor(this)"></div>
@@ -621,18 +656,12 @@
                 </div>
             </div>
             <div class="tailoring-content-three">
-                <button class="l-btn cropper-reset-btn">复位</button>
-                <button class="l-btn cropper-rotate-btn">旋转</button>
-                <button class="l-btn cropper-scaleX-btn">换向</button>
-                <button class="l-btn sureCut" id="sureCut">确定</button>
+                <input type="button" class="l-btn sureCut" id="sureCut" value="确定"/>
             </div>
         </div>
-</div>
-<!--图片裁剪框 end-->
-							
-						    
-							
-							
+     </div>
+				
+					
 							<input type="button" value="保存" onclick="addUser()"/>
 							<input type="button" value="全部重写" onclick="reStart()" />
 							<a href="/oa/RSuserSearcch.jsp">
@@ -648,4 +677,5 @@
 
 		</footer>
 </body>
+
 </html>

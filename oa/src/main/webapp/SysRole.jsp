@@ -417,7 +417,9 @@
 					  var id = 	$(".system_bd_input").val();
 					  if (id==""){
 						$(".span1").text("用户id不可为空");
-					  }else{
+					  }else if(id.indexOf("<")!=-1 ||id.indexOf(">")!=-1 ){
+							 $(".span1").text("用户id中含有非法符号");
+						}else{
 						  $.ajax({
 								type:"post",
 								data:{
@@ -439,11 +441,14 @@
 							})  
 					   }
 			}
+			
             function yroletext() {
             	var tel = $(".system_bd_text").val();
    			 if (tel=="") {
    			 	  $(".span2").text("姓名不可为空，请输入");
-   			  }else{
+   			  }else if(tel.indexOf("<")!=-1 ||tel.indexOf(">")!=-1 ){
+					 $(".span2").text("用户id中含有非法符号");
+				}else{
    				 Yroletext = true;
    				 $(".span2").text("输入成功");
    			  }

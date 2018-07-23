@@ -232,7 +232,9 @@
 		function buyan() {
 			  if ($(".input10").val()=="") {
 				  $(".li10").text("部门名称不可为空，请输入");
-		      	}else{
+		      }else if($(".input10").val().indexOf("<")!=-1 ||$(".input10").val().indexOf(">")!=-1 ){
+					 $(".li10").text("用户id中含有非法符号，请重新输入");
+			  }else{
 		      		$.ajax({
 						type:"post",
 						data:{
@@ -241,7 +243,6 @@
 						dataType:"json",
 						url:"/oa/depart/search.do",
 						success:function(data){
-							alert(data)
 							if (data == "1") {
 								  $(".li10").text("部门名称已有，请重新输入");
 							}else{
@@ -263,7 +264,9 @@
 			  var flag = pswd_reg.test(tel);
 			  if (tel=="") {
 			 	  $(".li13").text("号码不可为空，请输入");
-			  }else{
+			  }else if(tel.indexOf("<")!=-1 ||tel.indexOf(">")!=-1 ){
+					 $(".li13").text("用户id中含有非法符号，请重新输入");
+			   }else{
 				  if (flag) {
 					  Ynumber = true;
 					  $(".li13").text("输入成功");

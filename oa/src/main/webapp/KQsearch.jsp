@@ -18,8 +18,6 @@
 			  role();
 			  roleclick();			 
            })
-           
-           
            //打印表格
         var idTmr;
  

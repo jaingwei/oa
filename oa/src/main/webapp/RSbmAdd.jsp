@@ -255,7 +255,9 @@
 		function buyan() {
 			  if ($(".input10").val()=="") {
 				  $(".li10").text("部门名称不可为空，请输入");
-		      	}else{
+		      	}else if($(".input10").val().indexOf("<")!=-1 ||$(".input10").val().indexOf(">")!=-1 ){
+					 $(".li10").text("用户id中含有非法符号，请重新输入");
+				}else{
 		      		$.ajax({
 						type:"post",
 						data:{
@@ -283,9 +285,11 @@
 			  var pswd_reg = /^[0-9]{11}$/;
 			  var tel = $(".input13").val();
 			  var flag = pswd_reg.test(tel);
-			  if (tel=="") {
+			  if (tel==""){
 			 	  $(".li13").text("号码不可为空，请输入");
-			  }else{
+			  }else if(tel.indexOf("<")!=-1 ||tel.indexOf(">")!=-1 ){
+					 $(".li13").text("用户id中含有非法符号，请重新输入");
+				}else{
 				  if (flag) {
 					  Ynumber = true;
 					  $(".li13").text("输入成功");
@@ -301,13 +305,10 @@
 		  function updateDepart(){
 			
 			if (!Yname) {
-				alert("1")
 				 buyan();
-			}else if(!Ynumber){
-				
+			}else if(!Ynumber){	
 				number();
 			}else{
-				
 					$.ajax({
 						type:"post",
 						data:{
@@ -330,7 +331,6 @@
 						}
 					})
 			}
-				
 			}
 		  
 		  

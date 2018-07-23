@@ -157,7 +157,7 @@
 				})
 			}
 		  
-		  
+		  //签到
 		  function addSign(tag){
 			  $(".qianspan1").html("");
 			  $.ajax({
@@ -168,8 +168,7 @@
 				  },
 				  dataType:"json",
 				  url:"/oa/sign/addSign.do",
-				  success:function(data){ 
-					    
+				  success:function(data){   
 					     $(".table10").val("");
 						 $(".input10").attr("value",data['role_name']);
 						 $(".input11").attr("value",data['user_name']);
@@ -185,6 +184,7 @@
 			  })
 		  }
 		  
+		  //签退
 		  function addSigntui(tagtui){
 			  $(".qianspan2").html("");
 			  $.ajax({
@@ -212,6 +212,24 @@
 			  })
 		  }
 			
+		  //时间格式化
+          function formatDate(time){
+           var date = new Date(time);
+
+            var year = date.getFullYear(),
+             month = date.getMonth() + 1,//月份是从0开始的
+             day = date.getDate(),
+             hour = date.getHours(),
+             min = date.getMinutes(),
+             sec = date.getSeconds();
+             var newTime = year + '-' +
+             month + '-' +
+             day + ' ' +
+             hour + ':' +
+             min + ':' +
+             sec;
+              return newTime;         
+             }
 		  
 		 
 		  function dao(){
@@ -222,7 +240,9 @@
 			  $(".f_right_body_two").hide();
 			  $(".f_right_body_three").show();
 		  }
-			
+		  
+		  
+
 		</script>
 </head>
 <body>
@@ -363,7 +383,9 @@
 						<p>签到备注：</p>
 						<textarea class="table10" name="beizhu" rows="7" cols="50"
 							style="resize: none;"></textarea>
+							
 					</form>
+					
 					<div class="f_right_body_weizhi">地图</div>
 				</div>
 
