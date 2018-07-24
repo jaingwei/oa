@@ -62,11 +62,12 @@
 }
 .f_right_body_weizhi{
   float: right;
-  width: 300px;
-  height: 160px;
+  width: 400px;
+  height: 200px;
   border: 1px solid black;
-  margin-top: -170px;
-  margin-right: 80px;
+  position:absolute;
+  left: 630px;
+  top: 0px;
 }
 .f_right_body_two{
 	border: 1px solid #1B6D85;
@@ -146,7 +147,7 @@
 .f_right_body_from_three_4{
 	margin-left: 70px;
 }
-.msg10{
+.textp{
 	color: red;
 	font-size: 14px;
 	

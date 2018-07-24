@@ -322,9 +322,11 @@
 						success:function(data){
 							 $(".msgp").html(data);
 							 $(".input10").val("");
-							  $(".input11").val("");
-							  $(".input12").val("");
-							  $(".input13").val("");
+							 $(".input11").val("");
+							 $(".input12").val("");
+							 $(".input13").val("");
+							 Yname = false;
+							 Ynumber = false;
 						},
 						error:function(){
 						

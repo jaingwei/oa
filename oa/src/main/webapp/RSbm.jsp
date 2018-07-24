@@ -299,6 +299,8 @@
 						  $(".input11").val("");
 						  $(".input12").val("");
 						  $(".input13").val("");
+						  Yname = false;
+						  Ynumber = false;
 					},
 					error:function(){
 					  alert("失败");

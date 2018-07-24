@@ -331,6 +331,12 @@
 						  $(".select10>option[value=-1]").attr("selected","selected");
 						  $(".select11>option[value=-1]").attr("selected","selected");
 						  $("#finalImg").prop("src","");
+						  Yid = false;
+						  Yname = false;
+						  Ypassword1 = false;
+						  Ypassword2 = false;
+						  Ystate= false;
+						  Ynumber= false;
 					},
 					error:function(){
 					

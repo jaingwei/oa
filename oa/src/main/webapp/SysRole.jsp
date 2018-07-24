@@ -272,11 +272,12 @@
 						url:"/oa/role/addrole.do",
 						success:function(data){
 							 $(".system_bd_p").append(data);
-							 
 							 if (data == "添加信息成功") { 
 								 $(".system_bd_input").attr("value","");
 								 $(".system_bd_text").html("");
 								 getrole();
+								 Yrolename = false;
+								 Yroletext = false;
 							 }
 						},
 						error:function(){
