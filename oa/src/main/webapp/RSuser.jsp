@@ -291,19 +291,35 @@
 		
 		 //添加用户信息
 		  function addUser(){
+			 
+			 var flag = true;
 			 if (!Yid) {
 				 yid();
-			}else if(!Yname) {
+				 flag = false;
+			}
+			if(!Yname) {
 				yname();
-			}else if(!Ypassword1) {
+				flag = false;
+			}
+			if(!Ypassword1) {
 				checkPassword();
-			}else if(!Ypassword2) {
+				flag = false;
+			}
+			if(!Ypassword2) {
 				checkRepass(); 
-			}else if (!Ystate) {
+				flag = false;
+			}
+			if (!Ystate) {
 				ystate();
-			}else if (!Ynumber) {
+				flag = false;
+			}
+			if (!Ynumber) {
 				ynumber()
-			}else{
+				flag = false;
+			}
+			if (!flag) {
+				return;
+			}
 				$.ajax({
 					type:"post",
 					data:{
@@ -322,15 +338,8 @@
 					dataType:"json",
 					url:"/oa/user/addUser.do",
 					success:function(data){
-						  $(".msgp").html("");
-						  $(".input10").val("");
-						  $(".input11").val("");
-						  $(".input12").val("");
-						  $(".input13").val("");
-						  $(".input14").val(""),
-						  $(".select10>option[value=-1]").attr("selected","selected");
-						  $(".select11>option[value=-1]").attr("selected","selected");
-						  $("#finalImg").prop("src","");
+						  $(".baocun").attr("disabled",true);
+						  $(".msgp").text(data);
 						  Yid = false;
 						  Yname = false;
 						  Ypassword1 = false;
@@ -342,7 +351,7 @@
 					
 					}
 				})
-			}	
+				
 			}
 		 function reStart(){
 			 $(".msgp").html("");
@@ -668,7 +677,7 @@
      </div>
 				
 					
-							<input type="button" value="保存" onclick="addUser()"/>
+							<input type="button" value="保存" onclick="addUser()" class="baocun"/>
 							<input type="button" value="全部重写" onclick="reStart()" />
 							<a href="/oa/RSuserSearcch.jsp">
 							<input type="button" value="返回"  />

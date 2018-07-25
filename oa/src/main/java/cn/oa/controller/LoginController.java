@@ -38,10 +38,11 @@ public class LoginController {
 			index="1";
 		}
     	LoginLog loginLog =new LoginLog();
-    	PageUtil pageutil = loginLogServices.getLogin(loginLog, time, Integer.valueOf(index), 5);
+    	PageUtil pageutil = loginLogServices.getLogin(loginLog, time, Integer.valueOf(index), 10);
     	String json = JSON.toJSONString(pageutil);
     	response.getWriter().write(json);
     }
+    
 	//删除登录记录
     public void removeLogin(HttpServletRequest request, HttpServletResponse response) throws IOException{
     	String id = request.getParameter("id");

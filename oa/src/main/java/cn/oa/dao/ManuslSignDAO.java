@@ -138,7 +138,7 @@ public class ManuslSignDAO extends BaseDAO<ManualSign>{
 			obj[num] = time.getEndTime();
 			num++;
 		}
-		
+		sql+=" ORDER BY m1.sign_time desc";
 		sql+=" limit "+(index-1)*page+","+page;
 		List<Map<String, Object>> list = super.queryListMap(sql, obj);
 		return list;

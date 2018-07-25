@@ -255,11 +255,18 @@
 			}
 			
 			function addrole(){
+				var flag = true;
 				if (!Yrolename) {
 					yrilename();
-				}else if(!Yroletext){
+					flag = false;
+				}
+				if(!Yroletext){
 					yroletext();
-				}else{
+					flag = false;
+				}
+				if (!flag) {
+					return;
+				}
 					$(".system_bd_p").html("");
 				    $(".system_bg_p").html("");
 					$.ajax({
@@ -273,8 +280,6 @@
 						success:function(data){
 							 $(".system_bd_p").append(data);
 							 if (data == "添加信息成功") { 
-								 $(".system_bd_input").attr("value","");
-								 $(".system_bd_text").html("");
 								 getrole();
 								 Yrolename = false;
 								 Yroletext = false;
@@ -284,11 +289,8 @@
 						
 						}
 					})
-					 $(".system_bd_input").attr("value","");
-					 $(".system_bd_text").html("");
-				}
-			    
 			}
+			
 			function removerole(id){
 			    $(".system_bd_p").html("");
 			    $(".system_bg_p").html("");

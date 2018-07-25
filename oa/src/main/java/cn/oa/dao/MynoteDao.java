@@ -3,6 +3,7 @@ package cn.oa.dao;
 import java.util.List;
 
 import cn.oa.entity.MyNote;
+import cn.oa.util.DBhelper;
 
 
 public class MynoteDao extends BaseDAO<MyNote>{
@@ -23,6 +24,7 @@ public class MynoteDao extends BaseDAO<MyNote>{
 			size ++;
 		}
 		List<MyNote> list = super.queryList(sql, obj, MyNote.class);
+		DBhelper.allClose(null, null, con);
 		return list;
 	}
 	//搜素具体信息
@@ -61,13 +63,16 @@ public class MynoteDao extends BaseDAO<MyNote>{
 		obj[2] = myNote.getGreat_time();
 		obj[3] = myNote.getGreat_user();
 		int result = super.update(sql, obj);
+		DBhelper.allClose(null, null, con);
 		return result;	
 	}
 	//删除标签
 	public int removeMynote(MyNote mynote){
 		String sql ="DELETE FROM  mynote WHERE mynote.note_id =?";
 		Object[] obj ={mynote.getNote_id()};
-		return super.update(sql, obj);
+		int reuslt = super.update(sql, obj);
+		DBhelper.allClose(null, null, con);
+		return reuslt;
 	}
 	//修改
 	public int updateMynote(MyNote myNote){
@@ -78,6 +83,7 @@ public class MynoteDao extends BaseDAO<MyNote>{
 				+" WHERE mynote.note_id= ? ";
 		Object[] obj ={myNote.getNote_title(),myNote.getNote_count(),myNote.getGreat_time(),myNote.getGreat_user(),myNote.getNote_id()};
 		int result = super.update(sql, obj);
+		DBhelper.allClose(null, null, con);
 		return result;
 	}
 	public static void main(String[] args) {

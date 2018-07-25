@@ -170,7 +170,7 @@
 					success:function(data){
 						$(".f_right_body_img").css("background-image","url("+data['image']+")");
 						var msg = $(".f_right_body1");
-						var ps = "<p>"+"用户名："+data['UserId']+"</p>"
+						var ps = "<p>"+"用户名："+data['user_id']+"</p>"
 							+"<p>姓名："+data['user_name']+"</p>"
 							+"<p>密码："+data['pass_word']+"</p>"
 							+"<p>手机号码："+data['number']+"</p>"

@@ -22,6 +22,7 @@ public class DepartinfoDAO extends BaseDAO<Departinfo>{
 			sql += " and d1.depart_name = ? ";
 			index++;
 		}
+		sql+=" ORDER BY d1.depart_id desc";
 		Object[] obj = new Object[index];
 		index = 0;
 		if (departinfo.getDepart_id()!=null) {

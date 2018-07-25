@@ -24,7 +24,7 @@
 		click();
 		role();
 		roleclick();
-
+		getMynote();
 		var myCalendar = new SimpleCalendar('#container');
 		myCalendar.updateSize('220px', '280px');
 		$(".seachBtn").click(function() {
@@ -286,6 +286,29 @@
 
 	}
 	
+	//获取便签标题
+	function getMynote() {
+		$.ajax({
+			type : "post",
+			data : {
+
+			},
+			dataType : "json",
+			url : "/oa/mynote/getMynote.do",
+			success : function(data) {
+				$.each(data, function(i, v) {
+					var table = $(".table tr")
+					var tr = "<p><td><a href='/oa/mynote/toMynote.do?id="
+							+ v['note_id']+"'>" + v['note_title']
+							+ "</a></td></p>";
+					$(".f_wen").append(tr);
+				})
+			},
+			error : function() {
+
+			}
+		})
+	}
 	
 	
 </script>
@@ -408,7 +431,9 @@
 				<div id="container" style="float: none; margin: 0px auto;"></div>
 
 			</div>
-			<div class="f_wen">我的便签：</div>
+			<div class="f_wen">
+			<p style="width: 100%; border-bottom: 1px solid black; font-size: 16px;">我的便签：</p>
+			</div>
 			<div>
 				<div class="f_hui">
 					<div class="wrap clearfix">

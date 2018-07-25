@@ -63,6 +63,10 @@ public class LoginLogDAO extends BaseDAO<LoginLog>{
 				sql +=" and DATE_FORMAT(l1.login_time,'%Y%m') = DATE_FORMAT(CURDATE(),'%Y%m') ";
 			}
 		}
+		sql+=" ORDER BY l1.login_time desc";
+		sql+=" limit "+(index-1)*page+","+page;
+		
+		
 		Object[] obj = new Object[num];	
 		num=0;
 		if (time.getStartTime()!=null) {
@@ -73,7 +77,7 @@ public class LoginLogDAO extends BaseDAO<LoginLog>{
 			obj[num] = time.getEndTime();
 			num++;
 		}
-		sql+=" limit "+(index-1)*page+","+page;
+		
 		return super.queryListMap(sql, obj);
 	}
 	

@@ -20,92 +20,7 @@
 			 
            })
            
-           var idTmr;
- 
-        function getExplorer() {
-            var explorer = window.navigator.userAgent;
-            //ie  
-            if(explorer.indexOf("MSIE") >= 0) {
-                return 'ie';
-            }
-            //firefox  
-            else if(explorer.indexOf("Firefox") >= 0) {
-                return 'Firefox';
-            }
-            //Chrome  
-            else if(explorer.indexOf("Chrome") >= 0) {
-                return 'Chrome';
-            }
-            //Opera  
-            else if(explorer.indexOf("Opera") >= 0) {
-                return 'Opera';
-            }
-            //Safari  
-            else if(explorer.indexOf("Safari") >= 0) {
-                return 'Safari';
-            }
-        }
- 
-        function method5(tableid) {
-            if(getExplorer() == 'ie') {
-                var curTbl = document.getElementById(tableid);
-                var oXL = new ActiveXObject("Excel.Application");
-                var oWB = oXL.Workbooks.Add();
-                var xlsheet = oWB.Worksheets(1);
-                var sel = document.body.createTextRange();
-                sel.moveToElementText(curTbl);
-                sel.select();
-                sel.execCommand("Copy");
-                xlsheet.Paste();
-                oXL.Visible = true;
- 
-                try {
-                    var fname = oXL.Application.GetSaveAsFilename("Excel.xls",
-                        "Excel Spreadsheets (*.xls), *.xls");
-                } catch(e) {
-                    print("Nested catch caught " + e);
-                } finally {
-                    oWB.SaveAs(fname);
-                    oWB.Close(savechanges = false);
-                    oXL.Quit();
-                    oXL = null;
-                    idTmr = window.setInterval("Cleanup();", 1);
-                }
- 
-            } else {
-                tableToExcel(tableid)
-            }
-        }
- 
-        function Cleanup() {
-            window.clearInterval(idTmr);
-            CollectGarbage();
-        }
-        var tableToExcel = (function() {
-            var uri = 'data:application/vnd.ms-excel;base64,',
-                template = '<html><head><meta charset="UTF-8"></head><body><table  border="1">{table}</table></body></html>',
-                base64 = function(
-                    s) {
-                    return window.btoa(unescape(encodeURIComponent(s)))
-                },
-                format = function(s, c) {
-                    return s.replace(/{(\w+)}/g, function(m, p) {
-                        return c[p];
-                    })
-                }
-            return function(table, name) {
-                if(!table.nodeType)
-                    table = document.getElementById(table)
-                var ctx = {
-                    worksheet: name || 'Worksheet',
-                    table: table.innerHTML
-                }
-                window.location.href = uri + base64(format(template, ctx))
-            }
-        })()
-           
-           
-           
+
 			function click(){
 				$('.h_click_li_return').click(function() {
 					$('.h_over').toggle();
@@ -264,8 +179,8 @@
 							   var tr ="<tr>"
 							   +"<td>"+v['username']+"</td>"
 							   +"<td>"+v['attendance']+"</td>"
-							   +"<td>"+(v['late'])+"</td>"
-							   +"<td>"+(v['early'])+"</td>"
+							   +"<td>"+v['late']+"</td>"
+							   +"<td>"+v['early']+"</td>"
 							   +"<td>"+v['noday']+"</td>"
 							   +"<td>"+v['depart']+"</td>"
 							   +"<td>"+v['branch']+"</td>"
@@ -323,7 +238,24 @@
 				  }
 			  })
 		  }
-		  
+		   //时间格式化
+           function formatDate(time){
+            var date = new Date(time);
+
+             var year = date.getFullYear(),
+              month = date.getMonth() + 1,//月份是从0开始的
+              day = date.getDate(),
+              hour = date.getHours(),
+              min = date.getMinutes(),
+              sec = date.getSeconds();
+              var newTime = year + '-' +
+              month + '-' +
+              day + ' ' +
+              hour + ':' +
+              min + ':' +
+              sec;
+               return newTime;         
+              }
 		   
 		</script>
 </head>
@@ -467,7 +399,7 @@
 								<option value="-1" selected='selected'>请选择———</option>
 								</select>
 								<input type="button" value="统计" class="tongji" onclick="getSign(1)" style="background-color: origen;"/>
-							 <button type="button" class="btn green" id="excell" onclick="method5('dataTable')">导出考勤表格</button>
+							 <a href="##" id="Button1" onclick="javascript:method1('dataTable')">导出EXCEL</a>
 							</p>
 
 							</p>
@@ -497,5 +429,96 @@
 		<footer>
 
 		</footer>
+		<script type="text/javascript" language="javascript">
+        var idTmr;
+        function  getExplorer() {
+            var explorer = window.navigator.userAgent ;
+            //ie 
+            if (explorer.indexOf("MSIE") >= 0) {
+                return 'ie';
+            }
+            //firefox 
+            else if (explorer.indexOf("Firefox") >= 0) {
+                return 'Firefox';
+            }
+            //Chrome
+            else if(explorer.indexOf("Chrome") >= 0){
+                return 'Chrome';
+            }
+            //Opera
+            else if(explorer.indexOf("Opera") >= 0){
+                return 'Opera';
+            }
+            //Safari
+            else if(explorer.indexOf("Safari") >= 0){
+                return 'Safari';
+            }
+        }
+        function method1(tableid) {//整个表格拷贝到EXCEL中
+            if(getExplorer()=='ie')
+            {
+                var curTbl = document.getElementById(tableid);
+                var oXL = new ActiveXObject("Excel.Application");
+ 
+                //创建AX对象excel 
+                var oWB = oXL.Workbooks.Add();
+                //获取workbook对象 
+                var xlsheet = oWB.Worksheets(1);
+                //激活当前sheet 
+                var sel = document.body.createTextRange();
+                sel.moveToElementText(curTbl);
+                //把表格中的内容移到TextRange中 
+                sel.select;
+                //全选TextRange中内容 
+                sel.execCommand("Copy");
+                //复制TextRange中内容  
+                xlsheet.Paste();
+                //粘贴到活动的EXCEL中       
+                oXL.Visible = true;
+                //设置excel可见属性
+ 
+                try {
+                    var fname = oXL.Application.GetSaveAsFilename("Excel.xls", "Excel Spreadsheets (*.xls), *.xls");
+                } catch (e) {
+                    print("Nested catch caught " + e);
+                } finally {
+                    oWB.SaveAs(fname);
+ 
+                    oWB.Close(savechanges = false);
+                    //xls.visible = false;
+                    oXL.Quit();
+                    oXL = null;
+                    //结束excel进程，退出完成
+                    //window.setInterval("Cleanup();",1);
+                    idTmr = window.setInterval("Cleanup();", 1);
+ 
+                }
+ 
+            }
+            else
+            {
+                tableToExcel(tableid);
+            }
+        }
+        function Cleanup() {
+            window.clearInterval(idTmr);
+            CollectGarbage();
+        }
+        var tableToExcel = (function() {
+              var uri = 'data:application/vnd.ms-excel;base64,',
+              template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="UTF-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
+                base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) },
+                format = function(s, c) {
+                    return s.replace(/{(\w+)}/g,
+                    function(m, p) { return c[p]; }) }
+                return function(table, name) {
+                if (!table.nodeType) table = document.getElementById(table)
+                var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
+                  document.getElementById("Button1").href = uri + base64(format(template, ctx));
+                 document.getElementById("Button1").download = formatDate(new Date().getTime())+".xls";
+              }
+            })()
+    </script>
+		
 </body>
 </html>

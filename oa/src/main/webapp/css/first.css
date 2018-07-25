@@ -168,6 +168,9 @@ ul {
 	display: block;
     clear: all;
 }
+.f_wen>td{
+	float: left;
+}
 .f_day:hover{
 	content: '';
 	display: block;

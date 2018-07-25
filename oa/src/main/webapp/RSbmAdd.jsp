@@ -193,7 +193,7 @@
 				  success:function(data){ 
 					  var userIn= $(".input11").val();
 					   $.each(data,function(i,v){
-						   var user ="<p onclick=updateUser("+v['user_id']+");hide();update('"+userIn+"')>"+v['user_name']+"</p>"
+						   var user ="<p onclick=updateUser("+v['user_id']+");hide();update('"+userIn+"')>"+v['user_name']+v['user_id']+"</p>"
 						   $(".userman").append(user);
 					   })
 				  },
@@ -303,12 +303,18 @@
 		  
 		//添加部门信息(提交)
 		  function updateDepart(){
-			
+			var flag = true;
 			if (!Yname) {
 				 buyan();
-			}else if(!Ynumber){	
+				 flag = false;
+			}
+			if(!Ynumber){	
 				number();
-			}else{
+				flag = false;
+			}
+			if (!flag) {
+				return;
+			}
 					$.ajax({
 						type:"post",
 						data:{
@@ -321,10 +327,7 @@
 						url:"/oa/depart/updateDepart.do",
 						success:function(data){
 							 $(".msgp").html(data);
-							 $(".input10").val("");
-							 $(".input11").val("");
-							 $(".input12").val("");
-							 $(".input13").val("");
+							 $(".sub").attr("disabled",true);
 							 Yname = false;
 							 Ynumber = false;
 						},
@@ -332,7 +335,7 @@
 						
 						}
 					})
-			}
+			
 			}
 		  
 		  

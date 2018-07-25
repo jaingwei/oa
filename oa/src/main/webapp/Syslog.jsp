@@ -173,7 +173,6 @@
 				  success:function(data){ 
 					   $.each(data['list'],function(i,v){
 						   var tr ="<tr>"
-						   +"<td><input type='checkbox' class='check10' value='"+data['login_id']+"'/></td>"
 						   +"<td>"+v['login_id']+"</td>"
 						   +"<td>"+v['user_id']+"</td>"
 						   +"<td>"+formatDate(v['login_time'])+"</td>"
@@ -381,16 +380,14 @@
 						<label for="radio2">本周</label><input type="radio" name="radio" value="2" class="day" />
 						<label for="radio3">本日</label><input type="radio" name="radio" value="3" class="day" />
 						<button type="button" style="width: 150px;height: 30px;" onclick="getLogin(1)">搜索一下~</button>
-						<button class="button3" type="button" onclick="deletLogin()">删除选定项</button>
 					</div>
 					<div class="login_two">
 						<div class="all">
-							<label for="all">全选</label>
-							<input type="checkbox" id="all" />
+							
 						</div>
+						
 						<table border="1" cellspacing="0"  class="table1">
 							<tr>
-								<td>选定（√）</td>
 								<td>序号</td>
 								<td>登陆用户</td>
 								<td>登陆时间</td>

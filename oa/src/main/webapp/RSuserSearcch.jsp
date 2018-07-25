@@ -249,8 +249,8 @@ function getUser(){
 			dataType : "json",
 			url : "/oa/user/removeUser.do",
 			success : function(data) {
-				getDepart();
-
+				alert("111");
+				getUser();
 			},
 			error : function() {
 				alert("失败");

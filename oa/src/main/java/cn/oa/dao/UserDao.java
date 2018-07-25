@@ -84,7 +84,7 @@ public class UserDao extends BaseDAO<UserInfo>{
 			sql +=" and userinfo.role_id=?";
 			index++;
 		}
-
+		sql+=" ORDER BY userinfo.user_id desc";
 		Object[] obj =new Object[index];
 		index =0;
 		if (userInfo.getUser_name()!=null) {
